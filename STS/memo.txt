@@ -1,0 +1,3 @@
+.vs 삭제
+BinObj 내용물 삭제
+Bin 폴더 안에 .exe, .pdb 삭제

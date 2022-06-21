@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CGameManager" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQEEAAAALAAAwAAAGAQAAAEMAABAEAACDADSAAAAAY=</HashCode>
+      <FileName>GameManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTimer" Collapsed="true">
+    <Position X="27" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBYAEAAAAAAAAQAAAAACAAAAEAAAAABAABACACAAAAA=</HashCode>
+      <FileName>Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRef" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAECAASAACAABAAAAAAAAACAAAABABAAACAIYJQCBAA=</HashCode>
+      <FileName>Ref.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSharedPtr&lt;T&gt;" Collapsed="true">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABICAAAAAABAAAAAAwAAAAAAAAAAAAggAAAAAAA=</HashCode>
+      <FileName>SharedPtr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CInput" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACBAAAABAAEEACAQAAAAACoAAAAACAAACAAAIgAQ=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPathManager" Collapsed="true">
+    <Position X="23.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAACQAAAAAA=</HashCode>
+      <FileName>PathManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CGameObject" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AISAgQQAAARAgAigASAIACgQBCJAgAQgABijABMQAGA=</HashCode>
+      <FileName>GameObject\GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCharacter" Collapsed="true">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEAAgAAAAAAAAAAAAAAAAAAAAAABACAAAAAAA=</HashCode>
+      <FileName>GameObject\Character.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMonster" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAABABAACAAAAAAEEAAAAAAAAAAABACAAIAIAA=</HashCode>
+      <FileName>GameObject\Monster.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPlayer" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EoYgIAAQIAAAAAEEAAgAgCAAIAAkAAABABACAMAACAA=</HashCode>
+      <FileName>GameObject\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBullet" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAIAEAAAEAAAAAAAAQAAAAAAAAAEABACAAACMAA=</HashCode>
+      <FileName>GameObject\Bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPlayerBullet" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAEAAAAAIAAQAAAAAAAAAEABACAAACACA=</HashCode>
+      <FileName>GameObject\PlayerBullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSatellite" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAAAAAAAAAAAAAAAAAAAgAAABACAAAAAAA=</HashCode>
+      <FileName>GameObject\Satellite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTornado" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQEAAEAAQAAEAABAAAAAQAAAAAgAAAEABACAAACAAA=</HashCode>
+      <FileName>GameObject\Tornado.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CBackObj" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAIAAEAAAAAAAAAAAAAABACAAAAAAA=</HashCode>
+      <FileName>GameObject\BackObj.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CMainScene" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAACAAAAAAA=</HashCode>
+      <FileName>Scene\MainScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CScene" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAQAAAAIBAAAAEEAAAAAAAAQgAAABACAAAAAAg=</HashCode>
+      <FileName>Scene\Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSceneManager" Collapsed="true">
+    <Position X="27" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABACAAAAAAA=</HashCode>
+      <FileName>Scene\SceneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSceneResource" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAQAAAAAgAgAAAACABAAACAAgAZAAAAAIQAAA=</HashCode>
+      <FileName>Scene\SceneResource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CResourceManager" Collapsed="true">
+    <Position X="25.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAgEAAAgAAAAAACABAAACAAAAYAACAAIQEAA=</HashCode>
+      <FileName>Resource\ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTexture" Collapsed="true">
+    <Position X="17" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEIAAAEAAAAAgAAAAAAKAAABCAAACAAAAAAAAcAAA=</HashCode>
+      <FileName>Resource\Texture\Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTextureManager" Collapsed="true">
+    <Position X="25.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAIAAAgAAAAgAgAAAACAAAAAAAACAQAACAAAQAAA=</HashCode>
+      <FileName>Resource\Texture\TextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CAnimationManager" Collapsed="true">
+    <Position X="25.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACgAAAAAAAAAAAAAAAAAAAABAAACAAAAIAACAAAQAAA=</HashCode>
+      <FileName>Resource\Animation\AnimationManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CAnimationSequence" Collapsed="true">
+    <Position X="19.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABEQACACAQAAAAAAAAIAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Resource\Animation\AnimationSequence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CAnimation" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAgAQAAABAAAAIAAgABAAAAAAAAAQgAAiBAAGgADA=</HashCode>
+      <FileName>Animation\Animation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CAnimationInfo" Collapsed="true">
+    <Position X="23.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBACABQAEAAAEAAAAAAAAEAAAAQAAQAAAIgBAAAAAAA=</HashCode>
+      <FileName>Animation\AnimationInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Resolution" Collapsed="true">
+    <Position X="27" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AnimationFrameData" Collapsed="true">
+    <Position X="21.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Vector2" Collapsed="true">
+    <Position X="23.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAEBgAAAAAAA=</HashCode>
+      <FileName>Vector2.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="KeyState" Collapsed="true">
+    <Position X="23.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAYAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAI=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BindFunction" Collapsed="true">
+    <Position X="25.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABCAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BindKey" Collapsed="true">
+    <Position X="27" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAgAAAAEAAQAAAAAAAAAAoAAAAAAAAA=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PathInfo" Collapsed="true">
+    <Position X="25.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAACAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>PathManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SkillCoolDownInfo" Collapsed="true">
+    <Position X="21.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObject\Player.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ImageInfo" Collapsed="true">
+    <Position X="21.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAABAAAAAAACAAAAAAEAAAAIAAAAAAAQAAAEAAABA=</HashCode>
+      <FileName>Resource\Texture\Texture.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="AnimationNotify" Collapsed="true">
+    <Position X="23.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAIAAAAIAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Animation\AnimationInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="ETexture_Type" Collapsed="true">
+    <Position X="21.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAE=</HashCode>
+      <FileName>Flag.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Input_Type" Collapsed="true">
+    <Position X="23.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAI=</HashCode>
+      <FileName>Input.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="10" />
+</ClassDiagram>
