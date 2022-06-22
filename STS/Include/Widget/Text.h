@@ -19,7 +19,7 @@ protected:
 	COLORREF    m_ShadowColor;
 	bool        m_Shadow;
 	Vector2     m_ShadowOffset;
-	Vector2		m_TextSize;
+
 	CSharedPtr<class CFont> m_Font;
 
 	

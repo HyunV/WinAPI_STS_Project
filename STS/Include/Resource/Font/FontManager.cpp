@@ -15,6 +15,10 @@ bool CFontManager::Init()
 	LoadFont(TEXT("경기천년바탕 Bold"));
 
 	LoadFont("DefaultFont", TEXT("경기천년바탕 Bold"), 0, 0);
+	LoadFont("NameFont", TEXT("경기천년바탕 Bold"), 0, -10);
+	LoadFont("TypeFont", TEXT("경기천년바탕 Bold"), 0, -10);
+	LoadFont("CostFont", TEXT("경기천년바탕 Bold"), 0, 60);
+	LoadFont("ExplainFont", TEXT("경기천년바탕 Bold"), 0, 30);
 
 	return true;
 }

@@ -57,7 +57,7 @@ bool CMyMonster::Init()
 	m_NameBar->GetWidget<CText>()->EnableShadow(true);
 	m_NameBar->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_NameBar->GetWidget<CText>()->SetTextSize(10);
+	m_NameBar->GetWidget<CText>()->SetFont("CostFont");
 	m_NameBar->SetPos(-20.f, 140.f);
 	return true;
 }

@@ -13,12 +13,10 @@ private:
     LOGFONT  m_FontInfo;
     HFONT    m_hFont;
     HFONT    m_hPrevFont;
-    LONG     m_fontSize;
 
 public:
     bool LoadFont(const TCHAR* FontName, int Width, int Height);
     void SetFont(HDC hDC);
     void ResetFont(HDC hDC);
-    LONG SetFontSize(LONG Size);
 };
 

@@ -322,9 +322,12 @@ void CCard::SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const
 	m_MycardName = CreateWidgetComponent<CText>("cardName");
 	m_MycardName->GetWidget<CText>()->SetText(cardName);
 	m_MycardName->SetPos(120, 27);
+	//m_MycardName->GetWidget<CText>()->SetTextSize(10);
 	m_MycardName->GetWidget<CText>()->EnableShadow(true);
 	m_MycardName->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
 	m_MycardName->GetWidget<CText>()->SetTextColor(255, 255, 237);
+	m_MycardName->GetWidget<CText>()->SetFont("ExplainFont");
+	
 
 	m_MycardType = CreateWidgetComponent<CText>("cardType");
 	m_MycardType->GetWidget<CText>()->SetText(cardType);
@@ -345,6 +348,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const
 	m_MycardCost->GetWidget<CText>()->EnableShadow(true);
 	m_MycardCost->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
 	m_MycardCost->GetWidget<CText>()->SetTextColor(255, 255, 255);
+	m_MycardCost->GetWidget<CText>()->SetFont("CostFont");
 
 }
 

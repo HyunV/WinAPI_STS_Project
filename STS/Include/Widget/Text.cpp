@@ -35,11 +35,6 @@ void CText::SetFont(const std::string& Name)
 	m_Font = m_Scene->GetSceneResource()->FindFont(Name);
 }
 
-void CText::SetTextSize(const LONG Size)
-{
-	m_Font->SetFontSize(Size);
-}
-
 bool CText::Init()
 {
 	m_Font = m_Scene->GetSceneResource()->FindFont("DefaultFont");
@@ -83,6 +78,7 @@ void CText::Render(HDC hDC, float DeltaTime)
 
 void CText::Render(HDC hDC, const Vector2& Pos, float DeltaTime)
 {
+	SetTextAlign(hDC, TA_CENTER);
 	m_Font->SetFont(hDC);
 
 	Vector2	RenderPos = Pos;
