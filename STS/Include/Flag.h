@@ -21,6 +21,7 @@ enum class ECollision_Channel //충돌 채널 키? 피아식별용 열거체
 	Monster,
 	PlayerAttack,
 	MonsterAttack,
+	Card,
 	Mouse,
 	Max
 };

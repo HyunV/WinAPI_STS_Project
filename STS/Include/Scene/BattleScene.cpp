@@ -7,6 +7,7 @@
 #include "../Input.h"
 #include "../Widget/TopPanel.h"
 #include "../GameObject/Cards/Strike.h"
+#include "../Collision/ColliderBox.h"
 
 #include "../Widget/CharacterHUD.h"
 
@@ -31,8 +32,12 @@ bool CBattleScene::Init()
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
 
 	CStrike* Strike = CreateObject<CStrike>("CStrike");
-	CCard* Card = CreateObject<CCard>("card");
-	Card->SetPos(200, 300);
+	Strike->SetPos(200, 300);
+
+	CStrike* Strike1 = CreateObject<CStrike>("CStrike1");
+	Strike->SetPos(500, 300);
+	//CCard* Card = CreateObject<CCard>("card");
+	//Card->SetPos(200, 300);
 
 
 	//CCard* StrikeCard = CreateObject<CCard>("StrikeCard");
@@ -48,6 +53,7 @@ bool CBattleScene::Init()
 
 	//
 	CreateWidgetWindow<CTopPanel>("TopPanel");
+
 	return true;
 }
 

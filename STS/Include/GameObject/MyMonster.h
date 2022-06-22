@@ -19,6 +19,9 @@ protected:
     virtual ~CMyMonster();
 
 private:
+    CSharedPtr<class CWidgetComponent> m_HPBar;
+    CSharedPtr<class CWidgetComponent> m_NameBar;
+
     int m_MaxHP;
     int m_HP;
     int m_AttackDamage;
@@ -33,5 +36,7 @@ public:
 private:
     void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
+    void CollisionBegin(CCollider* Src, CCollider* Dest);
+    void CollisionEnd(CCollider* Src, CCollider* Dest);
 };
 

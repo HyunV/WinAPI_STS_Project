@@ -17,7 +17,7 @@ protected:
 
     void Update(float DeltaTime);
 
-    void Render(HDC hDC, float DeltaTime);
+    virtual void Render(HDC hDC, float DeltaTime);
 
     virtual void useCard();
 

@@ -177,6 +177,8 @@ public:
 	virtual float InflictDamage(float Damage);
 
 
+
+
 public:
 	template <typename T>
 	void SetEndFunction(const std::string& Name, T* Obj, void(T::* Func)())

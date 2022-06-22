@@ -65,8 +65,8 @@ void CWidgetComponent::Render(HDC hDC, float DeltaTime)
 {
 	if (m_Widget)
 	{
-		Vector2 Pos = m_Pos + m_Owner->GetPos() - m_Scene->GetCamera()->GetPos();
-
+		Vector2 Pos = (m_Pos + m_Owner->GetPos() - m_Scene->GetCamera()->GetPos())-(m_Widget->GetSize() * 0.5f);
+		
 		m_Widget->Render(hDC, Pos, DeltaTime);
 	}
 }

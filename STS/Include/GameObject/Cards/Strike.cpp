@@ -11,6 +11,7 @@ CStrike::~CStrike()
 
 bool CStrike::Init()
 {
+	CCard::Init();
 	SetCardName("Å¸°Ý");
 	SetCardCost(1);
 	SetCardType(Card_Type::Attack);
@@ -18,16 +19,15 @@ bool CStrike::Init()
 	
 	//m_cardPanel = CreateWidget<CImageWidget2>("dd");
 	
-	SetPos(300.f, 800.f);
-	SetSize(250.f, 318.f);
-	SetPivot(0.5f, 0.5f);
+	//SetSize(295.f, 415.f);
+	//SetPivot(0.5f, 0.5f);
 
 	return true;
 }
 
 void CStrike::Update(float DeltaTime)
 {
-
+	CCard::Update(DeltaTime);
 }
 
 void CStrike::Render(HDC hDC, float DeltaTime)

@@ -29,9 +29,12 @@ bool CCollisionManager::Init()
 	CreateProfile("PlayerAttack", ECollision_Channel::PlayerAttack, true, ECollision_Interaction::Ignore);
 	CreateProfile("MonsterAttack", ECollision_Channel::MonsterAttack, true, ECollision_Interaction::Ignore);
 	CreateProfile("Mouse", ECollision_Channel::Mouse, true, ECollision_Interaction::Collision);
+
+	CreateProfile("Card", ECollision_Channel::Card, true, ECollision_Interaction::Ignore);
+
 	//플레이어, 몬스터, 공격 등 충돌처리 모두 무시로 잡아놓고
 
-	//상호작용 세팅
+	//※ 상호작용 세팅
 	SetCollisionInteraction("Player", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	//플레이어 : 디폴트 채널인 오브젝트(충돌) 관계를 충돌로 처리 
 
@@ -40,13 +43,12 @@ bool CCollisionManager::Init()
 
 	SetCollisionInteraction("Player", ECollision_Channel::Monster, ECollision_Interaction::Collision);
 	//플레이어가 몬스터에 몸빵
-
 	SetCollisionInteraction("Player", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
-
 	SetCollisionInteraction("Monster", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Monster", ECollision_Channel::PlayerAttack, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Monster", ECollision_Channel::Player, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Monster", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
+	SetCollisionInteraction("Monster", ECollision_Channel::Card, ECollision_Interaction::Collision);
 
 	SetCollisionInteraction("PlayerAttack", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	//공격 : 디폴트와는 충돌처리 -> 벽에 부딫히면 사라질 수 있게
@@ -54,6 +56,9 @@ bool CCollisionManager::Init()
 
 	SetCollisionInteraction("MonsterAttack", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	SetCollisionInteraction("MonsterAttack", ECollision_Channel::Player, ECollision_Interaction::Collision);
+
+	SetCollisionInteraction("Card", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
+	SetCollisionInteraction("Card", ECollision_Channel::Monster, ECollision_Interaction::Collision);
 
 	return true;
 }

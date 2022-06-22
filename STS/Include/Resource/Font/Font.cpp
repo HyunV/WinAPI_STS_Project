@@ -27,8 +27,9 @@ bool CFont::LoadFont(const TCHAR* FontName, int Width, int Height)
  #define FW_EXTRABOLD        800
  #define FW_HEAVY            900
  */
+    //m_hFont = CreateFont()
     m_FontInfo.lfWidth = (LONG)Width;
-    m_FontInfo.lfHeight = (LONG)Height;
+    m_FontInfo.lfHeight = (LONG)Height + m_fontSize;
     m_FontInfo.lfCharSet = HANGEUL_CHARSET;
     m_FontInfo.lfWeight = FW_BOLD;    // ±½±â
     m_FontInfo.lfItalic = 0;            // ±â¿ï±â
@@ -53,4 +54,10 @@ void CFont::SetFont(HDC hDC)
 void CFont::ResetFont(HDC hDC)
 {
     SelectObject(hDC, m_hPrevFont);
+}
+
+LONG CFont::SetFontSize(LONG Size = 0)
+{
+    m_fontSize = Size;
+    return m_fontSize;
 }

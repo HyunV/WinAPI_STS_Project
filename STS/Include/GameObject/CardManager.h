@@ -1,6 +1,7 @@
 #pragma once
 #include "../GameInfo.h"
 #include "../GameObject/Card.h"
+#include "../Singletone.h"
 //카드의 껍데기를 만들어주고 리스트로 만들어주는 클래스
 class CCardManager
 {
@@ -12,9 +13,13 @@ public:
 	//카드 만들기
 
 private:
-	std::list<CCard*> m_myDeck;
-	std::list<CCard*> m_deck;
-	std::list<CCard*> m_hand;
+	vector<CCard*> m_allCard; //구현한 모든 카드를 담는다
+	vector<CCard*> m_mainDeck;  //핵심 덱
+	vector<CCard*> m_bringCardDummy; //뽑을 카드 더미
+	vector<CCard*> m_throwCardDummy; //버린 카드 더미
+	//std::vector<CCard*> m_extinctCardDummy; //소멸된 카드 더미
+
+
 	//std::list<CCard*> m_discarddeck;
 	// 
 	// 
@@ -34,10 +39,12 @@ public:
 		card->m_cardValue = cardValue;
 
 		//생성한 카드를 리스트에 넣는다
-		m_myDeck.push_back(card);
+		//m_myDeck.push_back(card);
 	}
 	void AddCardToMyDeck() {
 		//카드를 리스트에 추가한다
 	}
+
+	//DECLARE_SINGLE(CCardManager)
 };
 

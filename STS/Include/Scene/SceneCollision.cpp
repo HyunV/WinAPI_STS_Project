@@ -133,6 +133,7 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 				// 충돌이 되던 물체가 서로 떨어질때 (충돌이 안됨)
 				else if (Dest->GetMouseCollision())
 				{
+					m_MouseCollision->CallMouseCollisionEnd(MouseWorldPos);
 					m_MouseCollision->SetMouseCollision(false);
 					m_MouseCollision = nullptr;
 				}

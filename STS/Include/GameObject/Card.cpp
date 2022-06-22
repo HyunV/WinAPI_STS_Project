@@ -5,9 +5,15 @@
 #include "../Scene/Camera.h"
 #include "../Resource/Texture/Texture.h"
 #include "../Widget/WidgetWindow.h"
+#include "../Collision/ColliderBox.h"
+#include "../Input.h"
 
 CCard::CCard()
 {
+	SetTypeID<CCard>();
+	m_mouseHovered = false;
+	m_mouseClicked = false;
+
 }
 
 CCard::~CCard()
@@ -22,7 +28,7 @@ bool CCard::Init()
 	//   ->이미지를 그리기 위해 필요한게 뭔가?
 	//		->Texture의 안에있는 ImageInfo에 있는 HDC  ( hMemDC)
 	//			m_Scene->GetSceneResource()->LoadTexture(Name, vecFileName, PathName);
-
+	m_cardOriginPos = (0.f, 0.f);
 
 	//카드 패널
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_C1.bmp"));	 //0
@@ -75,8 +81,21 @@ bool CCard::Init()
 
 	//카드세팅하는 함수
 	SetCardInfo(Card_Type::Attack, Card_Value::Common, false);
-	SetCardAttribute(TEXT("타격"), TEXT("공격"), TEXT("피해를 6 줍니다."), TEXT("3"));
+	SetCardAttribute(TEXT("타아아아아아아아아앙아아아아격"), TEXT("공격"), TEXT("피해를 6 줍니다."), TEXT("3"));
 
+	//충돌체
+	CColliderBox* Box = AddCollider<CColliderBox>("Body");
+
+	Box->SetExtent(295, 415);
+	Box->SetCollisionProfile("Card");
+	Box->SetOffset(m_Size*0.5f);
+
+	Box->SetMouseCollisionBeginFunction<CCard>(this, &CCard::CollisionMouseBegin);
+	Box->SetMouseCollisionEndFunction<CCard>(this, &CCard::CollisionMouseEnd);
+	Box->SetCollisionBeginFunction<CCard>(this, &CCard::CollisionBegin);
+	Box->SetCollisionEndFunction<CCard>(this, &CCard::CollisionEnd);
+
+	
 	return true;
 }
 
@@ -108,7 +127,7 @@ void CCard::Render(HDC hDC, float DeltaTime)
 		{
 			CameraPos = m_Scene->GetCamera()->GetPos();
 			Resolution = m_Scene->GetCamera()->GetResolution();
-			Pos = m_Pos - m_Scene->GetCamera()->GetPos();
+			Pos = m_Pos - m_Scene->GetCamera()->GetPos() ;
 		}
 
 		RenderLT = Pos;
@@ -168,7 +187,42 @@ void CCard::Render(HDC hDC, float DeltaTime)
 		}
 	}
 
+	CGameObject::Render(hDC, DeltaTime);
 
+
+}
+
+void CCard::Update(float DeltaTime)
+{
+	//마우스 드래그
+
+	//if (!m_mouseHovered) {
+	//	m_Pos = m_cardOriginPos;
+	//}
+	if (m_mouseHovered) {
+		
+		if (CInput::GetInst()->GetMouseLDown())
+		{
+			if (m_cardOriginPos.x == 0.f && m_cardOriginPos.y == 0.f) {
+				m_cardOriginPos = GetPos();
+			}
+			m_clickedPos = CInput::GetInst()->GetMousePos();
+		}
+		
+		if (CInput::GetInst()->GetMouseLPush())
+		{
+
+			
+			SetPos(CInput::GetInst()->GetMousePos() - m_Size * 0.5f);
+		}
+
+		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
+		{
+				SetPos(m_cardOriginPos);
+			
+		}
+		
+	}
 }
 
 void CCard::SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool curse)
@@ -264,6 +318,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const
 	//CSharedPtr<class CText> m_MycardName;
 	//CSharedPtr<class CText> m_MycardType;
 	//CSharedPtr<class CText> m_MycardExplain;
+
 	m_MycardName = CreateWidgetComponent<CText>("cardName");
 	m_MycardName->GetWidget<CText>()->SetText(cardName);
 	m_MycardName->SetPos(120, 27);
@@ -299,4 +354,42 @@ void CCard::useCard()
 	//if(m_Ability)
 	//	m_Ability->Activate();
 
+}
+
+void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
+{
+	m_mouseHovered = true;
+	m_HoveredOffset = Vector2(0, -50);
+
+	SetPos(GetPos() + m_HoveredOffset);
+}
+
+void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
+{
+	m_mouseHovered = false;
+
+
+	SetPos(GetPos() - m_HoveredOffset);
+
+
+}
+
+void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)
+{
+	m_collisionInteraction = true;
+	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
+}
+
+void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
+{
+
+	if (m_collisionInteraction) 
+	{
+		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
+		{
+			Dest->GetOwner()->InflictDamage(30.f);
+			m_collisionInteraction = false;
+		}
+
+	}
 }

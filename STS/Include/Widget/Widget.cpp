@@ -39,12 +39,14 @@ void CWidget::Render(HDC hDC, float DeltaTime)
 
 void CWidget::Render(HDC hDC, const Vector2& Pos, float DeltaTime)
 {
+
 }
 
 bool CWidget::CollisionMouse(const Vector2& Pos)
 {
     if (Pos.x < m_Pos.x) //위치가 left값보다 작으면 안되고
         return false;
+
     else if (Pos.x > m_Pos.x + m_Size.x) //right보다 크면 안되고
         return false;
 
