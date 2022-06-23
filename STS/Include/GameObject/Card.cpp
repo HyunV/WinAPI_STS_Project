@@ -81,7 +81,7 @@ bool CCard::Init()
 
 	//카드세팅하는 함수
 	SetCardInfo(Card_Type::Attack, Card_Value::Common, false);
-	SetCardAttribute(TEXT("타아아아아아아아아앙아아아아격"), TEXT("공격"), TEXT("피해를 6 줍니다."), TEXT("3"));
+	SetCardAttribute(TEXT("타격"), TEXT("공격"), TEXT("피해를 6 줍니다."), TEXT("3"));
 
 	//충돌체
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
