@@ -14,3 +14,9 @@ enum class Card_Value //³ë¸» Æ¯º° Èñ±Í
 	Special,
 	Rare
 };
+
+enum class Player_Buff
+{
+	Atk,
+
+};

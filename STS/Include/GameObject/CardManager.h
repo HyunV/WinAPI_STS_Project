@@ -17,6 +17,8 @@ private:
 	vector<CCard*> m_mainDeck;  //핵심 덱
 	vector<CCard*> m_bringCardDummy; //뽑을 카드 더미
 	vector<CCard*> m_throwCardDummy; //버린 카드 더미
+	//사용한 카드 더미
+	
 	//std::vector<CCard*> m_extinctCardDummy; //소멸된 카드 더미
 
 

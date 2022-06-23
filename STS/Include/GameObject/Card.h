@@ -4,6 +4,8 @@
 #include "../CardFlag.h"
 #include "../Widget/WidgetComponent.h"
 #include "../Widget/Text.h"
+#include "../Scene/Scene.h"
+#include "../Scene/SceneResource.h"
 //카드의 옵션을 다루는 클래스
 //추상클래스
 class CCard :
@@ -22,13 +24,15 @@ protected:
     
     //모든 카드가 가지고 있는 공통의 정보
 protected:
-    std::string m_cardName;
+    std::string m_cardName; //카드 이름
     int m_cost; // 카드 코스트
-    Card_Type m_cardType;
-    Card_Value m_cardValue;
-    bool m_colorless;
-    bool m_curse;
-
+    Card_Type m_cardType; //카드 타입
+    Card_Value m_cardValue; //카드 희귀도
+    bool m_colorless; //무색 여부
+    bool m_curse;  //저주 여부 
+    bool m_Enhanced; // 강화여부
+    char m_CardExplain[256];
+    bool m_EnableCollider; //카드 충돌 활성화
     bool m_cardMove; //카드 이동 세팅
 
     //카드에 입힐 텍스트 설명을 담을 위젯
@@ -69,14 +73,19 @@ protected:
     virtual bool Init();
     virtual void Render(HDC hDC, float DeltaTime);
     virtual void Update(float DeltaTime);
+
+    void SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool curse); //카드의 타입과 가치를 지정
+    void SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost); //이름, 타입, 설명, 코스트
+    void SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost);
+    //void Ch
+    virtual void SetAbility();//카드 능력 부여
     
+
 
 //카드 이미지 매니저,(일러스트, 카드, 테두리 원, 네임택, 코스트)
 //카드 틀, 이미지, 테두리, 네임택, 코스트
 public:
     //카드 구현(카드 아이디, 카드 이름, 카드 이미지, 비용, 카드 타입, 컬러(안씀), 레어도,
-    //void CreateCard(std::string m_cardName, int m_Cost, (int)Card_Type cardType); //카드 이름, 코스트 
-    //void MakeCardImage(); //인자:카드 타입(공수파), 카드 종류, 레어도, 코스트 유무, 
     
     void SetCardName(std::string cardName)
     {
@@ -86,9 +95,6 @@ public:
     {
         m_cost = cost;
     }
-
-    void SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool curse = false);
-    void SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost);
 
     void SetCardType(Card_Type cardType) 
     {
@@ -106,7 +112,7 @@ public:
     bool SetCurse(bool curse) {
         return curse;
     } 
-    
+
     virtual void useCard();
 
     //void SetAbility(class CardAbility* Ability)

@@ -6,10 +6,14 @@
 #include "Camera.h"
 #include "../Input.h"
 #include "../Widget/TopPanel.h"
-#include "../GameObject/Cards/Strike.h"
+
 #include "../Collision/ColliderBox.h"
 
 #include "../Widget/CharacterHUD.h"
+
+#include "../GameObject/Cards/Strike.h"
+#include "../GameObject/Cards/Defend.h"
+
 
 CBattleScene::CBattleScene()
 {
@@ -36,6 +40,9 @@ bool CBattleScene::Init()
 
 	CStrike* Strike1 = CreateObject<CStrike>("CStrike1");
 	Strike->SetPos(500, 300);
+
+	CDefend* Defend = CreateObject<CDefend>("CDefend");
+	Defend->SetPos(900, 300);
 	//CCard* Card = CreateObject<CCard>("card");
 	//Card->SetPos(200, 300);
 

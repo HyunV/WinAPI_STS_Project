@@ -13,6 +13,7 @@ protected:
 private:
     int m_HP;
     int m_HPMax;
+	int m_Atk;
 
 public:
 	virtual bool Init();

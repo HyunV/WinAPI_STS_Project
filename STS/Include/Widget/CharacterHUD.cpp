@@ -79,6 +79,6 @@ void CCharacterHUD::Update(float DeltaTime)
 	TCHAR	Unicode[256] = {};
 	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
-
+	
 	m_FPSText->SetText(Unicode);
 }

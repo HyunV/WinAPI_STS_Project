@@ -1,13 +1,14 @@
 #pragma once
 #include "../Card.h"
-#include "../../Widget/WidgetWindow.h"
-//
+
 class CStrike :
     public CCard
 {
     friend class CScene;
 
-
+    //카드 세팅, 카드 능력 세팅, 카드
+    //카드 이미지 삽입
+    
 
 protected:
     CStrike();
@@ -21,5 +22,6 @@ protected:
 
     virtual void useCard();
 
+    virtual void SetAbility();
 };
 

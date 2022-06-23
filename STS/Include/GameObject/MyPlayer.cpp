@@ -22,6 +22,7 @@ bool CMyPlayer::Init()
 	CGameObject::Init();
 	m_HPMax = 80;
 	m_HP = m_HPMax;
+	m_Atk = 3;
 
 	SetPos(100.f, 400.f);
 	SetSize(270.f, 191.f);
@@ -52,6 +53,7 @@ float CMyPlayer::InflictDamage(float Damage)
 
 void CMyPlayer::Buff()
 {
+	//
 }
 
 void CMyPlayer::Debuff()
