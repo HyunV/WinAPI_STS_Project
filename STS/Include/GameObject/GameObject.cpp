@@ -543,3 +543,11 @@ float CGameObject::InflictDamage(float Damage)
 {
 	return Damage;
 }
+
+void CGameObject::SetCollisionEnable(bool Enable)
+{
+	if (m_ColliderList.size())
+	{
+		m_ColliderList.front()->SetCollisionEnable(Enable);
+	}	
+}

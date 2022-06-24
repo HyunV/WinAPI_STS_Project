@@ -184,6 +184,7 @@ void CSceneCollision::Collision(float DeltaTime) //반복 돌려 각각 충돌 체크
 					DestInteraction == ECollision_Interaction::Ignore)
 					continue;
 
+
 				// 충돌을 체크한다.
 				if (Src->Collision(Dest)) //충돌이 되었다
 				{

@@ -99,6 +99,10 @@ public:
         return m_Profile;
     }
 
+
+public:
+    void SetCollisionEnable(bool Enable);
+
 public:
     void SetCollisionProfile(const std::string& Name); 
     void AddCollisionList(CCollider* Collider); //충돌시 리스트에 추가하는 함수

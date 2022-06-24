@@ -20,7 +20,7 @@ bool CDefend::Init()
 
 	m_Scene->GetSceneResource()->LoadTexture("CardImage", TEXT("Cards/CardImage/defend.bmp"));
 
-	SetCardInfo(m_cardType, m_cardValue, m_colorless, m_curse);
+	//SetCardInfo(m_cardType, m_cardValue, m_colorless, m_curse);
 	SetCardAttribute(TEXT("수비"), m_cardType, m_cost); //이름, 카드 타입, 
 
 	return true;

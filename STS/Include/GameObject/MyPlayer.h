@@ -14,6 +14,9 @@ private:
     int m_HP;
     int m_HPMax;
 	int m_Atk;
+	
+	int m_Shield;//¹æ¾îµµ
+
 
 public:
 	virtual bool Init();
@@ -23,7 +26,11 @@ public:
 	virtual float InflictDamage(float Damage);
 
 public:
+	float AddShield(float shield);
 	void Buff();
 	void Debuff();
+private:
+	void CollisionBegin(CCollider* Src, CCollider* Dest);
+	void CollisionEnd(CCollider* Src, CCollider* Dest);
 };
 

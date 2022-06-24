@@ -160,9 +160,10 @@
     <ClCompile Include="GameObject\BackObj.cpp" />
     <ClCompile Include="GameObject\Bullet.cpp" />
     <ClCompile Include="GameObject\Card.cpp" />
-    <ClCompile Include="GameObject\CardAttribute.cpp" />
     <ClCompile Include="GameObject\CardManager.cpp" />
+    <ClCompile Include="GameObject\Cards\CardAbility.cpp" />
     <ClCompile Include="GameObject\Cards\Defend.cpp" />
+    <ClCompile Include="GameObject\Cards\GiveAttribute.cpp" />
     <ClCompile Include="GameObject\Cards\Strike.cpp" />
     <ClCompile Include="GameObject\Character.cpp" />
     <ClCompile Include="GameObject\Effect.cpp" />
@@ -234,9 +235,10 @@
     <ClInclude Include="GameObject\BackObj.h" />
     <ClInclude Include="GameObject\Bullet.h" />
     <ClInclude Include="GameObject\Card.h" />
-    <ClInclude Include="GameObject\CardAttribute.h" />
     <ClInclude Include="GameObject\CardManager.h" />
+    <ClInclude Include="GameObject\Cards\CardAbility.h" />
     <ClInclude Include="GameObject\Cards\Defend.h" />
+    <ClInclude Include="GameObject\Cards\GiveAttribute.h" />
     <ClInclude Include="GameObject\Cards\Strike.h" />
     <ClInclude Include="GameObject\Character.h" />
     <ClInclude Include="GameObject\Effect.h" />

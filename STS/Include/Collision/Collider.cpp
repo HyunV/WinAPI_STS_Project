@@ -33,6 +33,15 @@ CCollider::~CCollider()
     }
 }
 
+void CCollider::SetCollisionEnable(bool Enable)
+{
+    if (m_Profile)
+    {
+        m_Profile->Enable = Enable;
+    }
+    
+}
+
 void CCollider::SetCollisionProfile(const std::string& Name)
 {
     m_Profile = CCollisionManager::GetInst()->FindProfile(Name);

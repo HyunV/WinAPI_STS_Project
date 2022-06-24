@@ -115,6 +115,9 @@
     <Filter Include="02.GameObject\08.Card\01.Cards\Red\Power">
       <UniqueIdentifier>{bbedc233-1b50-46fc-bb94-1e779f89cd5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\08.Card\01.Cards\00.CardAbility">
+      <UniqueIdentifier>{5d91984f-1dd6-40ea-9004-f06bcc705401}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -294,14 +297,17 @@
     <ClCompile Include="GameObject\CardManager.cpp">
       <Filter>02.GameObject\08.Card</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\CardAttribute.cpp">
-      <Filter>02.GameObject\08.Card</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject\Cards\Strike.cpp">
       <Filter>02.GameObject\08.Card\01.Cards\Red\Attack</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Cards\Defend.cpp">
       <Filter>02.GameObject\08.Card\01.Cards\Red\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Cards\CardAbility.cpp">
+      <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Cards\GiveAttribute.cpp">
+      <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -521,14 +527,17 @@
     <ClInclude Include="CardFlag.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\CardAttribute.h">
-      <Filter>02.GameObject\08.Card</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\Cards\Strike.h">
       <Filter>02.GameObject\08.Card\01.Cards\Red\Attack</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\Cards\Defend.h">
       <Filter>02.GameObject\08.Card\01.Cards\Red\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Cards\CardAbility.h">
+      <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Cards\GiveAttribute.h">
+      <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

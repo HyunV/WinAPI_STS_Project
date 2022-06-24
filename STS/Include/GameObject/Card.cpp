@@ -7,6 +7,8 @@
 #include "../Widget/WidgetWindow.h"
 #include "../Collision/ColliderBox.h"
 #include "../Input.h"
+#include "../GameObject/Cards/CardAbility.h"
+#include <sstream>
 
 CCard::CCard()
 {
@@ -20,6 +22,10 @@ CCard::CCard()
 
 CCard::~CCard()
 {
+	list<CSharedPtr< CCardAbility>>::iterator iter = m_Abilitys.begin();
+	list<CSharedPtr< CCardAbility>>::iterator End = m_Abilitys.end();
+	//
+	m_Abilitys.clear();
 }
 
 bool CCard::Init()
@@ -41,7 +47,9 @@ bool CCard::Init()
 	//			m_Scene->GetSceneResource()->LoadTexture(Name, vecFileName, PathName);
 	
 	////////////////////////////////////////////////////////////////////////
-	//카드 패널
+	// 
+	// 카드 이미지 등록
+
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_C1.bmp"));	 //0
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_C2.bmp"));	 //1
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_C3.bmp"));	 //2
@@ -97,7 +105,7 @@ bool CCard::Init()
 
 	//충돌체
 
-	if (m_EnableCollider) {
+	//if (m_EnableCollider) {
 		CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
 		Box->SetExtent(295, 415);
@@ -108,8 +116,10 @@ bool CCard::Init()
 		Box->SetMouseCollisionEndFunction<CCard>(this, &CCard::CollisionMouseEnd);
 		Box->SetCollisionBeginFunction<CCard>(this, &CCard::CollisionBegin);
 		Box->SetCollisionEndFunction<CCard>(this, &CCard::CollisionEnd);
-	}
+	//}
 
+
+		//SetCollisionEnable(false);
 	return true;
 }
 
@@ -125,7 +135,7 @@ void CCard::Render(HDC hDC, float DeltaTime)
 
 	CTexture* CardCostTexture = CResourceManager::GetInst()->FindTexture("CostImage");
 
-	CTexture* CardImageTexture = CResourceManager::GetInst()->FindTexture("CardImage");
+	CTexture* CardImageTexture = CResourceManager::GetInst()->FindTexture(m_CardImage);
 
 
 	if (CardPanelTexture)
@@ -234,7 +244,7 @@ void CCard::Update(float DeltaTime)
 	}
 }
 
-void CCard::SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool curse)
+void CCard::SetCardInfo(string CardName, Card_Type Type, Card_Value Value, bool colorless, bool curse)
 {
 	//cardInfo[0] = 카드 패널
 	//cardInfo[1] = 카드 테두리
@@ -243,7 +253,7 @@ void CCard::SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool c
 	SetCardValue(Value);
 	m_colorless = colorless;
 	m_curse = curse;
-
+	m_CardImage = CardName;
 	switch (Type)
 	{
 	case Card_Type::Attack:
@@ -321,40 +331,40 @@ void CCard::SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool c
 
 }
 
-void CCard::SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost)
-{
-	m_MycardName = CreateWidgetComponent<CText>("cardName");
-	m_MycardName->GetWidget<CText>()->SetText(cardName);
-	m_MycardName->SetPos(120, 27);
-	//m_MycardName->GetWidget<CText>()->SetTextSize(10);
-	m_MycardName->GetWidget<CText>()->EnableShadow(true);
-	m_MycardName->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_MycardName->GetWidget<CText>()->SetTextColor(255, 255, 237);
-	m_MycardName->GetWidget<CText>()->SetFont("ExplainFont");
-	
-
-	m_MycardType = CreateWidgetComponent<CText>("cardType");
-	m_MycardType->GetWidget<CText>()->SetText(cardType);
-	m_MycardType->SetPos(120, 214);
-	m_MycardType->GetWidget<CText>()->SetTextColor(94, 94, 94);
-
-	m_MycardExplain = CreateWidgetComponent<CText>("cardExplain");
-	m_MycardExplain->GetWidget<CText>()->SetText(cardExplain);
-	m_MycardExplain->SetPos(50, 300);
-	m_MycardExplain->GetWidget<CText>()->EnableShadow(true);
-	m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
-
-	m_MycardCost = CreateWidgetComponent<CText>("cardCost");
-	m_MycardCost->GetWidget<CText>()->SetText(cardCost);
-	m_MycardCost->SetPos(5, 0);
-	//m_MycardCost->GetWidget<CText>()->SetSize(200.f, 200.f);
-	m_MycardCost->GetWidget<CText>()->EnableShadow(true);
-	m_MycardCost->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_MycardCost->GetWidget<CText>()->SetTextColor(255, 255, 255);
-	m_MycardCost->GetWidget<CText>()->SetFont("CostFont");
-
-}
+//void CCard::SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost)
+//{
+//	m_MycardName = CreateWidgetComponent<CText>("cardName");
+//	m_MycardName->GetWidget<CText>()->SetText(cardName);
+//	m_MycardName->SetPos(120, 27);
+//	//m_MycardName->GetWidget<CText>()->SetTextSize(10);
+//	m_MycardName->GetWidget<CText>()->EnableShadow(true);
+//	m_MycardName->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
+//	m_MycardName->GetWidget<CText>()->SetTextColor(255, 255, 237);
+//	m_MycardName->GetWidget<CText>()->SetFont("ExplainFont");
+//	
+//
+//	m_MycardType = CreateWidgetComponent<CText>("cardType");
+//	m_MycardType->GetWidget<CText>()->SetText(cardType);
+//	m_MycardType->SetPos(120, 214);
+//	m_MycardType->GetWidget<CText>()->SetTextColor(94, 94, 94);
+//
+//	m_MycardExplain = CreateWidgetComponent<CText>("cardExplain");
+//	m_MycardExplain->GetWidget<CText>()->SetText(cardExplain);
+//	m_MycardExplain->SetPos(50, 300);
+//	m_MycardExplain->GetWidget<CText>()->EnableShadow(true);
+//	m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
+//	m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
+//
+//	m_MycardCost = CreateWidgetComponent<CText>("cardCost");
+//	m_MycardCost->GetWidget<CText>()->SetText(cardCost);
+//	m_MycardCost->SetPos(5, 0);
+//	//m_MycardCost->GetWidget<CText>()->SetSize(200.f, 200.f);
+//	m_MycardCost->GetWidget<CText>()->EnableShadow(true);
+//	m_MycardCost->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
+//	m_MycardCost->GetWidget<CText>()->SetTextColor(255, 255, 255);
+//	m_MycardCost->GetWidget<CText>()->SetFont("CostFont");
+//
+//}
 
 void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost)
 {
@@ -429,7 +439,6 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
 	m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
 
-	
 }
 
 void CCard::SetAbility()
@@ -441,12 +450,51 @@ void CCard::SetAbility()
 	m_MycardExplain->GetWidget<CText>()->SetText(Unicode);
 }
 
-
-void CCard::useCard()
+void CCard::AddAbility(CCardAbility* givedAbility)
 {
-	//Card능력을 발동하면된다
-	//if(m_Ability)
-	//	m_Ability->Activate();
+	m_Abilitys.push_back(givedAbility);
+
+	stringstream ss;
+	
+	ss << "cardExplain" << m_Abilitys.size();
+
+	 CWidgetComponent* text = CreateWidgetComponent<CText>(ss.str());
+	 text->SetPos(50, 300 + m_Abilitys.size()*30);
+	 text->GetWidget<CText>()->EnableShadow(true);
+	 text->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
+	 text->GetWidget<CText>()->SetTextColor(255, 249, 229);
+
+	 text->GetWidget<CText>()->SetText(givedAbility->GetExplain());
+
+	 m_Explains.push_back(text);
+}
+
+
+void CCard::useCard(CGameObject* target)
+{
+	//
+	list<CSharedPtr< CCardAbility>>::iterator iter = m_Abilitys.begin();
+	list<CSharedPtr< CCardAbility>>::iterator End = m_Abilitys.end();
+
+	for (; iter != End; iter++)
+	{
+		(*iter)->ActivateAbility(target);
+	}
+
+	/*	
+	switch (m_cardType)
+	{
+	case Card_Type::Attack:
+		target->InflictDamage(m_CardPower);
+		break;
+	case Card_Type::Skill:		
+		break;
+	case Card_Type::Power:
+		break;
+	case Card_Type::Curse:
+		//사용 못함
+		break;
+	}*/
 
 }
 
@@ -480,7 +528,8 @@ void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
 	{
 		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
 		{
-			Dest->GetOwner()->InflictDamage(30.f);
+			//Dest->GetOwner()->InflictDamage(30.f);
+			useCard(Dest->GetOwner());
 			m_collisionInteraction = false;
 		}
 

@@ -3,8 +3,6 @@
 #include "../Scene/SceneResource.h"
 #include "../Collision/ColliderBox.h"
 
-#include "../Scene/Scene.h"
-#include "../Scene/SceneResource.h"
 #include "../Widget/CharacterHUD.h"
 #include "../Widget/WidgetComponent.h"
 #include "../Widget/Text.h"

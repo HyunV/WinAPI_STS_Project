@@ -28,6 +28,9 @@ protected:
     int m_cost; // 카드 코스트
     Card_Type m_cardType; //카드 타입
     Card_Value m_cardValue; //카드 희귀도
+
+    int m_CardPower;
+
     bool m_colorless; //무색 여부
     bool m_curse;  //저주 여부 
     bool m_Enhanced; // 강화여부
@@ -35,10 +38,13 @@ protected:
     bool m_EnableCollider; //카드 충돌 활성화
     bool m_cardMove; //카드 이동 세팅
 
+    
+
     //카드에 입힐 텍스트 설명을 담을 위젯
     CSharedPtr<class CWidgetComponent> m_MycardName;
     CSharedPtr<class CWidgetComponent> m_MycardType;
     CSharedPtr<class CWidgetComponent> m_MycardExplain;
+    vector<CSharedPtr<class CWidgetComponent>> m_Explains;
     CSharedPtr<class CWidgetComponent> m_MycardCost;
 
     vector<wstring> cardPanelFiles; //카드 패널 배열
@@ -66,6 +72,10 @@ protected:
     bool m_collisionInteraction;
 
     Vector2 m_HoveredOffset;
+
+
+    list<CSharedPtr<class CCardAbility>> m_Abilitys;
+
     //class CardAbility* m_Ability;
 
 protected:
@@ -74,13 +84,16 @@ protected:
     virtual void Render(HDC hDC, float DeltaTime);
     virtual void Update(float DeltaTime);
 
-    void SetCardInfo(Card_Type Type, Card_Value Value, bool colorless, bool curse); //카드의 타입과 가치를 지정
-    void SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost); //이름, 타입, 설명, 코스트
+public:
+    void SetCardInfo(string CardName, Card_Type Type, Card_Value Value, bool colorless, bool curse); //카드의 타입과 가치를 지정
+    //void SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost); //이름, 타입, 설명, 코스트
     void SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost);
     //void Ch
     virtual void SetAbility();//카드 능력 부여
-    
 
+public:
+    void AddAbility(class CCardAbility* Ability);
+    
 
 //카드 이미지 매니저,(일러스트, 카드, 테두리 원, 네임택, 코스트)
 //카드 틀, 이미지, 테두리, 네임택, 코스트
@@ -113,16 +126,20 @@ public:
         return curse;
     } 
 
-    virtual void useCard();
+    virtual void useCard(CGameObject* Target);
 
-    //void SetAbility(class CardAbility* Ability)
-    //{
-    //    m_Ability = Ability;
-    //}
+    
+
 private:
     void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
     void CollisionBegin(CCollider* Src, CCollider* Dest);
     void CollisionEnd(CCollider* Src, CCollider* Dest);
+
+
+
+
+   std::string m_CardImage;
+
 };
 

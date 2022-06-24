@@ -31,6 +31,7 @@ bool CCollisionManager::Init()
 	CreateProfile("Mouse", ECollision_Channel::Mouse, true, ECollision_Interaction::Collision);
 
 	CreateProfile("Card", ECollision_Channel::Card, true, ECollision_Interaction::Ignore);
+	CreateProfile("MyPlayer", ECollision_Channel::MyPlayer, true, ECollision_Interaction::Ignore);
 
 	//플레이어, 몬스터, 공격 등 충돌처리 모두 무시로 잡아놓고
 
@@ -59,6 +60,9 @@ bool CCollisionManager::Init()
 
 	SetCollisionInteraction("Card", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Card", ECollision_Channel::Monster, ECollision_Interaction::Collision);
+
+	SetCollisionInteraction("MyPlayer", ECollision_Channel::Default, ECollision_Interaction::Collision);
+	SetCollisionInteraction("MyPlayer", ECollision_Channel::Card, ECollision_Interaction::Collision);
 
 	return true;
 }

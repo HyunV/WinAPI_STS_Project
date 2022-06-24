@@ -26,7 +26,7 @@ bool CStrike::Init()
 	m_cardImageSize = Vector2(246, 185);
 	m_cardImageOffset = Vector2(22, 44);
 
-	SetCardInfo(m_cardType, m_cardValue, m_colorless, m_curse);
+	//SetCardInfo(m_cardType, m_cardValue, m_colorless, m_curse);
 	SetCardAttribute(TEXT("타격"), m_cardType, m_cost); //이름, 카드 타입, 
 
 	return true;

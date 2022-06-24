@@ -178,6 +178,10 @@ public:
 
 
 
+public:
+	void SetCollisionEnable(bool Enable);
+
+
 
 public:
 	template <typename T>

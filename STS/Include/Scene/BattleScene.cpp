@@ -10,9 +10,13 @@
 #include "../Collision/ColliderBox.h"
 
 #include "../Widget/CharacterHUD.h"
+#include "../GameObject/Cards/GiveAttribute.h"
+
 
 #include "../GameObject/Cards/Strike.h"
 #include "../GameObject/Cards/Defend.h"
+
+
 
 
 CBattleScene::CBattleScene()
@@ -31,29 +35,35 @@ bool CBattleScene::Init()
 	GetCamera()->SetTargetPivot(0.f, 0.f);
 
 	CreateObject<CBackObj>("BackObj");
+
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
 
-	CStrike* Strike = CreateObject<CStrike>("CStrike");
-	Strike->SetPos(200, 300);
+	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 
-	CStrike* Strike1 = CreateObject<CStrike>("CStrike1");
-	Strike->SetPos(500, 300);
+	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
 
-	CDefend* Defend = CreateObject<CDefend>("CDefend");
-	Defend->SetPos(900, 300);
+
 	//CCard* Card = CreateObject<CCard>("card");
-	//Card->SetPos(200, 300);
+	//Card->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	//Card->SetCardAttribute(TEXT("Å¸°Ý"), Card_Type::Attack, 1);
+	//Card->SetPos(200, 300); 
 
+	//CGiveAttribute* Damage = CreateObject<CGiveAttribute>("Damage");
+	//Damage->SetType(Card_Attribute::Damage, 10);
+	//CGiveAttribute* sh = CreateObject<CGiveAttribute>("sh");
+	//sh->SetType(Card_Attribute::Shield, 10);
+	//CGiveAttribute* DrawCard = CreateObject<CGiveAttribute>("DrawCard");
+	//DrawCard->SetType(Card_Attribute::DrawCard, 0);
+	//
+	//Card->AddAbility(Damage);
+	//Card->AddAbility(sh);
+	//Card->AddAbility(DrawCard);
 
-	//CCard* StrikeCard = CreateObject<CCard>("StrikeCard");
-	//StrikeCard->SetPos(122, 100);
-	//StrikeCard->SetImage(3);
-
-	//CCard* Strik2eCard = CreateObject<CCard>("Strike2Card");
-	//Strik2eCard->SetPos(100, 100);
-	//Strik2eCard->SetImage(4);
+	//CCard* Card2 = CreateObject<CCard>("card2");
+	//Card2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Special, false, false);
+	//Card2->SetPos(500, 300);
 
 
 	SetPlayer(Player);
