@@ -43,27 +43,37 @@ bool CBattleScene::Init()
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
+	//카드 키워드 생성 //////////////////////////
+
+	CGiveAttribute* Damage = CreateObject<CGiveAttribute>("Damage");
+	Damage->SetType(Card_Attribute::Damage, 10);
+	CGiveAttribute* Shield = CreateObject<CGiveAttribute>("Shield");
+	Shield->SetType(Card_Attribute::Shield, 10);
+	CGiveAttribute* DrawCard = CreateObject<CGiveAttribute>("DrawCard");
+	DrawCard->SetType(Card_Attribute::DrawCard, 0);
 
 
-	//CCard* Card = CreateObject<CCard>("card");
-	//Card->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
-	//Card->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
-	//Card->SetPos(200, 300); 
-
-	//CGiveAttribute* Damage = CreateObject<CGiveAttribute>("Damage");
-	//Damage->SetType(Card_Attribute::Damage, 10);
-	//CGiveAttribute* sh = CreateObject<CGiveAttribute>("sh");
-	//sh->SetType(Card_Attribute::Shield, 10);
-	//CGiveAttribute* DrawCard = CreateObject<CGiveAttribute>("DrawCard");
-	//DrawCard->SetType(Card_Attribute::DrawCard, 0);
-	//
-	//Card->AddAbility(Damage);
+	///////////////////카드 생성//////////////////////////
+	CCard* Card = CreateObject<CCard>("card");
+	Card->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	Card->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
+	Card->SetPos(300, 570); 
+	Card->AddAbility(Damage);
 	//Card->AddAbility(sh);
 	//Card->AddAbility(DrawCard);
 
-	//CCard* Card2 = CreateObject<CCard>("card2");
-	//Card2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Special, false, false);
-	//Card2->SetPos(500, 300);
+	CCard* Card2 = CreateObject<CCard>("card2");
+	Card2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
+	Card2->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
+	Card2->SetPos(470, 570);
+	Card2->AddAbility(Shield);
+
+
+	CCard* Card3 = CreateObject<CCard>("card3");
+	Card3->SetCardInfo("??", Card_Type::Power, Card_Value::Rare, true, false);
+	Card3->SetCardAttribute(TEXT("카드"), Card_Type::Power, 3);
+	Card3->SetPos(640, 570);
+	Card3->AddAbility(DrawCard);
 
 
 	SetPlayer(Player);

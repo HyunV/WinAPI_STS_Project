@@ -26,13 +26,14 @@ bool CMyMonster::Init()
 	CGameObject::Init();
 
 	SetPos(1000.f, 450.f);
-	SetSize(250.f, 250.f);
+	SetSize(180.f, 180.f);
 	SetPivot(0.5f, 0.5f);
 
-	SetTexture("Puppet", TEXT("Monster/puppet.bmp"));
+	SetTexture("Puppet", TEXT("Monster/enemy1.bmp"));
+	SetColorKey(255, 0, 255);
 
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
-	Box->SetExtent(250.f, 250.f);
+	Box->SetExtent(180.f, 180.f);
 	Box->SetCollisionProfile("Monster");
 
 	//Box->SetMouseCollisionBeginFunction<CMyMonster>(this, &CMyMonster::CollisionMouseBegin);
@@ -45,9 +46,11 @@ bool CMyMonster::Init()
 
 	m_HPBar = CreateWidgetComponent<CProgressBar>("HPBar");
 	m_HPBar->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Bar, 
-		"HPBar", TEXT("CharacterHPBar.bmp"));
+		"HPBar", TEXT("CharacterHPBar2.bmp"));
+	m_HPBar->GetWidget<CProgressBar>()->SetColorKey(EProgressBar_Texture_Type::Bar, 255, 0, 255);
 	m_HPBar->GetWidget<CProgressBar>()->SetSize(50.f, 10.f);
-	m_HPBar->SetPos(0.f, 0.f);
+	m_HPBar->SetPos(0.f, 200.f);
+
 
 	m_NameBar = CreateWidgetComponent<CText>("MonsterNameBar");
 

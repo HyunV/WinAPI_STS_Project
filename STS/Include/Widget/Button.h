@@ -35,7 +35,7 @@ public:
     void SetTextureFullPath(const std::string& Name, const std::vector<std::string>& vecFullPath);
 
 #endif
-
+    void SetColorKey(unsigned char r, unsigned char g, unsigned char b);
     void SetButtonStateData(EButton_State State, const Vector2& Start, const Vector2& End);
     //버튼 시작과 끝 지정
 

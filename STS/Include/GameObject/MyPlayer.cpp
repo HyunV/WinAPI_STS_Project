@@ -27,10 +27,13 @@ bool CMyPlayer::Init()
 	m_Atk = 3;
 
 	SetPos(100.f, 400.f);
-	SetSize(270.f, 191.f);
+	SetSize(270.f, 161.f);
+	//SetSize(148.f, 208.f);
 	SetPivot(0.f, 0.f);
 
-	SetTexture("Player", TEXT("Player/Player.bmp"));
+	SetTexture("Player", TEXT("Player/PlayerH.bmp"));
+	SetColorKey(255, 0, 255);
+	//SetTexture("Player", TEXT("card.bmp"));
 
 		// 충돌체 추가
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");

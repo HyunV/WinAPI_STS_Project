@@ -61,8 +61,8 @@ bool CGameManager::Init(HINSTANCE hInst)
 {
 	m_hInst = hInst; //윈도우가 구분할 수 있는 창의 고유한 식별번호인 인스턴스를 받아옴
 
-	m_RS.Width = 1920;
-	m_RS.Height = 1200;
+	m_RS.Width = 1280;
+	m_RS.Height = 720;
 
 	//SetTexture("BackGround", TEXT("BackGround.bmp"));
 

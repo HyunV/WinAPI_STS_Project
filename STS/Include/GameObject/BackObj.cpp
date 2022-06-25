@@ -18,10 +18,10 @@ CBackObj::~CBackObj()
 bool CBackObj::Init()
 {
 	SetPos(0.f, 0.f);
-	SetSize(1920.f, 1200.f);
+	SetSize(1280.f, 800.f);
 	SetPivot(0.f, 0.f);
 
-	SetTexture("BattleScene", TEXT("Scene/Battle/scene.bmp"));
+	SetTexture("BattleScene", TEXT("Scene/scene2.bmp"));
 	return true;
 }
 

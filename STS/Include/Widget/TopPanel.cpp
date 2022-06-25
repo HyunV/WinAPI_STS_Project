@@ -22,63 +22,74 @@ bool CTopPanel::Init()
     CImageWidget2* TopPanel = CreateWidget<CImageWidget2>("TopPanel");
 
     TopPanel->SetTexture("TopPanel", TEXT("TopPanel/bar.bmp"));
-    TopPanel->SetSize(1920.f, 128.f);
+    TopPanel->SetSize(1280.f, 80.f);
+    TopPanel->SetColorKey(255, 0, 255);
 
     m_PlayerName = CreateWidget<CText>("PName");
-    m_PlayerName->SetText(TEXT("다람쥐"));
-    m_PlayerName->SetPos(30.f, 20.f);
+    m_PlayerName->SetText(TEXT("AR41"));
+    m_PlayerName->SetPos(40.f, 5.f);
     m_PlayerName->SetTextColor(255, 255, 255);   
     m_PlayerName->EnableShadow(true);
-    m_PlayerName->SetShadowOffset(5.f, 5.f);
+    m_PlayerName->SetShadowOffset(0.2f, 0.2f);
 
     m_Job = CreateWidget<CText>("JOB");
     m_Job->SetText(TEXT("아이언클래드"));
-    m_Job->SetPos(150.f, 20.f);
+    m_Job->SetPos(120.f, 11.f);
     m_Job->SetTextColor(191, 191, 191);
+    m_Job->SetFont("PlayerNameFont");
     m_Job->EnableShadow(true);
-    m_Job->SetShadowOffset(5.f, 5.f);
+    m_Job->SetShadowOffset(1.f, 1.f);
 
-    CButton* LifeButton = CreateWidget<CButton>("LifeButton");
-    LifeButton->SetTexture("LifeButton", TEXT("TopPanel/panelHeart.bmp"));
-    LifeButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    LifeButton->SetPos(320.f, 0.f);
+    CImageWidget2* LifeImage = CreateWidget<CImageWidget2>("LifeImage");
+    LifeImage->SetTexture("LifeImage", TEXT("TopPanel/panelHeart.bmp"));
+    LifeImage->SetPos(180.f, 3.f);
+    LifeImage->SetSize(39, 39);
+    LifeImage->SetColorKey(255, 0, 255);
 
     m_LifeUI = CreateWidget<CText>("Life");
+    m_LifeUI->SetFont("UI");
     m_LifeUI->SetText(TEXT("80/80"));
-    m_LifeUI->SetPos(400.f, 20.f);
-    m_LifeUI->SetTextColor(250, 128, 114);
+    m_LifeUI->SetPos(240.f, 10.f);
+    m_LifeUI->SetTextColor(212, 57, 43);
     m_LifeUI->EnableShadow(true);
-    m_LifeUI->SetShadowOffset(3.f, 3.f);
+    m_LifeUI->SetShadowOffset(1.f, 1.f);
 
-    CButton* GoldButton = CreateWidget<CButton>("GoldButton");
-    GoldButton->SetTexture("GoldButton", TEXT("TopPanel/panelGoldBag.bmp"));
-    GoldButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    GoldButton->SetPos(500.f, 0.f);
+
+    CImageWidget2* GoldImage = CreateWidget<CImageWidget2>("GoldImage");
+    GoldImage->SetTexture("GoldImage", TEXT("TopPanel/panelGoldBag.bmp"));
+    GoldImage->SetPos(280.f, 3.f);
+    GoldImage->SetSize(39, 39);
+    GoldImage->SetColorKey(255, 0, 255);
 
     m_GoldUI = CreateWidget<CText>("Gold");
-    m_GoldUI->SetText(TEXT("99"));
-    m_GoldUI->SetPos(580.f, 20.f);
+    m_GoldUI->SetFont("UI");
+    m_GoldUI->SetText(TEXT("999"));
+    m_GoldUI->SetPos(340, 10.f);
     m_GoldUI->SetTextColor(239, 200, 81);
     m_GoldUI->EnableShadow(true);
     m_GoldUI->SetShadowOffset(3.f, 3.f);
     
     //포션
     // 
+    // 
     //설정 1846 1910-64 1836 - 84
     CButton* SettingButton = CreateWidget<CButton>("SettingButton");
     SettingButton->SetTexture("SettingButton", TEXT("TopPanel/settings.bmp"));
-    SettingButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    SettingButton->SetPos(1836.f, 0.f);
+    SettingButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(39.f, 39.f));
+    SettingButton->SetPos(1231.f, 3.f);
+    SettingButton->SetColorKey(255, 0, 255);
 
     
     CButton* DeckButton = CreateWidget<CButton>("DeckButton");
     DeckButton->SetTexture("DeckButton", TEXT("TopPanel/deck.bmp"));
-    DeckButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    DeckButton->SetPos(1752.f, 0.f);
+    DeckButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(39.f, 39.f));
+    DeckButton->SetPos(1182.f, 3.f);
+    DeckButton->SetColorKey(255, 0, 255);
 
     m_DeckCount = CreateWidget<CText>("DeckCount");
+    m_DeckCount->SetFont("UI");
     m_DeckCount->SetText(TEXT("10"));
-    m_DeckCount->SetPos(1784.f, 40.f);
+    m_DeckCount->SetPos(1210.f, 20.f);
     m_DeckCount->SetTextColor(255, 255, 255);
     m_DeckCount->EnableShadow(true);
     m_DeckCount->SetShadowOffset(1.f, 1.f);
@@ -86,8 +97,9 @@ bool CTopPanel::Init()
 
     CButton* MapButton = CreateWidget<CButton>("MapButton");
     MapButton->SetTexture("MapButton", TEXT("TopPanel/map.bmp"));
-    MapButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    MapButton->SetPos(1668.f, 0.f);
+    MapButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(39.f, 39.f));
+    MapButton->SetPos(1137.f, 3.f);
+    MapButton->SetColorKey(255, 0, 255);
 
     //타이머, 숫자 추가
    // CButton* TimerButton = CreateWidget<CButton>("TimerButton");
@@ -98,29 +110,24 @@ bool CTopPanel::Init()
     //층 수
     CButton* FloorButton = CreateWidget<CButton>("FloorButton");
     FloorButton->SetTexture("StairButton", TEXT("TopPanel/floor.bmp"));
-    FloorButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(64.f, 64.f));
-    FloorButton->SetPos(950.f, 0.f);
+    FloorButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(39.f, 39.f));
+    FloorButton->SetPos(500.f, 3.f);
+    FloorButton->SetColorKey(255, 0, 255);
 
     m_FloorUI = CreateWidget<CText>("Floor");
+    m_FloorUI->SetFont("UI");
     m_FloorUI->SetText(TEXT("1"));
-    m_FloorUI->SetPos(1030.f, 20.f);
+    m_FloorUI->SetPos(550.f, 10.f);
     m_FloorUI->SetTextColor(255, 246, 226);
     m_FloorUI->EnableShadow(true);
-    m_FloorUI->SetShadowOffset(3.f, 3.f);
+    m_FloorUI->SetShadowOffset(1.f, 1.f);
 
     //하단 UI
-    //에너지
-    m_Energy = CreateWidget<CText>("Energy");
-    m_Energy->SetText(TEXT("3/3"));
-    m_Energy->SetPos(200.f, 1000.f);
-    m_Energy->SetTextColor(255, 255, 219);
-    m_Energy->EnableShadow(true);
-    m_Energy->SetShadowOffset(3.f, 3.f);
 
     CButton* CardButton = CreateWidget<CButton>("CardButton");
-    CardButton->SetTexture("CardButton", TEXT("TopPanel/deckButton/base.bmp"));
-    CardButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(128.f, 128.f));
-    CardButton->SetPos(0.f, 1072.f);
+    CardButton->SetTexture("CardButton", TEXT("TopPanel/base1.bmp"));
+    CardButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(77.f, 77.f));
+    CardButton->SetPos(0.f, 723.f);
 
     CImageWidget2* DeckShadow = CreateWidget<CImageWidget2>("DeckShadow");
     DeckShadow->SetTexture("DeckShadow", TEXT("TopPanel/deckButton/Shadow.bmp"));
@@ -165,6 +172,16 @@ bool CTopPanel::Init()
     TurnOffButton->SetTexture("TurnOffButton", TEXT("TopPanel/endTurnButton.bmp"));
     TurnOffButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(256.f, 256.f));
     TurnOffButton->SetPos(1500.f, 900.f);
+
+
+    //하단 UI
+    //에너지
+    m_Energy = CreateWidget<CText>("Energy");
+    m_Energy->SetText(TEXT("3/3"));
+    m_Energy->SetPos(200.f, 1000.f);
+    m_Energy->SetTextColor(255, 255, 219);
+    m_Energy->EnableShadow(true);
+    m_Energy->SetShadowOffset(3.f, 3.f);
 
     return true;
 }

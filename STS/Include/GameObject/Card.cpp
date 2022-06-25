@@ -59,11 +59,11 @@ bool CCard::Init()
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_Curse.bmp")); //6
 
 	m_Scene->GetSceneResource()->LoadTexture("cardPanel", cardPanelFiles);
-	SetSize(295, 415);
+	SetSize(148, 208);
 
 	//카드 이미지
-	m_cardImageSize = Vector2(246, 185);
-	m_cardImageOffset = Vector2(22, 44);
+	m_cardImageSize = Vector2(123, 93);
+	m_cardImageOffset = Vector2(12, 20);
 
 	//카드 테두리
 	//카드타입에따라 edge텍스처와 nameTag와 이미지
@@ -78,8 +78,8 @@ bool CCard::Init()
 	cardEdgeFiles.push_back(TEXT("Cards/cardEdge_R3.bmp")); //	 8
 
 	//카드파츠들의 이미지를 불러와서 그릴 준비m_cardEdgeSize
-	m_cardEdgeSize = Vector2(265, 235);
-	m_cardEdgeOffset = Vector2(14, 5);
+	m_cardEdgeSize = Vector2(133, 118);
+	m_cardEdgeOffset = Vector2(7, 0);
 	m_Scene->GetSceneResource()->LoadTexture("CardEdge", cardEdgeFiles);
 
 	//카드 네임택
@@ -87,14 +87,14 @@ bool CCard::Init()
 	cardNameTagFiles.push_back(TEXT("Cards/cardNameTag_S.bmp")); //2 SPECIAL
 	cardNameTagFiles.push_back(TEXT("Cards/cardNameTag_R.bmp")); //1 RARE
 
-	m_cardNameTagSize = Vector2(322.f, 70.f);
-	m_cardNameTagOffset = Vector2(-14, 25);
+	m_cardNameTagSize = Vector2(161, 35);
+	m_cardNameTagOffset = Vector2(-7, 10);
 	m_Scene->GetSceneResource()->LoadTexture("CardNameTags", cardNameTagFiles);
 
 	//코스트 이미지
 	m_Scene->GetSceneResource()->LoadTexture("CostImage", TEXT("Cards/cardCost.bmp"));
-	m_costImageSize = Vector2(67, 67);
-	m_costImageOffset = Vector2(-20, -20);
+	m_costImageSize = Vector2(34, 34);
+	m_costImageOffset = Vector2(-10, -10);
 
 
 
@@ -108,7 +108,7 @@ bool CCard::Init()
 	//if (m_EnableCollider) {
 		CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
-		Box->SetExtent(295, 415);
+		Box->SetExtent(148, 208);
 		Box->SetCollisionProfile("Card");
 		Box->SetOffset(m_Size * 0.5f);
 
@@ -371,15 +371,15 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	//카드 이름
 	m_MycardName = CreateWidgetComponent<CText>("cardName");
 	m_MycardName->GetWidget<CText>()->SetText(cardName);
-	m_MycardName->SetPos(120, 27);
+	m_MycardName->SetPos(72, 8);
 	m_MycardName->GetWidget<CText>()->EnableShadow(true);
-	m_MycardName->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
+	m_MycardName->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
 	m_MycardName->GetWidget<CText>()->SetTextColor(255, 255, 237);
-	m_MycardName->GetWidget<CText>()->SetFont("ExplainFont");
+	m_MycardName->GetWidget<CText>()->SetFont("NameFont");
 
 
 	//카드 타입
-	m_MycardType = CreateWidgetComponent<CText>("cardType");
+	//m_MycardType = CreateWidgetComponent<CText>("cardType");
 	char Type[5] = {};
 	char Attack[5] = "공격";
 	char Skill[5] = "스킬";
@@ -408,8 +408,9 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 
 	m_MycardType = CreateWidgetComponent<CText>("cardType");
 	m_MycardType->GetWidget<CText>()->SetText(Change);
-	m_MycardType->SetPos(120, 214);
-	m_MycardType->GetWidget<CText>()->SetTextColor(94, 94, 94);
+	m_MycardType->SetPos(73, 104);
+	m_MycardType->GetWidget<CText>()->SetTextColor(64, 64, 64);
+	m_MycardType->GetWidget<CText>()->SetFont("TypeFont");
 
 	//카드 코스트, 카드 설명
 	m_MycardCost = CreateWidgetComponent<CText>("cardCost");
@@ -423,7 +424,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length2);
 
 	m_MycardCost->GetWidget<CText>()->SetText(Unicode);
-	m_MycardCost->SetPos(5, 0);
+	m_MycardCost->SetPos(6, -10);
 	//m_MycardCost->GetWidget<CText>()->SetSize(200.f, 200.f);
 	m_MycardCost->GetWidget<CText>()->EnableShadow(true);
 	m_MycardCost->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
@@ -431,13 +432,14 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	m_MycardCost->GetWidget<CText>()->SetFont("CostFont");
 
 	//카드 설명
-	m_MycardExplain = CreateWidgetComponent<CText>("cardExplain");
-	SetAbility();
-	//m_MycardExplain->GetWidget<CText>()->SetText(cardExplain);
-	m_MycardExplain->SetPos(50, 300);
-	m_MycardExplain->GetWidget<CText>()->EnableShadow(true);
-	m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
+	//m_MycardExplain = CreateWidgetComponent<CText>("cardExplain");
+	//SetAbility();
+	////m_MycardExplain->GetWidget<CText>()->SetText(cardExplain);
+	//m_MycardExplain->SetPos(0, 0);
+	//m_MycardExplain->GetWidget<CText>()->EnableShadow(true);
+	//m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
+	//m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
+	//m_MycardExplain->GetWidget<CText>()->SetFont("NameFont");
 
 }
 
@@ -459,12 +461,13 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 	ss << "cardExplain" << m_Abilitys.size();
 
 	 CWidgetComponent* text = CreateWidgetComponent<CText>(ss.str());
-	 text->SetPos(50, 300 + m_Abilitys.size()*30);
+	 text->SetPos(75, 100 + m_Abilitys.size()*20);
 	 text->GetWidget<CText>()->EnableShadow(true);
 	 text->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
 	 text->GetWidget<CText>()->SetTextColor(255, 249, 229);
 
 	 text->GetWidget<CText>()->SetText(givedAbility->GetExplain());
+	 text->GetWidget<CText>()->SetFont("NameFont");
 
 	 m_Explains.push_back(text);
 }
@@ -511,8 +514,12 @@ void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 	m_mouseHovered = false;
 
 
-	SetPos(GetPos() - m_HoveredOffset);
+	//SetPos(GetPos() - m_HoveredOffset);
 
+	Vector2  pos;
+	pos.x = GetPos().x;
+	pos.y = 570;
+	SetPos(pos);
 }
 
 void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)

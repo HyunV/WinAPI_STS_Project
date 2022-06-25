@@ -5,6 +5,7 @@ enum class EProgressBar_Texture_Type
 {
     Back, //배경
     Bar, //바 이미지
+    ShieldBar,
     End
 };
 

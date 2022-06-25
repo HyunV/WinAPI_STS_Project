@@ -63,6 +63,12 @@ void CButton::SetTextureFullPath(const std::string& Name, const std::vector<std:
 
 #endif // UNICODE
 
+void CButton::SetColorKey(unsigned char r, unsigned char g, unsigned char b)
+{
+	if (m_Texture)
+		m_Texture->SetColorKey(r, g, b);
+}
+
 //프레임 데이터가 들어오면 이걸 가지고 사이즈를 잡고 출력해야됨
 void CButton::SetButtonStateData(EButton_State State, const Vector2& Start, const Vector2& End)
 {
