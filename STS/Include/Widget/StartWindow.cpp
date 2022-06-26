@@ -60,20 +60,30 @@ bool CStartWindow::Init()
 
 	CButton* EditButton = CreateWidget<CButton>("EditButton");
 
-	EditButton->SetTexture("EditButton", TEXT("EditButton.bmp"));
-	EditButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(200.f, 100.f));
-	EditButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(200.f, 0.f), Vector2(400.f, 100.f));
-	EditButton->SetButtonStateData(EButton_State::Click, Vector2(400.f, 0.f), Vector2(600.f, 100.f));
-	EditButton->SetButtonStateData(EButton_State::Disable, Vector2(600.f, 0.f), Vector2(800.f, 100.f));
+	EditButton->SetTexture("EditButton", TEXT("TopPanel/base1.bmp"));
+	EditButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(77.f, 77.f));
+	EditButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(77.f, 0.f), Vector2(154.f, 77.f));
+	//EditButton->SetButtonStateData(EButton_State::Click, Vector2(400.f, 0.f), Vector2(600.f, 100.f));
+	//EditButton->SetButtonStateData(EButton_State::Disable, Vector2(600.f, 0.f), Vector2(800.f, 100.f));
 
-	EditButton->SetSound(EButton_Sound_State::MouseHovered, "ButtonHovered");
-	EditButton->SetSound(EButton_Sound_State::Click, "ButtonClick");
+	//EditButton->SetSound(EButton_Sound_State::MouseHovered, "ButtonHovered");
+	//EditButton->SetSound(EButton_Sound_State::Click, "ButtonClick");
 
 	EditButton->SetPos(540.f, 270.f);
 	EditButton->SetZOrder(1);
 
-	EditButton->SetCallback<CStartWindow>(EButton_Sound_State::Click,
-		this, &CStartWindow::EditButtonCallback);
+	//EditButton->SetCallback<CStartWindow>(EButton_Sound_State::Click,
+	//	this, &CStartWindow::EditButtonCallback);
+
+
+	CButton* SettingButton = CreateWidget<CButton>("SettingButton");
+	SettingButton->SetTexture("SettingButton", TEXT("TopPanel/settings.bmp"));
+	SettingButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(39.f, 39.f));
+	SettingButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(39.f, 0.f), Vector2(78.f, 39.f));
+	SettingButton->SetButtonStateData(EButton_State::Click, Vector2(39.f, 0.f), Vector2(78.f, 39.f));
+	SettingButton->SetPos(1231.f, 3.f);
+	SettingButton->SetColorKey(255, 0, 255);
+	SettingButton->SetZOrder(1);
 
 
 	CButton* EndButton = CreateWidget<CButton>("EndButton");
@@ -184,66 +194,66 @@ void CStartWindow::Update(float DeltaTime)
 {
 	CWidgetWindow::Update(DeltaTime);
 
-	SYSTEMTIME	Time;
+	//SYSTEMTIME	Time;
 
-	GetLocalTime(&Time);
+	//GetLocalTime(&Time);
 
-	m_Hour->SetNumber(Time.wHour);
-	m_Minute->SetNumber(Time.wMinute);
-	m_Second->SetNumber(Time.wSecond);
-
-
-	if (m_AddCount < lstrlen(m_AddText))
-	{
-		m_TextTime += DeltaTime;
-
-		if (m_TextTime >= 1.f)
-		{
-			m_TextTime -= 1.f;
-
-			m_Text->AddText(m_AddText[m_AddCount]);
-
-			++m_AddCount;
-		}
-	}
-
-	float FPS = CGameManager::GetInst()->GetFPS();
-
-	char	Text[256] = {};
-	sprintf_s(Text, "FPS : %.5f", FPS);
-
-	TCHAR	Unicode[256] = {};
-	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
-	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
-
-	m_FPSText->SetText(Unicode);
-	
-	//¸¶¿ì½º ÁÂÇ¥
+	//m_Hour->SetNumber(Time.wHour);
+	//m_Minute->SetNumber(Time.wMinute);
+	//m_Second->SetNumber(Time.wSecond);
 
 
-	POINT ptMouse;
-	GetCursorPos(&ptMouse);
-	ScreenToClient(m_hWnd, &ptMouse);
+	//if (m_AddCount < lstrlen(m_AddText))
+	//{
+	//	m_TextTime += DeltaTime;
 
-	//m_MouseMove.x
-	m_MousePos.x = (float)ptMouse.x;
-	m_MousePos.y = (float)ptMouse.y;
+	//	if (m_TextTime >= 1.f)
+	//	{
+	//		m_TextTime -= 1.f;
 
-	char MouseTextX[256] = {};
-	char MouseTextY[256] = {};
-	sprintf_s(MouseTextX, "X: %.f", m_MousePos.x);
-	sprintf_s(MouseTextY, "Y: %.f", m_MousePos.y);
+	//		m_Text->AddText(m_AddText[m_AddCount]);
 
-	TCHAR	UnicodeX[256] = {};
-	int LengthX = MultiByteToWideChar(CP_ACP, 0, MouseTextX, -1, 0, 0);
-	MultiByteToWideChar(CP_ACP, 0, MouseTextX, -1, UnicodeX, LengthX);
+	//		++m_AddCount;
+	//	}
+	//}
 
-	TCHAR	UnicodeY[256] = {};
-	int LengthY = MultiByteToWideChar(CP_ACP, 0, MouseTextY, -1, 0, 0);
-	MultiByteToWideChar(CP_ACP, 0, MouseTextY, -1, UnicodeY, LengthY);
+	//float FPS = CGameManager::GetInst()->GetFPS();
 
-	m_MousePosTextX->SetText(UnicodeX);
-	m_MousePosTextY->SetText(UnicodeY);
+	//char	Text[256] = {};
+	//sprintf_s(Text, "FPS : %.5f", FPS);
+
+	//TCHAR	Unicode[256] = {};
+	//int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
+	//MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
+
+	//m_FPSText->SetText(Unicode);
+	//
+	////¸¶¿ì½º ÁÂÇ¥
+
+
+	//POINT ptMouse;
+	//GetCursorPos(&ptMouse);
+	//ScreenToClient(m_hWnd, &ptMouse);
+
+	////m_MouseMove.x
+	//m_MousePos.x = (float)ptMouse.x;
+	//m_MousePos.y = (float)ptMouse.y;
+
+	//char MouseTextX[256] = {};
+	//char MouseTextY[256] = {};
+	//sprintf_s(MouseTextX, "X: %.f", m_MousePos.x);
+	//sprintf_s(MouseTextY, "Y: %.f", m_MousePos.y);
+
+	//TCHAR	UnicodeX[256] = {};
+	//int LengthX = MultiByteToWideChar(CP_ACP, 0, MouseTextX, -1, 0, 0);
+	//MultiByteToWideChar(CP_ACP, 0, MouseTextX, -1, UnicodeX, LengthX);
+
+	//TCHAR	UnicodeY[256] = {};
+	//int LengthY = MultiByteToWideChar(CP_ACP, 0, MouseTextY, -1, 0, 0);
+	//MultiByteToWideChar(CP_ACP, 0, MouseTextY, -1, UnicodeY, LengthY);
+
+	//m_MousePosTextX->SetText(UnicodeX);
+	//m_MousePosTextY->SetText(UnicodeY);
 
 }
 

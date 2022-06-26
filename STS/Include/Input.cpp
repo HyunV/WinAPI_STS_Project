@@ -81,24 +81,25 @@ bool CInput::Init(HWND hWnd)
 
 	std::vector<std::wstring> vecFileName;
 
-	for (int i = 0; i <= 10; ++i)
-	{
+	//for (int i = 0; i <= 10; ++i)
+	//{
+	int i = 1;
 		TCHAR FileName[MAX_PATH] = {};
 		// %d에 i의 값이 대입되어 문자열이 만들어지게 된다.
 		wsprintf(FileName, TEXT("Mouse/%d.bmp"), i); //마우스 파일 개수만큼 숫자로 이름이 생성된다.
 		vecFileName.push_back(FileName); //마우스 프레임 파일 11장 등록
-	}
+	//}
 
 	CResourceManager::GetInst()->CreateAnimationSequence("MouseDefault", "MouseDefault", vecFileName, TEXTURE_PATH);
 
-	for (int i = 0; i < 11; ++i)
-	{
+	//for (int i = 0; i < 11; ++i)
+	//{
 		CResourceManager::GetInst()->AddAnimationFrame("MouseDefault", 0.f, 0.f,
-			32.f, 31.f); //마우스 이미지 크기에 맞춰줌
-	}
+			50.f, 50.f); //마우스 이미지 크기에 맞춰줌
+	//}
 
 	CResourceManager::GetInst()->SetColorKey("MouseDefault", 255, 0, 255);
-
+	//CResourceManager::GetInst()->LoadTexture("Mouse", TEXT("cursor.bmp"));
 	//마우스 구현해논거 가져다 쓰기
 
 	m_MouseObj = new CGameObject;
@@ -107,7 +108,7 @@ bool CInput::Init(HWND hWnd)
 
 	m_MouseObj->Init();
 
-	m_MouseObj->SetSize(32.f, 31.f);
+	m_MouseObj->SetSize(50.f, 50.f);
 
 	m_MouseObj->CreateAnimation();
 

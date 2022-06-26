@@ -13,6 +13,7 @@ CFontManager::~CFontManager()
 bool CFontManager::Init()
 {
 	LoadFont(TEXT("경기천년바탕 Bold"));
+	LoadFont(TEXT("Kreon"));
 
 	LoadFont("DefaultFont", TEXT("경기천년바탕 Bold"), 0, 0);
 	LoadFont("NameFont", TEXT("경기천년바탕 Bold"), 0, 14);

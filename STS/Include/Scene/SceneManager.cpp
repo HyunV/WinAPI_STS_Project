@@ -21,8 +21,8 @@ CSceneManager::~CSceneManager()
 
 bool CSceneManager::Init()
 {
-	//CreateScene<CStartScene>();
 	CreateScene<CBattleScene>();
+	//CreateScene<CStartScene>();
 
 	return true;
 }

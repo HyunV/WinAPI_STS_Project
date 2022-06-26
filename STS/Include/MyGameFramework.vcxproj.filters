@@ -309,6 +309,9 @@
     <ClCompile Include="GameObject\Cards\GiveAttribute.cpp">
       <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Deco.cpp">
+      <Filter>02.GameObject\03.Back</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Cards\GiveAttribute.h">
       <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Deco.h">
+      <Filter>02.GameObject\03.Back</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,12 +5,12 @@ class CImageWidget2 :
 {
     friend class CWidgetWindow;
 
-protected:
+public:
     CImageWidget2();
     CImageWidget2(const CImageWidget2& widget);
     virtual ~CImageWidget2();
 
-protected:
+public:
     CSharedPtr<class CTexture>  m_Texture;
 
 public:

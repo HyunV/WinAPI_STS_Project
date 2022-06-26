@@ -2,16 +2,24 @@
 #include "../GameObject/MyPlayer.h"
 #include "../GameObject/MyMonster.h"
 #include "../GameObject/BackObj.h"
+#include "../GameObject/Deco.h"
 #include "SceneResource.h"
 #include "Camera.h"
 #include "../Input.h"
+
+
+#include "../Widget/WidgetComponent.h"
+#include "../Widget/WidgetWindow.h"
 #include "../Widget/TopPanel.h"
+#include "../Widget/ImageWidget2.h"
+#include "../Widget/CharacterHUD.h"
 
 #include "../Collision/ColliderBox.h"
 
-#include "../Widget/CharacterHUD.h"
+
 #include "../GameObject/Cards/GiveAttribute.h"
 
+#include "../Widget/StartWindow.h"
 
 #include "../GameObject/Cards/Strike.h"
 #include "../GameObject/Cards/Defend.h"
@@ -30,11 +38,31 @@ CBattleScene::~CBattleScene()
 
 bool CBattleScene::Init()
 {
+	
+	//CreateWidgetWindow<CStartWindow>("StartWindow");
+
 	GetCamera()->SetResolution(1920.f, 1200.f);
 	GetCamera()->SetWorldResolution(1920.f, 1200.f);
 	GetCamera()->SetTargetPivot(0.f, 0.f);
 
 	CreateObject<CBackObj>("BackObj");
+	
+	CDeco* BackImageA = CreateObject<CDeco>("BackImageA");
+	BackImageA->SetPos(0, 50);
+	BackImageA->SetTexture("BackImageA", TEXT("Scene/B.bmp"));
+	BackImageA->SetSize(1280, 512);
+	BackImageA->SetColorKey(255, 0, 255);
+
+	CDeco* BackImageB = CreateObject<CDeco>("BackImageB");
+	BackImageB->SetPos(0, 550);
+	BackImageB->SetTexture("BackImageB", TEXT("Scene/C.bmp"));
+	BackImageB->SetSize(1280, 185);
+	BackImageB->SetColorKey(255, 0, 255);
+
+
+
+
+	
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 
@@ -77,9 +105,10 @@ bool CBattleScene::Init()
 
 
 	SetPlayer(Player);
-
-	//
+	
 	CreateWidgetWindow<CTopPanel>("TopPanel");
+	//
+	
 
 	return true;
 }

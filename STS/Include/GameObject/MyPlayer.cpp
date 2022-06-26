@@ -26,20 +26,20 @@ bool CMyPlayer::Init()
 	
 	m_Atk = 3;
 
-	SetPos(100.f, 400.f);
-	SetSize(270.f, 161.f);
+	SetPos(130.f, 350.f);
+	SetSize(270.f, 191.f);
 	//SetSize(148.f, 208.f);
 	SetPivot(0.f, 0.f);
 
-	SetTexture("Player", TEXT("Player/PlayerH.bmp"));
+	SetTexture("Player", TEXT("Player/Player.bmp"));
 	SetColorKey(255, 0, 255);
 	//SetTexture("Player", TEXT("card.bmp"));
 
 		// 충돌체 추가
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
-	Box->SetExtent(270, 191.f); //크기 세팅
-	//Box->SetOffset(1.f, 1.f); //위치세팅
+	Box->SetExtent(1000, 300.f); //크기 세팅
+	Box->SetOffset(480.f, 1.f); //위치세팅
 	Box->SetCollisionProfile("MyPlayer");
 
 	Box->SetCollisionBeginFunction<CMyPlayer>(this, &CMyPlayer::CollisionBegin);

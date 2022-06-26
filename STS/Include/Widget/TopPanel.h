@@ -11,6 +11,8 @@ protected:
     virtual ~CTopPanel();
 
 private:
+    HWND m_hWnd;
+
     CSharedPtr<class CText> m_PlayerName; //이름
     CSharedPtr<class CText> m_Job; //직업
     
@@ -25,8 +27,8 @@ private:
 
     CSharedPtr<class CText> m_Energy;
 
-    CSharedPtr<class CText> LCardCount;
-    CSharedPtr<class CText> RCardCount;
+    CSharedPtr<class CText> m_LCardCount;
+    CSharedPtr<class CText> m_RCardCount;
 
     bool TurnOff;
 
@@ -35,6 +37,7 @@ private:
 public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
-
+public:
+    void SettingButtonCallback();
 };
 

@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "../Input.h"
 #include "../Widget/StartWindow.h"
+#include "../Widget/TopPanel.h"
+
 
 CStartScene::CStartScene()
 {
@@ -21,7 +23,8 @@ bool CStartScene::Init()
 	GetCamera()->SetWorldResolution(1920.f, 1200.f);
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
-	CreateWidgetWindow<CStartWindow>("StartWindow");
+	//CreateWidgetWindow<CStartWindow>("StartWindow");
+	CreateWidgetWindow<CTopPanel>("TopPanel");
 
 	return true;
 }
