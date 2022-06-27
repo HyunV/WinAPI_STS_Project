@@ -297,7 +297,7 @@
     <ResourceCompile Include="MyGameFramework.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\Desktop\enemy.bmp" />
+    <Image Include="..\Bin\Texture\icon.ico" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>

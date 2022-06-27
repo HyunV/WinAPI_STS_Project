@@ -555,7 +555,7 @@
     <Image Include="icon1.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\..\..\..\Desktop\enemy.bmp">
+    <Image Include="..\Bin\Texture\icon.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

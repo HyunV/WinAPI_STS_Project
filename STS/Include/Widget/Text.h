@@ -123,8 +123,6 @@ public:
 
 	void SetFont(const std::string& Name);
 
-	void SetTextSize(const LONG Size);
-
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

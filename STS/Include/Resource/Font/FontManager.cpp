@@ -24,7 +24,6 @@ bool CFontManager::Init()
 	LoadFont("PlayerNameFont", TEXT("경기천년바탕 Bold"), 0, 15);
 	LoadFont("UI", TEXT("경기천년바탕 Bold"), 0, 20);
 
-
 	return true;
 }
 

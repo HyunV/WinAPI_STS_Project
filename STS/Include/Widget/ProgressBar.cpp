@@ -80,7 +80,6 @@ void CProgressBar::Update(float DeltaTime)
 {
 	m_BarSize = m_Size;
 	m_BarPos = m_Pos;
-
 	switch (m_Dir)
 	{
 	case EProgressBar_Dir::LeftToRight:

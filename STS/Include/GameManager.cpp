@@ -254,19 +254,19 @@ void CGameManager::Register()
 	wcex.cbWndExtra = 0;
 
 	wcex.hInstance = m_hInst; //윈도우 인스턴스 지정해줌 우리는 게임매니저 헤더서 m_hInst를 싱글톤으로 쓰려고 이걸로 지정.
-	wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON1)); //아이콘 세팅
+	wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON3)); //아이콘 세팅
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW); //마우스 커서 모양(기본)
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); //클라이언트 화면 기본 색상(화이트)
 	wcex.lpszMenuName = nullptr; //메뉴 사용 여부, 쓸거면 MAKEINTRESOURCEW(IDC_MY220428)
 	wcex.lpszClassName = TEXT("GameFramework"); //클래스 이름 szWindowClass //이름 이상하게 하니까 안나오네?
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON1)); //미니 아이콘 세팅
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON3)); //미니 아이콘 세팅
 
 	RegisterClassExW(&wcex); //이 함수를 통해 세팅한 것들을 등록한다.
 }
 
 bool CGameManager::Create()
 {
-	m_hWnd = CreateWindowW(TEXT("GameFramework"), TEXT("GameFramework"), WS_OVERLAPPEDWINDOW, 100, 0, 0, 0, nullptr, nullptr, m_hInst, nullptr);
+	m_hWnd = CreateWindowW(TEXT("GameFramework"), TEXT("Slay the Spire"), WS_OVERLAPPEDWINDOW, 100, 0, 0, 0, nullptr, nullptr, m_hInst, nullptr);
 	//		= CreateWindoW(1.윈도우 클래스에 등록한 이름, 2.타이틀바 이름, 3.창 어떻게 생성될지, 4,5. 창 생성 위치, 6,7: 가로, 세로 , 8.부모윈도우 핸들 지정, 9. 메뉴핸들 지정, 10.윈도우 인스턴스(hInstance), 11. 
 	//10번인자는 정상적으로 생성되면 HWND를 반환해줌 실패시 0 반환
 	if (!m_hWnd)

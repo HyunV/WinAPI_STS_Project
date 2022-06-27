@@ -43,31 +43,58 @@ bool CMyMonster::Init()
 
 	m_HP = 100;
 	m_MaxHP = 100;
+	m_Shield = 1;
+
+	m_HpBarFiles.push_back(TEXT("HPBar/HpBarShield.bmp"));
+
+	m_HPBarFrame = CreateWidgetComponent<CProgressBar>("HPBarFrame");
+	m_HPBarFrame->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Back,
+		"HPFrame", TEXT("HPBar/HpBarShield.bmp"));
+	m_HPBarFrame->GetWidget<CProgressBar>()->SetColorKey(EProgressBar_Texture_Type::Back, 255, 0, 255);
+	m_HPBarFrame->GetWidget<CProgressBar>()->SetSize(130.f, 12.f);
+	m_HPBarFrame->SetPos(0.f, 100.f);
+
 
 	m_HPBar = CreateWidgetComponent<CProgressBar>("HPBar");
 	m_HPBar->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Bar, 
-		"HPBar", TEXT("CharacterHPBar2.bmp"));
+		"HPBar", TEXT("HPBar/HpBarShieldHP.bmp"));
 	m_HPBar->GetWidget<CProgressBar>()->SetColorKey(EProgressBar_Texture_Type::Bar, 255, 0, 255);
-	m_HPBar->GetWidget<CProgressBar>()->SetSize(50.f, 10.f);
-	m_HPBar->SetPos(0.f, 200.f);
+	m_HPBar->GetWidget<CProgressBar>()->SetSize(126.f, 12.f);
+	m_HPBar->SetPos(0.f, 100.f);
 
+
+	m_HPText = CreateWidgetComponent<CText>("HPText");
+	m_HPText->GetWidget<CText>()->SetText(TEXT("Á×À½"));
+	m_HPText->GetWidget<CText>()->EnableShadow(true);
+	m_HPText->GetWidget<CText>()->SetTextColor(255, 255, 255);
+	m_HPText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
+	m_HPText->GetWidget<CText>()->SetFont("UI");
+	m_HPText->SetPos(50.f, 137.f);
+	m_HPText->GetWidget<CText>()->SetSize(100, 100);
 
 	m_NameBar = CreateWidgetComponent<CText>("MonsterNameBar");
 
-	m_NameBar->GetWidget<CText>()->SetText(TEXT("Çã¼ö¾Æºñ"));
+	m_NameBar->GetWidget<CText>()->SetText(TEXT("±¤½ÅÀÚ"));
 	m_NameBar->GetWidget<CText>()->EnableShadow(true);
 	m_NameBar->GetWidget<CText>()->SetTextColor(255, 255, 255);
+	m_NameBar->GetWidget<CText>()->SetFont("NameFont");
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_NameBar->GetWidget<CText>()->SetFont("CostFont");
-	m_NameBar->SetPos(-20.f, 140.f);
+	m_NameBar->SetPos(0.f, 110.f);
 	return true;
 }
 
 void CMyMonster::Update(float DeltaTime)
 {
+ 
 	CGameObject::Update(DeltaTime);
+	
+	char Text[256] = {};
+	sprintf_s(Text, "%d/%d", m_HP, m_MaxHP);
 
-
+	TCHAR Unicode[256] = {};
+	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
+	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
+	m_HPText->GetWidget<CText>()->SetText(Unicode);
 }
 
 void CMyMonster::PostUpdate(float DeltaTime)
@@ -83,6 +110,7 @@ void CMyMonster::Render(HDC hDC, float DeltaTime)
 float CMyMonster::InflictDamage(float Damage)
 {
 	Damage = CCharacter::InflictDamage(Damage);
+	
 	m_HP -= (int)Damage;
 
 	if (m_HP <= 0)

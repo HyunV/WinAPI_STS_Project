@@ -160,9 +160,8 @@ bool CPlayer::Init()
 
 	//À§Á¬ÄÄÆ÷³ÍÆ® Ãß°¡
 	m_HPBar = CreateWidgetComponent<CProgressBar>("HPBar");
-
 	m_HPBar->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Bar,
-		"HPBar", TEXT("CharacterHPBar.bmp"));
+		"HPBar", TEXT("HPBar/HpBarHP.bmp"));
 	m_HPBar->GetWidget<CProgressBar>()->SetSize(50.f, 10.f);
 	m_HPBar->SetPos(-25.f, -90.f);
 

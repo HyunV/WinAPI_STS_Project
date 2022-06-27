@@ -19,12 +19,19 @@ protected:
     virtual ~CMyMonster();
 
 private:
+    CSharedPtr<class CWidgetComponent> m_HPBarFrame;
     CSharedPtr<class CWidgetComponent> m_HPBar;
     CSharedPtr<class CWidgetComponent> m_NameBar;
+
+    CSharedPtr<class CWidgetComponent> m_HPText;
+    
 
     int m_MaxHP;
     int m_HP;
     int m_AttackDamage;
+    
+    vector<wstring> m_HpBarFiles;
+    int m_Shield;
    
 public:
     virtual bool Init();
