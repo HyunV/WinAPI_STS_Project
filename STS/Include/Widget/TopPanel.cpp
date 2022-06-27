@@ -9,6 +9,8 @@
 #include "Text.h"
 #include "Button.h"
 
+#include "../Scene/BattleScene.h"
+#include "../GameObject/MyMonster.h"
 CTopPanel::CTopPanel()
 {
 }
@@ -215,6 +217,11 @@ bool CTopPanel::Init()
 void CTopPanel::Update(float DeltaTime)
 {
     CWidgetWindow::Update(DeltaTime);
+}
+
+void CTopPanel::TestCallback()
+{
+    
 }
 
 void CTopPanel::SettingButtonCallback()

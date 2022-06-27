@@ -8,6 +8,7 @@
 #include "../Widget/Text.h"
 #include "../Widget/ProgressBar.h"
 
+
 CMyMonster::CMyMonster()
 {
 	SetTypeID<CMyMonster>();
@@ -29,27 +30,28 @@ bool CMyMonster::Init()
 	SetSize(180.f, 180.f);
 	SetPivot(0.5f, 0.5f);
 
-	SetTexture("Puppet", TEXT("Monster/enemy1.bmp"));
+	SetTexture("MyMonster", TEXT("Monster/enemy1.bmp"));
 	SetColorKey(255, 0, 255);
 
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 	Box->SetExtent(180.f, 180.f);
 	Box->SetCollisionProfile("Monster");
 
-	//Box->SetMouseCollisionBeginFunction<CMyMonster>(this, &CMyMonster::CollisionMouseBegin);
-	//Box->SetMouseCollisionEndFunction<CMyMonster>(this, &CMyMonster::CollisionMouseEnd);
+	Box->SetMouseCollisionBeginFunction<CMyMonster>(this, &CMyMonster::CollisionMouseBegin);
+	Box->SetMouseCollisionEndFunction<CMyMonster>(this, &CMyMonster::CollisionMouseEnd);
 	Box->SetCollisionBeginFunction(this, &CMyMonster::CollisionBegin);
 	Box->SetCollisionEndFunction(this, &CMyMonster::CollisionEnd);
-
+	
 	m_HP = 100;
 	m_MaxHP = 100;
-	m_Shield = 1;
-
-	m_HpBarFiles.push_back(TEXT("HPBar/HpBarShield.bmp"));
+	m_Shield = 0;
 
 	m_HPBarFrame = CreateWidgetComponent<CProgressBar>("HPBarFrame");
 	m_HPBarFrame->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Back,
-		"HPFrame", TEXT("HPBar/HpBarShield.bmp"));
+		"HPFrame", TEXT("HPBar/BarPanel.bmp"));
+
+	m_HPBarFrame->GetWidget<CProgressBar>()->SetBarStateData(EProgressBar_Color::Default, Vector2(0, 0), Vector2(130, 12));
+	m_HPBarFrame->GetWidget<CProgressBar>()->SetBarStateData(EProgressBar_Color::Shield, Vector2(130, 0), Vector2(260, 12));
 	m_HPBarFrame->GetWidget<CProgressBar>()->SetColorKey(EProgressBar_Texture_Type::Back, 255, 0, 255);
 	m_HPBarFrame->GetWidget<CProgressBar>()->SetSize(130.f, 12.f);
 	m_HPBarFrame->SetPos(0.f, 100.f);
@@ -57,7 +59,10 @@ bool CMyMonster::Init()
 
 	m_HPBar = CreateWidgetComponent<CProgressBar>("HPBar");
 	m_HPBar->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Bar, 
-		"HPBar", TEXT("HPBar/HpBarShieldHP.bmp"));
+		"HPBar", TEXT("HPBar/BarHP.bmp"));
+	m_HPBar->GetWidget<CProgressBar>()->SetBarStateData(EProgressBar_Color::Default, Vector2(0, 0), Vector2(126, 12));
+	m_HPBar->GetWidget<CProgressBar>()->SetBarStateData(EProgressBar_Color::Shield, Vector2(126, 0), Vector2(252, 12));
+
 	m_HPBar->GetWidget<CProgressBar>()->SetColorKey(EProgressBar_Texture_Type::Bar, 255, 0, 255);
 	m_HPBar->GetWidget<CProgressBar>()->SetSize(126.f, 12.f);
 	m_HPBar->SetPos(0.f, 100.f);
@@ -80,14 +85,26 @@ bool CMyMonster::Init()
 	m_NameBar->GetWidget<CText>()->SetFont("NameFont");
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
 	m_NameBar->SetPos(0.f, 110.f);
+
+
 	return true;
 }
 
 void CMyMonster::Update(float DeltaTime)
 {
  
+	if (m_Shield) {
+		m_HPBarFrame->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
+		m_HPBar->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
+	}
+	else {
+		m_HPBarFrame->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Default);
+		m_HPBar->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Default);
+	}
 	CGameObject::Update(DeltaTime);
-	
+
+
+
 	char Text[256] = {};
 	sprintf_s(Text, "%d/%d", m_HP, m_MaxHP);
 
@@ -122,16 +139,18 @@ float CMyMonster::InflictDamage(float Damage)
 
 void CMyMonster::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 {
-
+	m_Shield++;
 }
 
 void CMyMonster::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 {
+	m_Shield--;
 }
 
 void CMyMonster::CollisionBegin(CCollider* Src, CCollider* Dest)
 {
 	//MessageBox(nullptr, TEXT("È®ÀÎ."), TEXT("^¸ð^"), MB_OK);
+	
 	
 }
 

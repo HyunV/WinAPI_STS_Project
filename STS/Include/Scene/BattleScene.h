@@ -14,6 +14,7 @@ private:
 
 public:
     bool Init();
+
 private:
     void CreateAnimationSequence();
 };

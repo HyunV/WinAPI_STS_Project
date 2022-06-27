@@ -5,12 +5,12 @@ class CButton :
     public CWidget
 {
     friend class CWidgetWindow;
-protected:
+public:
     CButton();
     CButton(const CButton& widget);
     virtual ~CButton();
 
-protected:
+public:
     CSharedPtr<class CTexture> m_Texture; //받아올 텍스처
     AnimationFrameData  m_StateData[(int)EButton_State::Max]; //애니메이션 프레임 + 버튼의 상태
     EButton_State       m_ButtonState; //버튼 상태

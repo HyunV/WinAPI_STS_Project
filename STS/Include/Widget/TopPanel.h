@@ -38,6 +38,7 @@ public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
 public:
+    void TestCallback();
     void SettingButtonCallback();
 };
 

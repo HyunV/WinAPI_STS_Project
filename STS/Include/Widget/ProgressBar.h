@@ -4,6 +4,7 @@
 enum class EProgressBar_Texture_Type
 {
     Back, //배경
+    ShieldBarBack,
     Bar, //바 이미지
     ShieldBar,
     End
@@ -15,6 +16,13 @@ enum class EProgressBar_Dir
     RightToLeft,
     BottomToTop,
     TopToBottom,
+    End
+};
+
+enum class EProgressBar_Color
+{
+    Default,
+    Shield,
     End
 };
 
@@ -36,9 +44,12 @@ protected:
     float               m_Value;
     Vector2             m_BarSize;
     Vector2             m_BarPos;
-
+    
+    EProgressBar_Color  m_BarType;
+    AnimationFrameData m_StateData[(int)EProgressBar_Color::End];
 
 public:
+    void SetBarStateData(EProgressBar_Color State, const Vector2& Start, const Vector2& End);
     void SetBarDir(EProgressBar_Dir Dir)
     {
         m_Dir = Dir;
@@ -65,12 +76,17 @@ public:
         else if (m_Value < 0.f)
             m_Value = 0.f;
     }
+    void SetBarType(EProgressBar_Color Type)
+    {
+        m_BarType = Type;
+    }
 
 public:
     void SetTexture(EProgressBar_Texture_Type Type, const std::string& Name, const TCHAR* FileName,
         const std::string& PathName = TEXTURE_PATH);
     void SetTextureFullPath(EProgressBar_Texture_Type Type, const std::string& Name, const TCHAR* FullPath);
-
+    
+    void SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName);
 #ifdef UNICODE
 
     void SetTexture(EProgressBar_Texture_Type Type, const std::string& Name, const std::vector<std::wstring>& vecFileName,
@@ -93,5 +109,9 @@ public:
     virtual void PostUpdate(float DeltaTime);
     virtual void Render(HDC hDC, float DeltaTime);
     virtual void Render(HDC hDC, const Vector2& Pos, float DeltaTime);
+
+public:
+
+
 };
 

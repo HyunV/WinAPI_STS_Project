@@ -7,6 +7,7 @@
 
 CProgressBar::CProgressBar() :
 	m_Dir(EProgressBar_Dir::LeftToRight),
+	m_BarType(EProgressBar_Color::Default),
 	m_Value(1.f)
 {
 }
@@ -18,6 +19,12 @@ CProgressBar::CProgressBar(const CProgressBar& widget) :
 
 CProgressBar::~CProgressBar()
 {
+}
+
+void CProgressBar::SetBarStateData(EProgressBar_Color State, const Vector2& Start, const Vector2& End)
+{
+	m_StateData[(int)State].Start = Start;
+	m_StateData[(int)State].End = End;
 }
 
 void CProgressBar::SetTexture(EProgressBar_Texture_Type Type, const std::string& Name, const TCHAR* FileName,
@@ -78,6 +85,7 @@ bool CProgressBar::Init()
 
 void CProgressBar::Update(float DeltaTime)
 {
+	//m_BarType = EProgressBar_Color::Default;
 	m_BarSize = m_Size;
 	m_BarPos = m_Pos;
 	switch (m_Dir)
@@ -120,6 +128,7 @@ void CProgressBar::Render(HDC hDC, float DeltaTime)
 						m_Texture[i]->GetDC(),
 						0, 0, (int)m_BarSize.x, (int)m_BarSize.y,
 						m_Texture[i]->GetColorKey());
+
 				}
 
 				else
@@ -150,10 +159,17 @@ void CProgressBar::Render(HDC hDC, const Vector2& Pos, float DeltaTime)
 			{
 				if (m_Texture[i]->GetEnableColorKey())
 				{
+					//TransparentBlt(hDC, (int)RenderPos.x, (int)RenderPos.y,
+					//	(int)m_BarSize.x, (int)m_BarSize.y,
+					//	m_Texture[i]->GetDC(),
+					//	0, 0, (int)m_BarSize.x, (int)m_BarSize.y,
+					//	m_Texture[i]->GetColorKey());
 					TransparentBlt(hDC, (int)RenderPos.x, (int)RenderPos.y,
 						(int)m_BarSize.x, (int)m_BarSize.y,
 						m_Texture[i]->GetDC(),
-						0, 0, (int)m_BarSize.x, (int)m_BarSize.y,
+						(int)m_StateData[(int)m_BarType].Start.x,
+						(int)m_StateData[(int)m_BarType].Start.y,
+						(int)m_BarSize.x, (int)m_BarSize.y,
 						m_Texture[i]->GetColorKey());
 				}
 

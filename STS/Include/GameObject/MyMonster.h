@@ -24,14 +24,16 @@ private:
     CSharedPtr<class CWidgetComponent> m_NameBar;
 
     CSharedPtr<class CWidgetComponent> m_HPText;
+
+    CSharedPtr<class CWidgetComponent> m_TestButton;
     
 
     int m_MaxHP;
     int m_HP;
     int m_AttackDamage;
-    
-    vector<wstring> m_HpBarFiles;
     int m_Shield;
+    vector<wstring> m_HpBarFiles;
+    
    
 public:
     virtual bool Init();
@@ -40,6 +42,13 @@ public:
     virtual void Render(HDC hDC, float DeltaTime);
     virtual float InflictDamage(float Damage);
 
+    
+    void AddShield(int shield) {
+        m_Shield += shield;
+    }
+    void MinusShield(int shield) {
+        m_Shield -= shield;
+    }
 private:
     void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
