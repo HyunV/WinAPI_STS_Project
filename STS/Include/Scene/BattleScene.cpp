@@ -41,14 +41,14 @@ bool CBattleScene::Init()
 	
 	//CreateWidgetWindow<CStartWindow>("StartWindow");
 
-	GetCamera()->SetResolution(1920.f, 1200.f);
-	GetCamera()->SetWorldResolution(1920.f, 1200.f);
+	GetCamera()->SetResolution(1280.f, 1200.f);
+	GetCamera()->SetWorldResolution(1280.f, 1200.f);
 	GetCamera()->SetTargetPivot(0.f, 0.f);
 
 	CreateObject<CBackObj>("BackObj");
 	
 	CDeco* BackImageA = CreateObject<CDeco>("BackImageA");
-	BackImageA->SetPos(0, 50);
+	BackImageA->SetPos(0, 0);
 	BackImageA->SetTexture("BackImageA", TEXT("Scene/B.bmp"));
 	BackImageA->SetSize(1280, 512);
 	BackImageA->SetColorKey(255, 0, 255);
@@ -59,10 +59,6 @@ bool CBattleScene::Init()
 	BackImageB->SetSize(1280, 185);
 	BackImageB->SetColorKey(255, 0, 255);
 
-
-
-
-	
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 

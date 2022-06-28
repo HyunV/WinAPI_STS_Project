@@ -30,6 +30,7 @@ CMonster::~CMonster()
 bool CMonster::Init()
 {
 	CGameObject::Init();
+	
 
 	m_MoveSpeed = 300.f;
 	Width = 1280;
@@ -39,6 +40,8 @@ bool CMonster::Init()
 	m_Dir = Vector2(0.f, 1.f);
 	m_FireTime = 0.f;
 	m_FireCount = 0;
+
+	m_MoveObject = true;
 
 	m_HP = 100;
 	m_HPMax = 100;

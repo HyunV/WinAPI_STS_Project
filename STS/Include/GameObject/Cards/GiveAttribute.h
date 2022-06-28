@@ -5,8 +5,9 @@
 class CGiveAttribute :
     public CCardAbility
 {
+    friend class CScene;
 public:
-    virtual void ActivateAbility(CGameObject* target);
+    virtual void ActivateAbility(CGameObject* owner, CGameObject* target);
 
 
     void SetType(Card_Attribute Type, float Power);

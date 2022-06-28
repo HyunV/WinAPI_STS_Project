@@ -1,12 +1,15 @@
 #include "GiveAttribute.h"
+#include "../Character.h"
+#include "../../Scene/Scene.h"
 #include <sstream>
 
 //어빌리티 활성화 구간
-void CGiveAttribute::ActivateAbility(CGameObject* target)
+void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 {
 	switch (m_Type)
 	{
 	case Card_Attribute::Damage:
+		m_Scene->GetPlayer()->SetEnableAttack(true);
 		target->InflictDamage(m_Power);
 		break;
 	case Card_Attribute::Shield:
@@ -22,13 +25,14 @@ void CGiveAttribute::SetType(Card_Attribute Type, float Power)
 {
 	m_Type = Type;
 	m_Power = Power;
-
+	
 
 	char	Text[256] = {};
 
 
 	switch (m_Type)
 	{
+		
 	case Card_Attribute::Damage:
 		sprintf_s(Text, "피해를 %d 줍니다.", (int)Power);
 		break;

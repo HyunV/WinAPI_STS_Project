@@ -13,6 +13,6 @@ TCHAR* CCardAbility::GetExplain()
 	return m_Explain;
 }
 
-void CCardAbility::ActivateAbility(CGameObject* target)
+void CCardAbility::ActivateAbility(CGameObject* owner, CGameObject* target)
 {
 }

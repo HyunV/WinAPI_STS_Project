@@ -126,7 +126,7 @@ public:
         return curse;
     } 
 
-    virtual void useCard(CGameObject* Target);
+    virtual void useCard(CGameObject* Owner, CGameObject* Target);
 
     
 

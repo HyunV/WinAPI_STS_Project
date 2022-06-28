@@ -11,13 +11,11 @@ protected:
     virtual ~CMyPlayer();
 
 private:
-    int m_HP;
-    int m_HPMax;
 	int m_Atk;
-	
-	int m_Shield;//¹æ¾îµµ
 
-
+	Vector2 Dir;
+	Vector2 OriginPos;
+	int cnt;
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

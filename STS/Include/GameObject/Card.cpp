@@ -17,7 +17,6 @@ CCard::CCard()
 	m_mouseClicked = false;
 
 
-
 }
 
 CCard::~CCard()
@@ -473,7 +472,7 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 }
 
 
-void CCard::useCard(CGameObject* target)
+void CCard::useCard(CGameObject *owner, CGameObject* target)
 {
 	//
 	list<CSharedPtr< CCardAbility>>::iterator iter = m_Abilitys.begin();
@@ -481,7 +480,7 @@ void CCard::useCard(CGameObject* target)
 
 	for (; iter != End; iter++)
 	{
-		(*iter)->ActivateAbility(target);
+		(*iter)->ActivateAbility(owner, target);
 	}
 
 	/*	
@@ -536,7 +535,8 @@ void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
 		if (CInput::GetInst()->GetMouseLUp()) //¶ÃÀ» ¶§
 		{
 			//Dest->GetOwner()->InflictDamage(30.f);
-			useCard(Dest->GetOwner());
+			m_Scene->GetPlayer()->SetEnableAttack(true);
+			useCard(Src->GetOwner(), Dest->GetOwner());
 			m_collisionInteraction = false;
 		}
 

@@ -26,7 +26,8 @@ bool CTopPanel::Init()
     //에너지, 뽑을 카드 더미(숫자), 버릴카드 더미(숫자) 턴 종료(버튼) ,픽버튼(버튼) 보이기 여부
     
     SetSize(1280, 800);
-    
+    m_Scene->GetSceneResource()->LoadSound("UI", "ButtonClick", false,
+        "61.mp3");
     CImageWidget2* TopPanel = CreateWidget<CImageWidget2>("TopPanel");
 
     TopPanel->SetTexture("TopPanel", TEXT("TopPanel/bar.bmp"));
@@ -187,8 +188,11 @@ bool CTopPanel::Init()
     TurnOffButton->SetTexture("TurnOffButton", TEXT("TopPanel/endTurnButton.bmp"));
     TurnOffButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(154.f, 154.f));
     TurnOffButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
+    TurnOffButton->SetButtonStateData(EButton_State::Click, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
     TurnOffButton->SetPos(1050.f, 500.f);
     TurnOffButton->SetColorKey(255, 0, 255);
+    TurnOffButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
+        this, & CTopPanel::TestCallback);
 
     CText* TurnOffText = CreateWidget<CText>("TurnOffText");
     TurnOffText->SetText(TEXT("턴 종료"));
@@ -221,7 +225,8 @@ void CTopPanel::Update(float DeltaTime)
 
 void CTopPanel::TestCallback()
 {
-    
+    m_Scene->GetPlayer()->AddShield(5);
+    //CGameManager::GetInst()->Exit();
 }
 
 void CTopPanel::SettingButtonCallback()

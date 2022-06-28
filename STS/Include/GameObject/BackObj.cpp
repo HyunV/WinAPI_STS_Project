@@ -25,7 +25,7 @@ bool CBackObj::Init()
 	SetSize(1280.f, 800.f);
 	SetPivot(0.f, 0.f);
 
-	SetTexture("BattleScene", TEXT("Scene/scene2.bmp"));
+	SetTexture("BattleScene", TEXT("Scene/scene3.bmp"));
 
 	//BackImages.push_back(TEXT("Scene/B.bmp"));
 	//BackImages.push_back(TEXT("Scene/C.bmp"));

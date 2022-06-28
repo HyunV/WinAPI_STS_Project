@@ -21,7 +21,11 @@ CGameObject::CGameObject() :
 	m_FallTime(0.f),
 	m_FallStartY(0.f),
 	m_Jump(false),
-	m_JumpVelocity(0.f)
+	m_JumpVelocity(0.f),
+	m_MoveObject(false),
+	m_MovingObject(0),
+	m_DirValue(1),
+	m_EnableAttack(false)
 {
 	SetTypeID<CGameObject>();
 }
@@ -39,7 +43,8 @@ CGameObject::CGameObject(const CGameObject& Obj) :
 	m_FallTime(0.f),
 	m_FallStartY(0.f),
 	m_Jump(false),
-	m_JumpVelocity(Obj.m_JumpVelocity)
+	m_JumpVelocity(Obj.m_JumpVelocity),
+	m_Shield(0)
 {
 }
 
@@ -231,6 +236,19 @@ bool CGameObject::Init()
 
 void CGameObject::Update(float DeltaTime)
 {
+	if (m_MoveObject) //무브 적용 
+	{
+		m_MovingObject += m_DirValue * m_MoveSpeed * DELTA_TIME * m_TimeScale;
+		
+		if (m_MovingObject > 8.f && m_DirValue == 1) {
+			m_DirValue = -1;
+		}
+		if (m_MovingObject < -8.f && m_DirValue == -1) {
+			m_DirValue = 1;
+		}
+
+	}
+
 	// 중력 적용
 	if (!m_Ground && m_PhysicsSimulate) //땅을 안밟고 물리시뮬이 켜졌을때
 	{
@@ -488,9 +506,18 @@ void CGameObject::Render(HDC hDC, float DeltaTime)
 			{
 				if (m_Texture->GetTextureType() == ETexture_Type::Sprite)
 				{
-					TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y,
-						(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
-						0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
+					///////////////////////////////////////////////////
+					if (m_MoveObject) {
+						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y+ m_MovingObject,
+							(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
+							0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
+					}
+					else 
+					{
+							TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y,
+								(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
+								0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
+					}
 				}
 
 				else

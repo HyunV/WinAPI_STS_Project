@@ -21,7 +21,7 @@ public:
     virtual TCHAR* GetExplain();
 
 
-    virtual void ActivateAbility(CGameObject* target);
+    virtual void ActivateAbility(CGameObject* owner, CGameObject* target);
 protected:
     //°è¼ö
     TCHAR       m_Explain[256];

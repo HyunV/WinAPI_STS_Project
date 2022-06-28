@@ -31,6 +31,15 @@ protected:
 	std::list<CSharedPtr<class CCollider>> m_ColliderList;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 
+	//플레이어, 적 이동관련 애니메이션
+	bool m_MoveObject;
+	float m_MovingObject;
+	float m_DirValue;
+
+	//공격여부
+	bool m_EnableAttack;
+
+	int m_Shield; //방어도
 
 	//중력 관련
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
@@ -66,7 +75,20 @@ public:
 	{
 		return m_Pivot;
 	}
-
+public: /////////////////애니메이션 관련////////////////////////////
+	void SetMoveObject(bool Move)
+	{
+		m_MoveObject = Move;
+	}
+	void SetEnableAttack(bool Attack)
+	{
+		m_EnableAttack = Attack;
+	}
+	void AddShield(int Shield)
+	{
+		m_Shield += Shield;
+	}
+	
 	//중력관련
 public:
 	void SetPhysicsSimulate(bool Physics)

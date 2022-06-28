@@ -19,20 +19,8 @@ protected:
     virtual ~CMyMonster();
 
 private:
-    CSharedPtr<class CWidgetComponent> m_HPBarFrame;
-    CSharedPtr<class CWidgetComponent> m_HPBar;
-    CSharedPtr<class CWidgetComponent> m_NameBar;
-
-    CSharedPtr<class CWidgetComponent> m_HPText;
-
-    CSharedPtr<class CWidgetComponent> m_TestButton;
-    
-
-    int m_MaxHP;
-    int m_HP;
     int m_AttackDamage;
-    int m_Shield;
-    vector<wstring> m_HpBarFiles;
+    
     
    
 public:
@@ -43,12 +31,6 @@ public:
     virtual float InflictDamage(float Damage);
 
     
-    void AddShield(int shield) {
-        m_Shield += shield;
-    }
-    void MinusShield(int shield) {
-        m_Shield -= shield;
-    }
 private:
     void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
