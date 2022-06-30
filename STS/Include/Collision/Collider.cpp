@@ -16,6 +16,7 @@ CCollider::CCollider(const CCollider& collider) :
     m_Offset(collider.m_Offset),
     m_Scene(nullptr),
     m_Owner(nullptr),
+    m_CardOwner(nullptr),
     m_Profile(collider.m_Profile),
     m_MouseCollision(false),
     m_Bottom(0.f)

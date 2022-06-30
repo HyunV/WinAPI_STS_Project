@@ -9,14 +9,13 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 	switch (m_Type)
 	{
 	case Card_Attribute::Damage:
-		m_Scene->GetPlayer()->SetEnableAttack(true);
+		
 		target->InflictDamage(m_Power);
+		m_Scene->GetPlayer()->SetEnableAttack(true);
 		break;
 	case Card_Attribute::Shield:
 		//플레이어 -> addShield(m_Power);
-	{
-		int a = 0;
-	}		
+
 		break;
 	}
 }

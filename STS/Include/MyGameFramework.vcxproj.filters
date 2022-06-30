@@ -103,18 +103,6 @@
     <Filter Include="02.GameObject\08.Card\01.Cards">
       <UniqueIdentifier>{acb2e8fb-2ce6-4250-8a13-a460b8e294f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\08.Card\01.Cards\Red">
-      <UniqueIdentifier>{f3ff8e9e-e73b-4c1d-91b4-a8205b1ebdfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08.Card\01.Cards\Red\Attack">
-      <UniqueIdentifier>{8f4a22de-adbc-4ffd-8dab-b8b4ca31a4f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08.Card\01.Cards\Red\Skill">
-      <UniqueIdentifier>{b696a374-7afc-435a-8760-ced95aac9a47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08.Card\01.Cards\Red\Power">
-      <UniqueIdentifier>{bbedc233-1b50-46fc-bb94-1e779f89cd5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\08.Card\01.Cards\00.CardAbility">
       <UniqueIdentifier>{5d91984f-1dd6-40ea-9004-f06bcc705401}</UniqueIdentifier>
     </Filter>
@@ -296,12 +284,6 @@
     </ClCompile>
     <ClCompile Include="GameObject\CardManager.cpp">
       <Filter>02.GameObject\08.Card</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Cards\Strike.cpp">
-      <Filter>02.GameObject\08.Card\01.Cards\Red\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Cards\Defend.cpp">
-      <Filter>02.GameObject\08.Card\01.Cards\Red\Skill</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Cards\CardAbility.cpp">
       <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>
@@ -529,12 +511,6 @@
     </ClInclude>
     <ClInclude Include="CardFlag.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Cards\Strike.h">
-      <Filter>02.GameObject\08.Card\01.Cards\Red\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Cards\Defend.h">
-      <Filter>02.GameObject\08.Card\01.Cards\Red\Skill</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\Cards\CardAbility.h">
       <Filter>02.GameObject\08.Card\01.Cards\00.CardAbility</Filter>

@@ -29,6 +29,7 @@ bool CCollisionManager::Init()
 	CreateProfile("PlayerAttack", ECollision_Channel::PlayerAttack, true, ECollision_Interaction::Ignore);
 	CreateProfile("MonsterAttack", ECollision_Channel::MonsterAttack, true, ECollision_Interaction::Ignore);
 	CreateProfile("Mouse", ECollision_Channel::Mouse, true, ECollision_Interaction::Collision);
+	
 
 	CreateProfile("Card", ECollision_Channel::Card, true, ECollision_Interaction::Ignore);
 	CreateProfile("MyPlayer", ECollision_Channel::MyPlayer, true, ECollision_Interaction::Ignore);

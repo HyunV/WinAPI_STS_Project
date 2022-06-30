@@ -2,6 +2,7 @@
 
 #include "../GameInfo.h"
 #include "../Singletone.h"
+#include "../GameObject/CardManager.h"
 
 class CSceneManager
 {
@@ -30,15 +31,21 @@ public:
 	{
 		T* Scene = new T;
 
+		CCardManager::GetInst()->m_Scene = Scene;
+
 		if (!Scene->Init())
 		{
 			SAFE_DELETE(Scene);
 			return false;
 		}
+
+		
+
 		if (!m_Scene)
 			m_Scene = (CScene*)Scene;
 		else
 			m_NextScene = (CScene*)Scene;
+
 
 		return true;
 	}

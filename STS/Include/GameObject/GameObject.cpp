@@ -25,7 +25,8 @@ CGameObject::CGameObject() :
 	m_MoveObject(false),
 	m_MovingObject(0),
 	m_DirValue(1),
-	m_EnableAttack(false)
+	m_EnableAttack(false),
+	m_UsedCard(false)
 {
 	SetTypeID<CGameObject>();
 }
@@ -35,6 +36,7 @@ CGameObject::CGameObject(const CGameObject& Obj) :
 	m_Scene(nullptr),
 	m_Pos(Obj.m_Pos),
 	m_Size(Obj.m_Size),
+
 	m_Pivot(Obj.m_Pivot),
 	m_TimeScale(Obj.m_TimeScale),
 	m_PhysicsSimulate(Obj.m_PhysicsSimulate),
@@ -44,7 +46,10 @@ CGameObject::CGameObject(const CGameObject& Obj) :
 	m_FallStartY(0.f),
 	m_Jump(false),
 	m_JumpVelocity(Obj.m_JumpVelocity),
-	m_Shield(0)
+	m_Shield(0),
+	m_MaxEnergy(0),
+	m_Energy(Obj.m_MaxEnergy),
+	m_AttackCard(false)
 {
 }
 
@@ -71,6 +76,7 @@ CGameObject::~CGameObject()
 	}
 	SAFE_DELETE(m_Animation);
 }
+
 
 //원하는 충돌체를 뽑아오기
 CCollider* CGameObject::FindCollider(const std::string& Name)

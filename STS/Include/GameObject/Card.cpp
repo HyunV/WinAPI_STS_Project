@@ -8,6 +8,7 @@
 #include "../Collision/ColliderBox.h"
 #include "../Input.h"
 #include "../GameObject/Cards/CardAbility.h"
+#include "../GameObject/CardManager.h"
 #include <sstream>
 
 CCard::CCard()
@@ -29,6 +30,8 @@ CCard::~CCard()
 
 bool CCard::Init()
 {
+	m_Enable = false;
+	m_SelectCard = false;
 	m_cardName = "NoName";
 	m_colorless = false;
 	m_curse = false;
@@ -386,7 +389,8 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	char Curse[5] = "저주";
 	switch (cardType)
 	{
-	case Card_Type::Attack:		
+	case Card_Type::Attack:
+		m_AttackCard = true;
 		strcpy_s(Type, Attack);
 		break;
 
@@ -414,9 +418,9 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	//카드 코스트, 카드 설명
 	m_MycardCost = CreateWidgetComponent<CText>("cardCost");
 
-	int Cost = cost;
+	m_Energy = cost;
 	char Text[256] = {};
-	sprintf_s(Text, "%d", Cost);
+	sprintf_s(Text, "%d", m_Energy);
 
 	TCHAR	Unicode[256] = {};
 	int Length2 = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
@@ -471,10 +475,37 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 	 m_Explains.push_back(text);
 }
 
+void CCard::SetEnable(bool Enable)
+{
+	CRef::SetEnable(Enable);
+	list<CSharedPtr<class CCardAbility>>::iterator iter = m_Abilitys.begin();
+	list<CSharedPtr<class CCardAbility>>::iterator iterEnd = m_Abilitys.end();
 
-void CCard::useCard(CGameObject *owner, CGameObject* target)
+	for (; iter != iterEnd; ++iter)
+	{
+		(*iter)->SetEnable(Enable);
+	}
+}
+
+
+void CCard::useCard(CGameObject* owner, CGameObject* target)
 {
 	//
+	//카드 타입 알아내기
+	if (owner->GetAttackCard() && target->GetName() == "Player") {
+		return;
+	}
+	int cost = owner->GetEnergy();
+	int PlayerEnergy = m_Scene->GetPlayer()->GetEnergy();
+	if (PlayerEnergy - cost < 0) {
+		//여기에 다이얼로그 메시지
+		//MessageBox(nullptr, TEXT("코스트 부족"), TEXT("^모^"), MB_OK);
+		return;
+	}
+	else {
+		m_Scene->GetPlayer()->SetEnergy(PlayerEnergy - cost);
+	}
+	
 	list<CSharedPtr< CCardAbility>>::iterator iter = m_Abilitys.begin();
 	list<CSharedPtr< CCardAbility>>::iterator End = m_Abilitys.end();
 
@@ -482,7 +513,30 @@ void CCard::useCard(CGameObject *owner, CGameObject* target)
 	{
 		(*iter)->ActivateAbility(owner, target);
 	}
+	
+	owner->SetUsedCard(true);
+	m_Scene->SetUseCard(true);
+	owner->SetActive(false);
+	CCardManager::GetInst()->AddDiscard(owner);
+	//정렬
+	list<CCard*> hand = CCardManager::GetInst()->GetHand();
+	
+	CCardManager::GetInst()->SetHand(hand);
+	
+	//list<CCard*>::iterator iter = hand.begin();
+	//list<CCard*>::iterator end = hand.end();
+	//for (; iter != end; iter++)
+	//{
+	//	if ((*iter)->GetUsedCard()) {
+	//		iter = hand.erase(iter);
+	//		end = hand.end();
+	//	}
+	//}
+	//이터레이터 돌려서 사용된카드 확인
+//그 카드를 핸드에서 제거하고 버린 카드로 이동한다.
 
+
+	//CCardManager::GetInst()->UseCard();
 	/*	
 	switch (m_cardType)
 	{
@@ -501,42 +555,54 @@ void CCard::useCard(CGameObject *owner, CGameObject* target)
 }
 
 void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
-{
-	m_mouseHovered = true;
-	m_HoveredOffset = Vector2(0, -50);
+{	
+	//if (Src->GetMouseCollision()) {
+	//	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
+	//	//return;
+	//}
+	if (!m_mouseHovered) {		
+			m_SelectCard++;
+			m_mouseHovered = true;
+			m_HoveredOffset = Vector2(0, -50);
 
-	SetPos(GetPos() + m_HoveredOffset);
+			SetPos(GetPos() + m_HoveredOffset);
+	}
+
 }
 
 void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 {
-	m_mouseHovered = false;
+	if (m_mouseHovered) {
+		m_mouseHovered = false;
+		//m_SelectCard = 0;
 
+		SetPos(GetPos() - m_HoveredOffset);
+	}
+	
 
-	//SetPos(GetPos() - m_HoveredOffset);
-
-	Vector2  pos;
-	pos.x = GetPos().x;
-	pos.y = 570;
-	SetPos(pos);
+	//Vector2  pos;
+	//pos.x = GetPos().x;
+	//pos.y = 570;
+	//SetPos(pos);
 }
 
 void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)
 {
 	m_collisionInteraction = true;
+	
 	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
 }
 
 void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
 {
-
 	if (m_collisionInteraction) 
 	{
 		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
 		{
-			//Dest->GetOwner()->InflictDamage(30.f);
-			m_Scene->GetPlayer()->SetEnableAttack(true);
+			
 			useCard(Src->GetOwner(), Dest->GetOwner());
+			//카드 버리는 로직
+			//
 			m_collisionInteraction = false;
 		}
 

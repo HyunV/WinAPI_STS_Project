@@ -25,7 +25,7 @@ protected:
     //모든 카드가 가지고 있는 공통의 정보
 protected:
     std::string m_cardName; //카드 이름
-    int m_cost; // 카드 코스트
+    //int m_cost; // 카드 코스트
     Card_Type m_cardType; //카드 타입
     Card_Value m_cardValue; //카드 희귀도
 
@@ -70,6 +70,7 @@ protected:
     Vector2 m_cardOriginPos;
     Vector2 m_clickedPos;
     bool m_collisionInteraction;
+    int m_SelectCard;
 
     Vector2 m_HoveredOffset;
 
@@ -100,14 +101,17 @@ public:
 public:
     //카드 구현(카드 아이디, 카드 이름, 카드 이미지, 비용, 카드 타입, 컬러(안씀), 레어도,
     
+    virtual void SetEnable(bool Enable);
+  
+
     void SetCardName(std::string cardName)
     {
          m_cardName = cardName;
     }
-    void SetCardCost(int cost) 
-    {
-        m_cost = cost;
-    }
+    //void SetCardCost(int cost) 
+    //{
+    //    m_cost = cost;
+    //}
 
     void SetCardType(Card_Type cardType) 
     {
@@ -135,9 +139,6 @@ private:
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
     void CollisionBegin(CCollider* Src, CCollider* Dest);
     void CollisionEnd(CCollider* Src, CCollider* Dest);
-
-
-
 
    std::string m_CardImage;
 

@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include <unordered_map> 
+#include <queue>
 /*
 해쉬테이블 탐색 자료구조 O(1)의 속도
 	* 그냥 map은 이진탐색트리로 O(log(N)), 중복 데이터를 허용하지않고 

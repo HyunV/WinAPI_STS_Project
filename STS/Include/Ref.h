@@ -54,7 +54,7 @@ public:
 		return m_Name;
 	}
 
-	void SetEnable(bool Enable)
+	virtual void SetEnable(bool Enable)
 	{
 		m_Enable = Enable;
 	}

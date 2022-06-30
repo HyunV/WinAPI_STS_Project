@@ -49,6 +49,10 @@ public:
 
 public:
 
+    class CGameObject* GetOwner() const
+    {
+        return m_Owner;
+    }
     template <typename T>
     T* GetWidget()  const
     {

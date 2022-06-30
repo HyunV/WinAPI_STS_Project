@@ -20,11 +20,11 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-
-	
 	CGameObject::Init();
 	CCharacter::Init();
-
+	SetMaxEnergy(5);
+	m_Energy = 999;
+	
 	
 	SetMoveObject(true);
 	m_MoveSpeed = 12;
@@ -38,7 +38,7 @@ bool CMyPlayer::Init()
 	m_Atk = 3;
 	cnt = 0;
 
-	SetPos(180.f, 370.f);
+	SetPos(140.f, 370.f);
 	OriginPos = GetPos();
 	SetSize(270.f, 191.f);
 	SetPivot(0.f, 0.f);
@@ -61,7 +61,7 @@ bool CMyPlayer::Init()
 	m_HPBar->SetPos(170.f, 180.f);
 	m_HPText->SetPos(220.f, 215.f);
 	
-
+	
 	return true;
 }
 

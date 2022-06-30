@@ -17,15 +17,20 @@ private:
 	class CSceneCollision* m_Collision;
 
 protected:
-	std::list<CSharedPtr<class CGameObject>>	 m_ObjList[(int)ERender_Layer::Max]; 
+	std::list<CSharedPtr<class CGameObject>>	 m_ObjList[(int)ERender_Layer::Max];
 	//이 오브젝트 목록을 이용해 씬을 그려내고 있다. 매 프레임마다 y소팅, 혹은 정렬을 해주어야 한다.
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 	CSharedPtr<class CGameObject> m_Player;
 	CSharedPtr<class CTileMap>		m_TileMap;
 
 	std::vector<CSharedPtr<CWidgetWindow>>	m_vecWidgetWindow;
+	
+public:
+	std::list<CSharedPtr<class CGameObject>>	 m_CardList;
+	bool m_SceneUsedCard;
 
 public:
+
 	class CSceneCollision* GetCollision() const
 	{
 		return m_Collision;
@@ -53,6 +58,7 @@ public:
 
 	void SetTileMap(class CTileMap* TileMap);
 	void SetPlayer(class CGameObject* Player);
+
 	void AddWidgetComponent(CWidgetComponent* Widget)
 	{
 		m_WidgetComponentList.push_back(Widget);
@@ -63,6 +69,10 @@ public:
 	virtual void Update(float DeltaTime);
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Render(HDC hDC, float DeltaTime);
+	void SetUseCard(bool Enable)
+	{
+		m_SceneUsedCard = Enable;
+	}
 
 public:
 	template <typename T>
@@ -80,6 +90,24 @@ public:
 		}
 
 		m_ObjList[(int)Obj->GetRenderLayer()].push_back((CGameObject*)Obj);
+
+		return Obj;
+	}
+	template <typename T>
+	T* CreateCard(const std::string& Name = "Card") //Name = 디폴트인자로 해놓음 이름 안지으면 저걸로 해둠
+	{
+		T* Obj = new T;
+
+		Obj->SetName(Name);
+		Obj->m_Scene = this;
+
+		if (!Obj->Init())
+		{
+			SAFE_DELETE(Obj);
+			return nullptr;
+		}
+
+		m_CardList[(int)Obj->GetRenderLayer()].push_back((CGameObject*)Obj);
 
 		return Obj;
 	}

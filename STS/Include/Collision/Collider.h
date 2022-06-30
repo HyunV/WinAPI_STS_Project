@@ -18,6 +18,7 @@ protected:
 protected: //가지고 있어야 될 내용
     class CScene*       m_Scene; //어떤 씬에 속해 있어야 하는가? 하는 정보
     class CGameObject*  m_Owner; //충돌체를 가지고 있는 주인님 who?
+    class CCard*        m_CardOwner;
     ECollider_Type      m_ColliderType; //충돌체 모양 (박스, 원 등등..)
 
     Vector2             m_Offset;       // Owner로부터 얼마만큼 떨어져 있을지에 대한 정보
@@ -83,7 +84,10 @@ public:
     {
         return m_Owner;
     }
-
+    class CCard* GetCardOwner() const
+    {
+        return m_CardOwner;
+    }
     class CScene* GetScene()    const
     {
         return m_Scene;

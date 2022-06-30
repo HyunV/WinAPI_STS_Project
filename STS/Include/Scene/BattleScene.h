@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "../GameObject/Card.h"
 class CBattleScene :
     public CScene
 {
@@ -14,7 +15,8 @@ private:
 
 public:
     bool Init();
-
+    void Update(float DeltaTime);
+    list<CCard*> m_MyHand;
 private:
     void CreateAnimationSequence();
 };

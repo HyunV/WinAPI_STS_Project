@@ -28,6 +28,8 @@ CGameManager::~CGameManager()
 
 	CResourceManager::DestroyInst();
 
+	CCardManager::DestroyInst();
+
 	SAFE_DELETE(m_Timer);
 
 	SelectObject(m_hBackDC, m_hBackPrevBmp);

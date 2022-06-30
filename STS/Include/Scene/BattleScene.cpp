@@ -21,10 +21,8 @@
 
 #include "../Widget/StartWindow.h"
 
-#include "../GameObject/Cards/Strike.h"
-#include "../GameObject/Cards/Defend.h"
-
-
+#include "../GameObject/Card.h"
+#include "../GameObject/CardManager.h"
 
 
 CBattleScene::CBattleScene()
@@ -34,11 +32,12 @@ CBattleScene::CBattleScene()
 
 CBattleScene::~CBattleScene()
 {
+
 }
 
 bool CBattleScene::Init()
 {
-	
+	CCardManager::GetInst()->Init();
 	//CreateWidgetWindow<CStartWindow>("StartWindow");
 
 	GetCamera()->SetResolution(1280.f, 1200.f);
@@ -59,6 +58,23 @@ bool CBattleScene::Init()
 	BackImageB->SetSize(1280, 185);
 	BackImageB->SetColorKey(255, 0, 255);
 
+	CCardManager::GetInst()->InitMyDeck();
+	CCardManager::GetInst()->SetBringDeck();
+	CCardManager::GetInst()->DrawCard(5);
+
+	m_MyHand = CCardManager::GetInst()->GetHand();
+	//list<CCard*>::iterator iter = m_MyHand.begin();
+	//list<CCard*>::iterator end = m_MyHand.end();
+
+	list<CCard*>::iterator iter = m_MyHand.begin();
+	list<CCard*>::iterator end = m_MyHand.end();
+	for (int i = 0; iter != end; iter++)
+	{
+		(*iter)->SetEnable(true);
+		(*iter)->SetPos(200 + (100 * i), 600);
+		//(*iter)->SetCollisionEnable(true);
+		i++;
+	}
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 
@@ -69,35 +85,12 @@ bool CBattleScene::Init()
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
 	//카드 키워드 생성 //////////////////////////
 
-	CGiveAttribute* Damage = CreateObject<CGiveAttribute>("Damage");
-	Damage->SetType(Card_Attribute::Damage, 10);
-	CGiveAttribute* Shield = CreateObject<CGiveAttribute>("Shield");
-	Shield->SetType(Card_Attribute::Shield, 10);
-	CGiveAttribute* DrawCard = CreateObject<CGiveAttribute>("DrawCard");
-	DrawCard->SetType(Card_Attribute::DrawCard, 0);
+
 
 
 	///////////////////카드 생성//////////////////////////
-	CCard* Card = CreateObject<CCard>("card");
-	Card->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
-	Card->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
-	Card->SetPos(300, 570); 
-	Card->AddAbility(Damage);
-	//Card->AddAbility(sh);
-	//Card->AddAbility(DrawCard);
-
-	CCard* Card2 = CreateObject<CCard>("card2");
-	Card2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
-	Card2->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
-	Card2->SetPos(470, 570);
-	Card2->AddAbility(Shield);
 
 
-	CCard* Card3 = CreateObject<CCard>("card3");
-	Card3->SetCardInfo("??", Card_Type::Power, Card_Value::Rare, true, false);
-	Card3->SetCardAttribute(TEXT("카드"), Card_Type::Power, 3);
-	Card3->SetPos(640, 570);
-	Card3->AddAbility(DrawCard);
 
 
 	SetPlayer(Player);
@@ -107,6 +100,26 @@ bool CBattleScene::Init()
 	
 
 	return true;
+}
+
+void CBattleScene::Update(float DeltaTime)
+{
+	CScene::Update(DeltaTime);
+	//if (m_SceneUsedCard) {
+	//	m_MyHand = CCardManager::GetInst()->GetHand();
+
+	//	list<CCard*>::iterator iter = m_MyHand.begin();
+	//	list<CCard*>::iterator end = m_MyHand.end();
+	//	for (int i = 0; iter != end; iter++)
+	//	{
+	//		(*iter)->SetEnable(true);
+	//		(*iter)->SetPos(200 + (100 * i), 600);
+	//		(*iter)->SetActive(false);
+	//		//(*iter)->SetCollisionEnable(true);
+	//		i++;
+	//	}
+	//}
+	//SetUseCard(false);
 }
 
 void CBattleScene::CreateAnimationSequence()

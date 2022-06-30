@@ -24,6 +24,7 @@ private:
     //std::vector<CSharedPtr<class CButton>> m_Potion; //Æ÷¼Ç
 
     CSharedPtr<class CText> m_DeckCount;
+  
 
     CSharedPtr<class CText> m_Energy;
 

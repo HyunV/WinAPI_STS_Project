@@ -17,6 +17,7 @@ protected:
 protected:
 	class CScene* m_Scene;
 
+
 protected:
 	ERender_Layer m_RenderLayer;
 	Vector2 m_PrevPos;
@@ -36,9 +37,14 @@ protected:
 	float m_MovingObject;
 	float m_DirValue;
 
+	//에너지
+	int m_Energy;
+	int m_MaxEnergy;
+	bool m_UsedCard;
+
 	//공격여부
 	bool m_EnableAttack;
-
+	bool m_AttackCard;
 	int m_Shield; //방어도
 
 	//중력 관련
@@ -88,7 +94,31 @@ public: /////////////////애니메이션 관련////////////////////////////
 	{
 		m_Shield += Shield;
 	}
-	
+	void SetEnergy(int value) {
+		m_Energy = value;
+	}
+	void SetMaxEnergy(int value) {
+		m_MaxEnergy = value;
+	}
+	int GetEnergy() {
+		return m_Energy;
+	}
+	int GetMaxEnergy() {
+		return m_MaxEnergy;
+	}
+	void SetUsedCard(bool usedCard) {
+		m_UsedCard = usedCard;
+	}
+	bool GetUsedCard() {
+		return m_UsedCard;
+	}
+	void SetAttackCard(bool AttackCard)
+	{
+		m_AttackCard = AttackCard;
+	}
+	bool GetAttackCard() {
+		return m_AttackCard;
+	}
 	//중력관련
 public:
 	void SetPhysicsSimulate(bool Physics)

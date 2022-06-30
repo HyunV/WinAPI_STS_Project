@@ -4,6 +4,7 @@
 #include "../Scene/SceneResource.h"
 #include "../Scene/SceneManager.h"
 #include "../GameManager.h"
+#include "../GameObject/CardManager.h"
 
 #include "ImageWidget2.h"
 #include "Text.h"
@@ -209,7 +210,7 @@ bool CTopPanel::Init()
     //¿¡³ÊÁö
     m_Energy = CreateWidget<CText>("Energy");
     m_Energy->SetFont("CostFont");
-    m_Energy->SetText(TEXT("3/3"));
+    m_Energy->SetText(TEXT("00"));
     m_Energy->SetPos(127.f, 590.f);
     m_Energy->SetTextColor(255, 255, 219);
     m_Energy->EnableShadow(true);
@@ -221,11 +222,61 @@ bool CTopPanel::Init()
 void CTopPanel::Update(float DeltaTime)
 {
     CWidgetWindow::Update(DeltaTime);
+
+    int DeckCount = CCardManager::GetInst()->getMaindeckCount();
+
+    char	Text[256] = {};
+    sprintf_s(Text, "%d", DeckCount);
+
+    TCHAR	Unicode[256] = {};
+    int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
+
+    m_DeckCount->SetText(Unicode);
+
+    int BringCount = CCardManager::GetInst()->getBringCardCount();
+    char	Text1[256] = {};
+    sprintf_s(Text1, "%d", BringCount);
+    TCHAR	Unicode1[256] = {};
+    int Length1 = MultiByteToWideChar(CP_ACP, 0, Text1, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text1, -1, Unicode1, Length1);
+
+    m_LCardCount->SetText(Unicode1);
+
+    int DiscardCount = CCardManager::GetInst()->getDiscardCount();
+    char	Text2[256] = {};
+    sprintf_s(Text2, "%d", DiscardCount);
+    TCHAR	Unicode2[256] = {};
+    int Length2 = MultiByteToWideChar(CP_ACP, 0, Text2, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text2, -1, Unicode2, Length2);
+
+    m_RCardCount->SetText(Unicode2);
+
+    int MaxEnergy = m_Scene->GetPlayer()->GetMaxEnergy();
+    int Energy = m_Scene->GetPlayer()->GetEnergy();
+
+    char    Text3[256] = {}; 
+    sprintf_s(Text3, "%d/%d", Energy, MaxEnergy);
+    TCHAR	Unicode3[256] = {};
+    int Length3 = MultiByteToWideChar(CP_ACP, 0, Text3, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text3, -1, Unicode3, Length3);
+
+    m_Energy->SetText(Unicode3);
+   
+
+
 }
 
 void CTopPanel::TestCallback()
 {
     m_Scene->GetPlayer()->AddShield(5);
+    if (m_Scene->GetPlayer()->GetEnable()) {
+        m_Scene->GetPlayer()->SetEnable(false);
+    }
+    else {
+        m_Scene->GetPlayer()->SetEnable(true);
+    }
+    
     //CGameManager::GetInst()->Exit();
 }
 
