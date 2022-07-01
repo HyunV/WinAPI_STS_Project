@@ -40,6 +40,7 @@ bool CCard::Init()
 	m_CardExplain[256] = {};
 
 
+
 	m_cardOriginPos = (0.f, 0.f);
 	//1. 카드를 띄운다
 	//-> 텍스처가 필요하다
@@ -218,27 +219,24 @@ void CCard::Render(HDC hDC, float DeltaTime)
 void CCard::Update(float DeltaTime)
 {
 	//마우스 드래그
-
-	//if (!m_mouseHovered) {
-	//	m_Pos = m_cardOriginPos;
-	//}
-	if (m_mouseHovered) {
-		
+	if (m_mouseHovered) {		
 		if (CInput::GetInst()->GetMouseLDown())
-		{
-			if (m_cardOriginPos.x == 0.f && m_cardOriginPos.y == 0.f) {
+		{		
+			if (m_cardOriginPos.x == 0.f && m_cardOriginPos.y == 0.f) 
+			{
 				m_cardOriginPos = GetPos();
 			}
 			m_clickedPos = CInput::GetInst()->GetMousePos();
 		}
 		
 		if (CInput::GetInst()->GetMouseLPush())
-		{			
+		{	
+			
 			SetPos(CInput::GetInst()->GetMousePos() - m_Size * 0.5f);
 		}
 
 		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
-		{
+		{			
 				SetPos(m_cardOriginPos);
 			
 		}
@@ -470,9 +468,9 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 	 text->GetWidget<CText>()->SetTextColor(255, 249, 229);
 
 	 text->GetWidget<CText>()->SetText(givedAbility->GetExplain());
-	 text->GetWidget<CText>()->SetFont("NameFont");
+text->GetWidget<CText>()->SetFont("NameFont");
 
-	 m_Explains.push_back(text);
+m_Explains.push_back(text);
 }
 
 void CCard::SetEnable(bool Enable)
@@ -505,7 +503,7 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	else {
 		m_Scene->GetPlayer()->SetEnergy(PlayerEnergy - cost);
 	}
-	
+
 	list<CSharedPtr< CCardAbility>>::iterator iter = m_Abilitys.begin();
 	list<CSharedPtr< CCardAbility>>::iterator End = m_Abilitys.end();
 
@@ -513,16 +511,18 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	{
 		(*iter)->ActivateAbility(owner, target);
 	}
-	
+
 	owner->SetUsedCard(true);
 	m_Scene->SetUseCard(true);
-	owner->SetActive(false);
-	CCardManager::GetInst()->AddDiscard(owner);
+	//CCardManager::GetInst()->AddDiscard(owner);
+	//owner->SetEnable(false);
+	//owner->SetActive(false);
+
 	//정렬
-	list<CCard*> hand = CCardManager::GetInst()->GetHand();
-	
-	CCardManager::GetInst()->SetHand(hand);
-	
+	//list<CCard*> hand = CCardManager::GetInst()->GetHand();
+
+	//CCardManager::GetInst()->SetHand(hand);
+
 	//list<CCard*>::iterator iter = hand.begin();
 	//list<CCard*>::iterator end = hand.end();
 	//for (; iter != end; iter++)
@@ -537,13 +537,13 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 
 
 	//CCardManager::GetInst()->UseCard();
-	/*	
+	/*
 	switch (m_cardType)
 	{
 	case Card_Type::Attack:
 		target->InflictDamage(m_CardPower);
 		break;
-	case Card_Type::Skill:		
+	case Card_Type::Skill:
 		break;
 	case Card_Type::Power:
 		break;
@@ -555,19 +555,20 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 }
 
 void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
-{	
-	//if (Src->GetMouseCollision()) {
-	//	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
-	//	//return;
-	//}
-	if (!m_mouseHovered) {		
-			m_SelectCard++;
+{
+	if (!CCardManager::GetInst()->CardCheck()) {
+		CCardManager::GetInst()->SetCardCheck(Src->GetOwner());
+		if (!m_mouseHovered) {
 			m_mouseHovered = true;
-			m_HoveredOffset = Vector2(0, -50);
-
-			SetPos(GetPos() + m_HoveredOffset);
+			Src->SetMouseCollision(true);
+			Src->GetOwner()->SetSelectedCard(true);
+			if (Src->GetOwner()->GetSelectedCard())
+			{
+				m_HoveredOffset = Vector2(0, -50);
+				Src->GetOwner()->SetPos(GetPos() + m_HoveredOffset);
+			}
+		}
 	}
-
 }
 
 void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
@@ -575,15 +576,13 @@ void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 	if (m_mouseHovered) {
 		m_mouseHovered = false;
 		//m_SelectCard = 0;
-
-		SetPos(GetPos() - m_HoveredOffset);
 	}
-	
-
-	//Vector2  pos;
-	//pos.x = GetPos().x;
-	//pos.y = 570;
-	//SetPos(pos);
+		SetPos(GetPos() - m_HoveredOffset);
+		//Src->SetMouseCollision(false);
+		Src->GetOwner()->SetSelectedCard(false);
+		CCardManager::GetInst()->SetCardCheck(nullptr);
+		CCardManager::GetInst()->HandSort();
+		
 }
 
 void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)

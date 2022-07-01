@@ -48,6 +48,9 @@ protected: //가지고 있어야 될 내용
     //리스트에 있으면 계속 충돌중인 상태. 이걸로 위에 Begin, End 판단.
 
     bool        m_MouseCollision;//마우스는 충돌체는 아니므로 bool변수로 판단할 변수로 만든다.
+    int         m_MouseCollisionCount;
+    bool        m_Check;
+
     //또한 마우스는 여러개랑 충돌되면 안된다. 하나랑만 충돌 (ex 겹쳐져있는 Npc)
     //#2. 마우스는 UI>월드물체 로 우선충돌 해야하낟.(인벤토리 열어놓고 몬스터랑 충돌될 수 있음)
 

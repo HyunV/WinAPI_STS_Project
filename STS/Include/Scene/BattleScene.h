@@ -16,7 +16,7 @@ private:
 public:
     bool Init();
     void Update(float DeltaTime);
-    list<CCard*> m_MyHand;
+    vector<CCard*> m_MyHand;
 private:
     void CreateAnimationSequence();
 };
