@@ -45,7 +45,7 @@ bool CBattleScene::Init()
 	GetCamera()->SetTargetPivot(0.f, 0.f);
 
 	CreateObject<CBackObj>("BackObj");
-	
+
 	CDeco* BackImageA = CreateObject<CDeco>("BackImageA");
 	BackImageA->SetPos(0, 0);
 	BackImageA->SetTexture("BackImageA", TEXT("Scene/B.bmp"));
@@ -66,8 +66,8 @@ bool CBattleScene::Init()
 	//list<CCard*>::iterator iter = m_MyHand.begin();
 	//list<CCard*>::iterator end = m_MyHand.end();
 
-	list<CCard*>::iterator iter = m_MyHand.begin();
-	list<CCard*>::iterator end = m_MyHand.end();
+	vector<CCard*>::iterator iter = m_MyHand.begin();
+	vector<CCard*>::iterator end = m_MyHand.end();
 	for (int i = 0; iter != end; iter++)
 	{
 		(*iter)->SetEnable(true);
@@ -79,6 +79,8 @@ bool CBattleScene::Init()
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
+	CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
+	Monster2->SetPos(1050, 450);
 
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 
@@ -94,10 +96,10 @@ bool CBattleScene::Init()
 
 
 	SetPlayer(Player);
-	
+
 	CreateWidgetWindow<CTopPanel>("TopPanel");
 	//
-	
+
 
 	return true;
 }
@@ -105,21 +107,48 @@ bool CBattleScene::Init()
 void CBattleScene::Update(float DeltaTime)
 {
 	CScene::Update(DeltaTime);
-	//if (m_SceneUsedCard) {
-	//	m_MyHand = CCardManager::GetInst()->GetHand();
-
-	//	list<CCard*>::iterator iter = m_MyHand.begin();
-	//	list<CCard*>::iterator end = m_MyHand.end();
-	//	for (int i = 0; iter != end; iter++)
-	//	{
-	//		(*iter)->SetEnable(true);
-	//		(*iter)->SetPos(200 + (100 * i), 600);
-	//		(*iter)->SetActive(false);
-	//		//(*iter)->SetCollisionEnable(true);
-	//		i++;
-	//	}
-	//}
-	//SetUseCard(false);
+	//사용한 카드 재정렬
+	if (m_SceneUsedCard) 
+	{
+		m_MyHand = CCardManager::GetInst()->GetHand();
+		for (int i = 0; i < m_MyHand.size(); i++) 
+		{
+			if (m_MyHand[i] != nullptr && m_MyHand[i]->GetUsedCard()) {
+				//MessageBox(nullptr, TEXT("카드사용."), TEXT("^모^"), MB_OK);
+				//m_MyHand[i]->SetEnable(false);
+				CCardManager::GetInst()->AddDiscard(m_MyHand[i]);
+				m_MyHand[i]->SetEnable(false);
+				m_MyHand[i]->SetPos(0, 0);
+				m_MyHand[i] = nullptr;
+				CCardManager::GetInst()->SetHand(m_MyHand);
+				CCardManager::GetInst()->HandSort();
+				m_MyHand = CCardManager::GetInst()->GetHand();	
+			}
+		}
+		
+		//list<CCard*>::iterator iter = m_MyHand.begin();
+		//list<CCard*>::iterator end = m_MyHand.end();
+		//for (; iter != end; iter++)
+		//{
+		//	if ((*iter)->GetUsedCard()){
+		//			MessageBox(nullptr, TEXT("카드사용."), TEXT("^모^"), MB_OK);
+		//			(*iter)->SetEnable(false);
+		//			//iter = m_MyHand.erase(iter);
+		//			//end =  m_MyHand.end();
+		//			continue;
+		//	}
+		//	else {
+		//		(*iter)->SetEnable(true);
+		//		//(*iter)->SetPos(200 + (100 * i), 600);
+		//		(*iter)->Update(DeltaTime);
+		//		++iter;
+		//		//(*iter)->SetCollisionEnable(true);
+		//		//i++;
+		//}
+		//}
+		
+	}
+	SetUseCard(false);
 }
 
 void CBattleScene::CreateAnimationSequence()

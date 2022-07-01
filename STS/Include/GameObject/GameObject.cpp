@@ -26,7 +26,8 @@ CGameObject::CGameObject() :
 	m_MovingObject(0),
 	m_DirValue(1),
 	m_EnableAttack(false),
-	m_UsedCard(false)
+	m_UsedCard(false),
+	m_SelectedCard(false)
 {
 	SetTypeID<CGameObject>();
 }

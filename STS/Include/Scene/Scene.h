@@ -93,24 +93,24 @@ public:
 
 		return Obj;
 	}
-	template <typename T>
-	T* CreateCard(const std::string& Name = "Card") //Name = 디폴트인자로 해놓음 이름 안지으면 저걸로 해둠
-	{
-		T* Obj = new T;
+	//template <typename T>
+	//T* CreateCard(const std::string& Name = "Card") //Name = 디폴트인자로 해놓음 이름 안지으면 저걸로 해둠
+	//{
+	//	T* Obj = new T;
 
-		Obj->SetName(Name);
-		Obj->m_Scene = this;
+	//	Obj->SetName(Name);
+	//	Obj->m_Scene = this;
 
-		if (!Obj->Init())
-		{
-			SAFE_DELETE(Obj);
-			return nullptr;
-		}
+	//	if (!Obj->Init())
+	//	{
+	//		SAFE_DELETE(Obj);
+	//		return nullptr;
+	//	}
 
-		m_CardList[(int)Obj->GetRenderLayer()].push_back((CGameObject*)Obj);
+	//	m_CardList[(int)Obj->GetRenderLayer()].push_back((CGameObject*)Obj);
 
-		return Obj;
-	}
+	//	return Obj;
+	//}
 
 	template <typename T>
 	T* CreateWidgetWindow(const std::string& Name = "Window")

@@ -68,32 +68,32 @@ void CScene::Update(float DeltaTime)
 		}
 	}
 
-	std::list<CSharedPtr<class CGameObject>>::iterator iter2;
-	std::list<CSharedPtr<class CGameObject>>::iterator iterEnd2;
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		iter2 = m_CardList[i].begin();
-		iterEnd2 = m_CardList[i].end();
+	//std::list<CSharedPtr<class CGameObject>>::iterator iter2;
+	//std::list<CSharedPtr<class CGameObject>>::iterator iterEnd2;
+	//for (int i = 0; i < (int)ERender_Layer::Max; ++i)
+	//{
+	//	iter2 = m_CardList[i].begin();
+	//	iterEnd2 = m_CardList[i].end();
 
-		for (; iter2 != iterEnd2;)
-		{
-			if (!(*iter2)->GetActive()) //활성화 false로 되어있다면
-			{
-				//리스트에서 제거하는 순간 shared ptr의 소멸자가 호출되어 rc가 감소
-				iter2 = m_CardList[i].erase(iter2);
-				iterEnd2 = m_CardList[i].end(); //이터레이터 특성 상 다시 받아와야됨
-				continue;
-			}
+	//	for (; iter2 != iterEnd2;)
+	//	{
+	//		if (!(*iter2)->GetActive()) //활성화 false로 되어있다면
+	//		{
+	//			//리스트에서 제거하는 순간 shared ptr의 소멸자가 호출되어 rc가 감소
+	//			iter2 = m_CardList[i].erase(iter2);
+	//			iterEnd2 = m_CardList[i].end(); //이터레이터 특성 상 다시 받아와야됨
+	//			continue;
+	//		}
 
-			else if (!(*iter2)->GetEnable())
-			{
-				++iter2;
-				continue;
-			}
-			(*iter2)->Update(DeltaTime);
-			++iter2;
-		}
-	}
+	//		else if (!(*iter2)->GetEnable())
+	//		{
+	//			++iter2;
+	//			continue;
+	//		}
+	//		(*iter2)->Update(DeltaTime);
+	//		++iter2;
+	//	}
+	//}
 
 
 	auto iter1 = m_vecWidgetWindow.begin();
@@ -150,33 +150,33 @@ void CScene::PostUpdate(float DeltaTime)
 		}
 	}
 
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		auto	iter2 = m_CardList[i].begin();
-		auto	iterEnd2 = m_CardList[i].end();
+	//for (int i = 0; i < (int)ERender_Layer::Max; ++i)
+	//{
+	//	auto	iter2 = m_CardList[i].begin();
+	//	auto	iterEnd2 = m_CardList[i].end();
 
-		for (; iter2 != iterEnd2;)
-		{
-			if (!(*iter2)->GetActive())
-			{
-				// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
-				// 카운트가 감소한다.
-				iter2 = m_ObjList[i].erase(iter2);
-				iterEnd2 = m_ObjList[i].end();
-				continue;
-			}
+	//	for (; iter2 != iterEnd2;)
+	//	{
+	//		if (!(*iter2)->GetActive())
+	//		{
+	//			// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
+	//			// 카운트가 감소한다.
+	//			iter2 = m_ObjList[i].erase(iter2);
+	//			iterEnd2 = m_ObjList[i].end();
+	//			continue;
+	//		}
 
-			else if (!(*iter2)->GetEnable())
-			{
-				++iter2;
-				continue;
-			}
+	//		else if (!(*iter2)->GetEnable())
+	//		{
+	//			++iter2;
+	//			continue;
+	//		}
 
-			(*iter2)->PostUpdate(DeltaTime);
+	//		(*iter2)->PostUpdate(DeltaTime);
 
-			++iter2;
-		}
-	}
+	//		++iter2;
+	//	}
+	//}
 
 	auto iter1 = m_vecWidgetWindow.begin();
 	auto iter1End = m_vecWidgetWindow.end();
@@ -262,38 +262,38 @@ void CScene::Render(HDC hDC, float DeltaTime)
 		}
 	}
 
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		m_CardList[i].sort(SortY);
+	//for (int i = 0; i < (int)ERender_Layer::Max; ++i)
+	//{
+	//	m_CardList[i].sort(SortY);
 
-		//std::list<CSharedPtr<class CGameObject>>::iterator iter;
-		//std::list<CSharedPtr<class CGameObject>>::iterator iterEnd;
+	//	//std::list<CSharedPtr<class CGameObject>>::iterator iter;
+	//	//std::list<CSharedPtr<class CGameObject>>::iterator iterEnd;
 
-		auto iter3 = m_CardList[i].begin();
-		auto iterEnd3 = m_CardList[i].end();
+	//	auto iter3 = m_CardList[i].begin();
+	//	auto iterEnd3 = m_CardList[i].end();
 
-		for (; iter3 != iterEnd3;)
-		{
-			if (!(*iter3)->GetActive())
-			{
-				// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
-				// 카운트가 감소한다.
-				iter3 = m_CardList[i].erase(iter3);
-				iterEnd3 = m_CardList[i].end();
-				continue;
-			}
+	//	for (; iter3 != iterEnd3;)
+	//	{
+	//		if (!(*iter3)->GetActive())
+	//		{
+	//			// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
+	//			// 카운트가 감소한다.
+	//			iter3 = m_CardList[i].erase(iter3);
+	//			iterEnd3 = m_CardList[i].end();
+	//			continue;
+	//		}
 
-			else if (!(*iter3)->GetEnable())
-			{
-				++iter3;
-				continue;
-			}
+	//		else if (!(*iter3)->GetEnable())
+	//		{
+	//			++iter3;
+	//			continue;
+	//		}
 
-			(*iter3)->Render(hDC, DeltaTime);
+	//		(*iter3)->Render(hDC, DeltaTime);
 
-			++iter3;
-		}
-	}
+	//		++iter3;
+	//	}
+	//}
 
 	// WidgetComponent 출력
 // 제거될 위젯 컴포넌트는 제거한다.

@@ -7,8 +7,8 @@
 #include "ColliderCircle.h"
 
 CColliderBox::CColliderBox()    :
-    m_Width(100.f),
-    m_Height(100.f)
+    m_Width(10.f),
+    m_Height(10.f)
 {
     SetTypeID<CColliderBox>();
 
@@ -60,7 +60,7 @@ void CColliderBox::Render(HDC hDC, float DeltaTime)
 
     HBRUSH	Brush = CGameManager::GetInst()->GetBrush(EBrush_Type::Green);
 
-    if (!m_CollisionList.empty()|| m_MouseCollision) //리스트가 비어있지 않으면(충돌중이라는 의미)
+    if (!m_CollisionList.empty() || m_MouseCollision) //리스트가 비어있지 않으면(충돌중이라는 의미)
         Brush = CGameManager::GetInst()->GetBrush(EBrush_Type::Red);
 
     CCamera* Camera = m_Scene->GetCamera();
