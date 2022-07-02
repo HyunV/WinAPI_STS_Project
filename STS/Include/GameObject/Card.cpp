@@ -516,12 +516,12 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	
 	owner->SetUsedCard(true);
 	m_Scene->SetUseCard(true);
-	//owner->SetActive(false);
+	owner->SetActive(false);
 	CCardManager::GetInst()->AddDiscard(owner);
 	//정렬
-	//list<CCard*> hand = CCardManager::GetInst()->GetHand();
+	list<CCard*> hand = CCardManager::GetInst()->GetHand();
 	
-	//CCardManager::GetInst()->SetHand(hand);
+	CCardManager::GetInst()->SetHand(hand);
 	
 	//list<CCard*>::iterator iter = hand.begin();
 	//list<CCard*>::iterator end = hand.end();
@@ -560,14 +560,12 @@ void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 	//	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
 	//	//return;
 	//}
-	
 	if (!m_mouseHovered) {		
 			m_SelectCard++;
 			m_mouseHovered = true;
 			m_HoveredOffset = Vector2(0, -50);
-			Src->GetOwner()->SetRenderLayer(ERender_Layer::Effect);
+
 			SetPos(GetPos() + m_HoveredOffset);
-			
 	}
 
 }
@@ -579,7 +577,6 @@ void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 		//m_SelectCard = 0;
 
 		SetPos(GetPos() - m_HoveredOffset);
-		Src->GetOwner()->SetRenderLayer(ERender_Layer::Default);
 	}
 	
 

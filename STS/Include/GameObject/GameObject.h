@@ -183,11 +183,6 @@ public:
 	{
 		m_Pivot = Pivot;
 	}
-	void SetRenderLayer(ERender_Layer Layer)
-	{
-		m_RenderLayer = Layer;
-	}
-
 public:
 	void SetTexture(const std::string& Name);
 	void SetTexture(class CTexture* Texture);

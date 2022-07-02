@@ -11,7 +11,6 @@ enum class ERender_Layer //출력 레이어 순서 m_ObjList 에 이 속성을 부여해서 순서
 	Back, //배경용
 	Deco,
 	Default,
-	SelectCard,
 	Effect,
 	SemiBlack,
 	Max

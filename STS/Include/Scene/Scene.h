@@ -2,7 +2,6 @@
 #include "../GameInfo.h"
 #include "../Widget/WidgetWindow.h"
 #include "../Widget/WidgetComponent.h"
-#include "../GameObject/Card.h"
 
 class CScene
 {
@@ -28,7 +27,6 @@ protected:
 	
 public:
 	std::list<CSharedPtr<class CGameObject>>	 m_CardList;
-	std::list<class CCard*>	 m_HandList;
 	bool m_SceneUsedCard;
 
 public:
@@ -109,7 +107,7 @@ public:
 			return nullptr;
 		}
 
-		m_CardList.push_back((CGameObject*)Obj);
+		m_CardList[(int)Obj->GetRenderLayer()].push_back((CGameObject*)Obj);
 
 		return Obj;
 	}
