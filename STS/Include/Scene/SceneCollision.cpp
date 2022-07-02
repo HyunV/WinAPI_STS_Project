@@ -6,7 +6,8 @@
 
 CSceneCollision::CSceneCollision() :
 	m_MouseCollision(nullptr),
-	m_MouseCollisionWidget(nullptr)
+	m_MouseCollisionWidget(nullptr),
+	m_MouseCollisionCount(0)
 {
 	m_vecCollider.reserve(500);
 }
@@ -112,7 +113,6 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 				if (Dest->CollisionMouse(MouseWorldPos))
 				{
 					MouseCollision = true;
-					
 					// 이제 막 충돌을 시작할때.
 					if (!Dest->GetMouseCollision())
 					{
@@ -120,10 +120,10 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 						if (m_MouseCollision)
 							m_MouseCollision->SetMouseCollision(false);
 						
-						Dest->SetMouseCollision(true); //마우스 충돌되고있다(활성화)
-						
 						// 충돌 시작 함수를 호출한다.
 						Dest->CallMouseCollisionBegin(MouseWorldPos);
+						Dest->SetMouseCollision(true); //마우스 충돌되고있다(활성화)
+						
 					}
 
 					m_MouseCollision = Dest;

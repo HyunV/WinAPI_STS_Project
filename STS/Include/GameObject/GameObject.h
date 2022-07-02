@@ -47,6 +47,9 @@ protected:
 	bool m_AttackCard;
 	int m_Shield; //방어도
 
+	//카드 오브젝트 관련
+	bool m_SelectedCard;
+
 	//중력 관련
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
 	bool		m_Ground;	// 땅을 밟고 있는 상태인지 아닌지
@@ -62,6 +65,10 @@ public:
 	ERender_Layer GetRenderLayer() const
 	{
 		return m_RenderLayer;
+	}
+	void SetRenderLayer(ERender_Layer Layer)
+	{
+		m_RenderLayer = Layer;
 	}
 
 	float GetTimeScale() const
@@ -119,6 +126,15 @@ public: /////////////////애니메이션 관련////////////////////////////
 	bool GetAttackCard() {
 		return m_AttackCard;
 	}
+	void SetSelectedCard(bool Enable)
+	{
+		m_SelectedCard = Enable;
+	}
+	bool GetSelectedCard()
+	{
+		return m_SelectedCard;
+	}
+
 	//중력관련
 public:
 	void SetPhysicsSimulate(bool Physics)

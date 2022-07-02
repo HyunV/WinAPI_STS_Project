@@ -16,7 +16,7 @@ private:
 	std::vector<class CWidgetWindow*>	m_vecWidgetWindow; // 이 위젯들 간 충돌 우선순위, 출력 우선순위를 정해주고 세팅할 수 있게 해준다.
 	class CCollider* m_MouseCollision;
 	class CWidget* m_MouseCollisionWidget;
-
+	int m_MouseCollisionCount;
 public:
 	//업데이트 관련 함수는 필요없고 충돌처리만 만들어뒀다.
 	void AddCollider(class CCollider* Collider);

@@ -62,6 +62,7 @@ bool CCollisionManager::Init()
 	SetCollisionInteraction("Card", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Card", ECollision_Channel::Monster, ECollision_Interaction::Collision);
 	SetCollisionInteraction("Card", ECollision_Channel::MyPlayer, ECollision_Interaction::Collision);
+	SetCollisionInteraction("Mouse", ECollision_Channel::Card, ECollision_Interaction::Collision);
 
 	SetCollisionInteraction("MyPlayer", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	SetCollisionInteraction("MyPlayer", ECollision_Channel::Card, ECollision_Interaction::Collision);
