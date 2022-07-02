@@ -24,11 +24,9 @@ public:
 	vector<CCard*> m_disCardDummy; //버린 카드 더미
 	//int m_disCardCount;
 
-	vector<CCard*> m_Hand; //손패
+	list<CCard*> m_Hand; //손패
 
 	bool m_UsedCard;
-	bool m_MouseClicked;
-	class CGameObject* m_CardCheck;
 	//사용한 카드 더미
 	
 public:
@@ -45,10 +43,11 @@ public:
 	vector<CCard*> GetMainDeck() {
 		return m_mainDeck;
 	}
-	vector<CCard*> GetHand() {
+
+	list<CCard*> GetHand() {
 		return m_Hand;
 	}
-	void SetHand(vector<CCard*> hand)
+	void SetHand(list<CCard*> hand)
 	{
 		m_Hand = hand;
 	}
@@ -75,24 +74,6 @@ public:
 
 	void BattleStart(); //전투 시작될 때 세팅
 
-	//카드 조작 관련
-	CGameObject* CardCheck();
-
-	void SetCardCheck(CGameObject* card) 
-	{
-		m_CardCheck = card;
-	}
-
-	bool GetMouseClicked()
-	{
-		return m_MouseClicked;
-	}
-	void SetMouseClicked(bool Check)
-	{
-		m_MouseClicked = Check;
-	}
-
-	void HandSort();
 	void UseCard();
 	bool Init();
 

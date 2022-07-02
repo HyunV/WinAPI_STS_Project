@@ -12,31 +12,12 @@ DEFINITION_SINGLE(CCardManager);
 
 CCardManager::CCardManager()
 {
-	m_CardCheck = nullptr;
-	m_MouseClicked = false;
+	
 }
 
 CCardManager::~CCardManager()
 {
 	
-}
-void CCardManager::HandSort()
-{
-	int count = 0;
-	vector<CCard*> SortHand;
-
-	for (int i = 0; i < m_Hand.size(); i++) 
-	{
-		if (m_Hand[i] != nullptr) {
-			SortHand.push_back(m_Hand[i]);
-		}
-	}
-	m_Hand = SortHand;
-	for (int i = 0; i < m_Hand.size(); i++) 
-	{
-		m_Hand[i]->SetEnable(true);
-		m_Hand[i]->SetPos(200 + (100 * i), 600);
-	}
 }
 void CCardManager::UseCard()
 {
@@ -94,9 +75,8 @@ void CCardManager::InitMyDeck()
 
 	CCard* Strike5 = m_Scene->CreateObject<CCard>("Strike5");
 	Strike5->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
-	Strike5->SetCardAttribute(TEXT("타겨격"), Card_Type::Attack, 1);
+	Strike5->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike5->AddAbility(DefaultDamage);
-	Strike5->SetRenderLayer(ERender_Layer::Hand);
 
 	//수비
 	CCard* Defend1 = m_Scene->CreateObject<CCard>("Defend1");
@@ -146,12 +126,8 @@ void CCardManager::DrawCard(int value)
 			break;
 
 		if (m_bringCardDummy.size() == 0) {
-			if (m_disCardDummy.size() == 0) {
-				MessageBox(nullptr, TEXT("뽑을 카드가 없다"), TEXT("^모^"), MB_OK);
-				return;
-			}
-			m_bringCardDummy = m_disCardDummy;
-			m_disCardDummy.clear();
+			//
+			m_bringCardDummy = m_mainDeck;
 		}
 			//섞어주는 코드
 
@@ -159,7 +135,6 @@ void CCardManager::DrawCard(int value)
 		
 		m_bringCardDummy.pop_back();
 	}
-	HandSort();
 }
 
 void CCardManager::AddDiscard(CGameObject* Discard)
@@ -173,11 +148,6 @@ void CCardManager::BattleStart()
 	//가져올 덱 을 섞는다.
 	//카드를 n장 뽑는다
 	//핸드에 n장을 가져온다.
-}
-
-CGameObject* CCardManager::CardCheck()
-{
-	return m_CardCheck;
 }
 
 

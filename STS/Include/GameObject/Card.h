@@ -37,8 +37,7 @@ protected:
     char m_CardExplain[256];
     bool m_EnableCollider; //카드 충돌 활성화
     bool m_cardMove; //카드 이동 세팅
-    
-   
+
     
 
     //카드에 입힐 텍스트 설명을 담을 위젯
@@ -75,11 +74,12 @@ protected:
 
     Vector2 m_HoveredOffset;
 
+
     list<CSharedPtr<class CCardAbility>> m_Abilitys;
 
     //class CardAbility* m_Ability;
 
-public:
+protected:
 
     virtual bool Init();
     virtual void Render(HDC hDC, float DeltaTime);
@@ -135,7 +135,7 @@ public:
     
 
 private:
-    virtual void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
+    void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
     void CollisionBegin(CCollider* Src, CCollider* Dest);
     void CollisionEnd(CCollider* Src, CCollider* Dest);

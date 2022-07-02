@@ -56,7 +56,6 @@ bool CMyMonster::Init()
 
 	m_NameBar = CreateWidgetComponent<CText>("MonsterNameBar");
 	m_NameBar->GetWidget<CText>()->SetText(TEXT("±¤½ÅÀÚ"));
-	m_NameBar->GetWidget<CText>()->SetEnable(false);
 	m_NameBar->GetWidget<CText>()->EnableShadow(true);
 	m_NameBar->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_NameBar->GetWidget<CText>()->SetFont("NameFont");
@@ -97,7 +96,7 @@ float CMyMonster::InflictDamage(float Damage)
 
 void CMyMonster::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 {
-	m_NameBar->GetWidget<CText>()->SetEnable(false);
+	
 }
 
 void CMyMonster::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)

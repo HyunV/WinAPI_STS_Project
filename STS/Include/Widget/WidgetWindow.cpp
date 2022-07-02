@@ -18,51 +18,21 @@ bool CWidgetWindow::Init()
 
 void CWidgetWindow::Update(float DeltaTime)
 {
-	auto	iter = m_vecWidget.begin();
-	auto	iterEnd = m_vecWidget.end();
+	size_t Size = m_vecWidget.size();
 
-	for (; iter != iterEnd;)
+	for (size_t i = 0; i < Size; ++i)
 	{
-		if (!(*iter)->GetActive())
-		{
-			iter = m_vecWidget.erase(iter);
-			iterEnd = m_vecWidget.end();
-			continue;
-		}
-
-		else if (!(*iter)->GetEnable())
-		{
-			++iter;
-			continue;
-		}
-
-		(*iter)->Update(DeltaTime);
-		++iter;
+		m_vecWidget[i]->Update(DeltaTime);
 	}
 }
 
 void CWidgetWindow::PostUpdate(float DeltaTime)
 {
-	auto	iter = m_vecWidget.begin();
-	auto	iterEnd = m_vecWidget.end();
+	size_t	Size = m_vecWidget.size();
 
-	for (; iter != iterEnd;)
+	for (size_t i = 0; i < Size; ++i)
 	{
-		if (!(*iter)->GetActive())
-		{
-			iter = m_vecWidget.erase(iter);
-			iterEnd = m_vecWidget.end();
-			continue;
-		}
-
-		else if (!(*iter)->GetEnable())
-		{
-			++iter;
-			continue;
-		}
-
-		(*iter)->PostUpdate(DeltaTime);
-		++iter;
+		m_vecWidget[i]->PostUpdate(DeltaTime);
 	}
 }
 
@@ -75,26 +45,9 @@ void CWidgetWindow::Render(HDC hDC, float DeltaTime)
 		std::sort(m_vecWidget.begin(), m_vecWidget.end(), CWidgetWindow::SortWidget);
 	}
 
-	auto	iter = m_vecWidget.begin();
-	auto	iterEnd = m_vecWidget.end();
-
-	for (; iter != iterEnd;)
+	for (size_t i = 0; i < Size; ++i)
 	{
-		if (!(*iter)->GetActive())
-		{
-			iter = m_vecWidget.erase(iter);
-			iterEnd = m_vecWidget.end();
-			continue;
-		}
-
-		else if (!(*iter)->GetEnable())
-		{
-			++iter;
-			continue;
-		}
-
-		(*iter)->Render(hDC, DeltaTime);
-		++iter;
+		m_vecWidget[i]->Render(hDC, DeltaTime);
 	}
 }
 
@@ -122,9 +75,6 @@ bool CWidgetWindow::CollisionMouse(class CWidget** Widget, const Vector2& Pos)
 
 	for (size_t i = 0; i < WidgetCount; ++i)
 	{
-		if (!m_vecWidget[i]->GetEnable())
-			continue;
-
 		if (m_vecWidget[i]->CollisionMouse(Pos)) //충돌이 된 순간 //씬콜리전으로 넘어간다.
 		{
 			*Widget = m_vecWidget[i];

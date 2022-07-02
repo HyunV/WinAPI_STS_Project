@@ -1,15 +1,12 @@
 #include "Collider.h"
 #include "CollisionManager.h"
-#include "../GameObject/CardManager.h"
-#include "../Input.h"
 
 CCollider::CCollider()  :
     m_Scene(nullptr),
     m_Owner(nullptr),
     m_Profile(nullptr),
     m_MouseCollision(false),
-    m_Bottom(0.f),
-    m_Check(false)
+    m_Bottom(0.f)
 {
 }
 
@@ -22,8 +19,7 @@ CCollider::CCollider(const CCollider& collider) :
     m_CardOwner(nullptr),
     m_Profile(collider.m_Profile),
     m_MouseCollision(false),
-    m_Bottom(0.f),
-    m_Check(false)
+    m_Bottom(0.f)
 {
 }
 
@@ -104,8 +100,8 @@ void CCollider::ClearCollisionList()
 
 void CCollider::CallCollisionBegin(CCollider* Dest)
 {
-        if (m_CollisionBegin)
-            m_CollisionBegin(this, Dest); //src, Dest 얘네 둘 충돌이 시작했다
+    if (m_CollisionBegin)
+        m_CollisionBegin(this, Dest); //src, Dest 얘네 둘 충돌이 시작했다
 }
 
 void CCollider::CallCollisionEnd(CCollider* Dest)
@@ -116,19 +112,14 @@ void CCollider::CallCollisionEnd(CCollider* Dest)
 
 void CCollider::CallMouseCollisionBegin(const Vector2& MousePos)
 {
-    if (CInput::GetInst()->GetMouseLPush())
-    {
-        return;
-    }
     if (m_MouseCollisionBegin)
-        m_MouseCollisionBegin(this, MousePos);   
+        m_MouseCollisionBegin(this, MousePos);
 }
 
 void CCollider::CallMouseCollisionEnd(const Vector2& MousePos)
 {
-    if (m_MouseCollisionEnd) {
+    if (m_MouseCollisionEnd)
         m_MouseCollisionEnd(this, MousePos);
-    }
 }
 
 bool CCollider::Init()

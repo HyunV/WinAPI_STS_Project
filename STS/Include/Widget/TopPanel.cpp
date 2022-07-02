@@ -269,14 +269,13 @@ void CTopPanel::Update(float DeltaTime)
 
 void CTopPanel::TestCallback()
 {
-    CCardManager::GetInst()->DrawCard(2);
-    //m_Scene->GetPlayer()->AddShield(5);
-    //if (m_Scene->GetPlayer()->GetEnable()) {
-    //    m_Scene->GetPlayer()->SetEnable(false);
-    //}
-    //else {
-    //    m_Scene->GetPlayer()->SetEnable(true);
-    //}
+    m_Scene->GetPlayer()->AddShield(5);
+    if (m_Scene->GetPlayer()->GetEnable()) {
+        m_Scene->GetPlayer()->SetEnable(false);
+    }
+    else {
+        m_Scene->GetPlayer()->SetEnable(true);
+    }
     
     //CGameManager::GetInst()->Exit();
 }
