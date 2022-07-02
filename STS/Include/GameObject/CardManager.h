@@ -6,13 +6,11 @@
 class CCardManager
 {
 	friend class CScene;
-	friend class CSceneManager;
-public:
-	
+	friend class CSceneManager;	
 	//카드 띄우기
 	//카드 만들기
 	
-private:
+public:
 	class CScene* m_Scene;
 
 	//vector<CCard*> m_allCard; //구현한 모든 카드를 담는다

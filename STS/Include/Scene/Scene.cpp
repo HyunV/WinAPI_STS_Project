@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "SceneCollision.h"
 #include "../GameObject/TileMap.h"
+#include "../GameObject/CardManager.h"
 
 CScene::CScene()
 {
@@ -11,6 +12,7 @@ CScene::CScene()
 	m_Camera = new CCamera;
 	m_Collision = new CSceneCollision;
 	m_SceneUsedCard = false;
+	m_HandList = CCardManager::GetInst()->GetHand();
 }
 
 CScene::~CScene()
@@ -36,6 +38,7 @@ void CScene::SetPlayer(CGameObject* Player)
 
 bool CScene::Init()
 {
+
 	return true;
 }
 
@@ -70,18 +73,17 @@ void CScene::Update(float DeltaTime)
 
 	std::list<CSharedPtr<class CGameObject>>::iterator iter2;
 	std::list<CSharedPtr<class CGameObject>>::iterator iterEnd2;
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		iter2 = m_CardList[i].begin();
-		iterEnd2 = m_CardList[i].end();
+
+		iter2 = m_CardList.begin();
+		iterEnd2 = m_CardList.end();
 
 		for (; iter2 != iterEnd2;)
 		{
 			if (!(*iter2)->GetActive()) //활성화 false로 되어있다면
 			{
 				//리스트에서 제거하는 순간 shared ptr의 소멸자가 호출되어 rc가 감소
-				iter2 = m_CardList[i].erase(iter2);
-				iterEnd2 = m_CardList[i].end(); //이터레이터 특성 상 다시 받아와야됨
+				iter2 = m_CardList.erase(iter2);
+				iterEnd2 = m_CardList.end(); //이터레이터 특성 상 다시 받아와야됨
 				continue;
 			}
 
@@ -93,7 +95,37 @@ void CScene::Update(float DeltaTime)
 			(*iter2)->Update(DeltaTime);
 			++iter2;
 		}
-	}
+
+		//m_HandList = CCardManager::GetInst()->GetHand();
+		//if (m_HandList.size() == 0) {
+		//	CCardManager::GetInst()->InitMyDeck();
+		//	CCardManager::GetInst()->SetBringDeck();
+		//	CCardManager::GetInst()->DrawCard(5);
+		//}
+
+		std::list<CCard*>::iterator iter3 = m_HandList.begin();
+		std::list<CCard*>::iterator iterEnd3 = m_HandList.end();
+
+		for (int i =0; iter3 != iterEnd3;)
+		{
+			if (!(*iter3)->GetActive()) //활성화 false로 되어있다면
+			{
+				//리스트에서 제거하는 순간 shared ptr의 소멸자가 호출되어 rc가 감소
+				iter3 = m_HandList.erase(iter3);
+				iterEnd3 = m_HandList.end(); //이터레이터 특성 상 다시 받아와야됨
+				continue;
+			}
+			//else if (!(*iter3)->GetEnable())
+			//{
+			//	++iter3;
+			//	continue;
+			//}
+			(*iter3)->SetEnable(true);
+			(*iter3)->SetPos(200 + (100 * i), 600);
+			(*iter3)->Update(DeltaTime);
+			iter3++;
+			i++;
+		}
 
 
 	auto iter1 = m_vecWidgetWindow.begin();
@@ -150,10 +182,8 @@ void CScene::PostUpdate(float DeltaTime)
 		}
 	}
 
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		auto	iter2 = m_CardList[i].begin();
-		auto	iterEnd2 = m_CardList[i].end();
+		auto	iter2 = m_CardList.begin();
+		auto	iterEnd2 = m_CardList.end();
 
 		for (; iter2 != iterEnd2;)
 		{
@@ -161,8 +191,8 @@ void CScene::PostUpdate(float DeltaTime)
 			{
 				// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
 				// 카운트가 감소한다.
-				iter2 = m_ObjList[i].erase(iter2);
-				iterEnd2 = m_ObjList[i].end();
+				iter2 = m_CardList.erase(iter2);
+				iterEnd2 = m_CardList.end();
 				continue;
 			}
 
@@ -176,7 +206,6 @@ void CScene::PostUpdate(float DeltaTime)
 
 			++iter2;
 		}
-	}
 
 	auto iter1 = m_vecWidgetWindow.begin();
 	auto iter1End = m_vecWidgetWindow.end();
@@ -262,15 +291,14 @@ void CScene::Render(HDC hDC, float DeltaTime)
 		}
 	}
 
-	for (int i = 0; i < (int)ERender_Layer::Max; ++i)
-	{
-		m_CardList[i].sort(SortY);
+
+		//m_CardList.sort(SortY);
 
 		//std::list<CSharedPtr<class CGameObject>>::iterator iter;
 		//std::list<CSharedPtr<class CGameObject>>::iterator iterEnd;
 
-		auto iter3 = m_CardList[i].begin();
-		auto iterEnd3 = m_CardList[i].end();
+		auto iter3 = m_CardList.begin();
+		auto iterEnd3 = m_CardList.end();
 
 		for (; iter3 != iterEnd3;)
 		{
@@ -278,8 +306,8 @@ void CScene::Render(HDC hDC, float DeltaTime)
 			{
 				// 리스트에서 제거하는 순간 SharedPtr의 소멸자가 호출되어
 				// 카운트가 감소한다.
-				iter3 = m_CardList[i].erase(iter3);
-				iterEnd3 = m_CardList[i].end();
+				iter3 = m_CardList.erase(iter3);
+				iterEnd3 = m_CardList.end();
 				continue;
 			}
 
@@ -293,7 +321,27 @@ void CScene::Render(HDC hDC, float DeltaTime)
 
 			++iter3;
 		}
-	}
+
+		m_HandList.sort(SortY);
+		std::list<CCard*>::iterator iter4 = m_HandList.begin();
+		std::list<CCard*>::iterator iterEnd4 = m_HandList.end();
+
+		for (int i = 0; iter4 != iterEnd4;)
+		{
+			if (!(*iter4)->GetActive())
+			{
+				iter4 = m_HandList.erase(iter4);
+				iterEnd4 = m_HandList.end();
+				continue;
+			}
+			else if (!(*iter4)->GetEnable())
+			{
+				++iter4;
+				continue;
+			}
+			(*iter4)->Render(hDC, DeltaTime);
+			++iter4;
+		}
 
 	// WidgetComponent 출력
 // 제거될 위젯 컴포넌트는 제거한다.

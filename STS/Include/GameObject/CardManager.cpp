@@ -48,53 +48,53 @@ bool CCardManager::Init()
 
 void CCardManager::InitMyDeck()
 {
-	CGiveAttribute* DefaultDamage = m_Scene->CreateCard<CGiveAttribute>("DefaultDamage");
+	CGiveAttribute* DefaultDamage = m_Scene->CreateObject<CGiveAttribute>("DefaultDamage");
 	DefaultDamage->SetType(Card_Attribute::Damage, 6);
-	CGiveAttribute* DefaultShield = m_Scene->CreateCard<CGiveAttribute>("DefaultShield");
+	CGiveAttribute* DefaultShield = m_Scene->CreateObject<CGiveAttribute>("DefaultShield");
 	DefaultShield->SetType(Card_Attribute::Shield, 5);
 
-	CCard* Strike1 = m_Scene->CreateCard<CCard>("Strike1");
+	CCard* Strike1 = m_Scene->CreateObject<CCard>("Strike1");
 	Strike1->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
 	Strike1->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike1->AddAbility(DefaultDamage);
 
-	CCard* Strike2 = m_Scene->CreateCard<CCard>("Strike2");
+	CCard* Strike2 = m_Scene->CreateObject<CCard>("Strike2");
 	Strike2->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
 	Strike2->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike2->AddAbility(DefaultDamage);
 
-	CCard* Strike3 = m_Scene->CreateCard<CCard>("Strike3");
+	CCard* Strike3 = m_Scene->CreateObject<CCard>("Strike3");
 	Strike3->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
 	Strike3->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike3->AddAbility(DefaultDamage);
 
-	CCard* Strike4 = m_Scene->CreateCard<CCard>("Strike4");
+	CCard* Strike4 = m_Scene->CreateObject<CCard>("Strike4");
 	Strike4->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
 	Strike4->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike4->AddAbility(DefaultDamage);
 
-	CCard* Strike5 = m_Scene->CreateCard<CCard>("Strike5");
+	CCard* Strike5 = m_Scene->CreateObject<CCard>("Strike5");
 	Strike5->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
 	Strike5->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
 	Strike5->AddAbility(DefaultDamage);
 
 	//수비
-	CCard* Defend1 = m_Scene->CreateCard<CCard>("Defend1");
+	CCard* Defend1 = m_Scene->CreateObject<CCard>("Defend1");
 	Defend1->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
 	Defend1->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
 	Defend1->AddAbility(DefaultShield);
 
-	CCard* Defend2 = m_Scene->CreateCard<CCard>("Defend2");
+	CCard* Defend2 = m_Scene->CreateObject<CCard>("Defend2");
 	Defend2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
 	Defend2->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
 	Defend2->AddAbility(DefaultShield);
 
-	CCard* Defend3 = m_Scene->CreateCard<CCard>("Defend3");
+	CCard* Defend3 = m_Scene->CreateObject<CCard>("Defend3");
 	Defend3->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
 	Defend3->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
 	Defend3->AddAbility(DefaultShield);
 
-	CCard* Defend4 = m_Scene->CreateCard<CCard>("Defend4");
+	CCard* Defend4 = m_Scene->CreateObject<CCard>("Defend4");
 	Defend4->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
 	Defend4->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
 	Defend4->AddAbility(DefaultShield);

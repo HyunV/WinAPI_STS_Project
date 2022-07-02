@@ -63,11 +63,9 @@ bool CBattleScene::Init()
 	CCardManager::GetInst()->DrawCard(5);
 
 	m_MyHand = CCardManager::GetInst()->GetHand();
-	//list<CCard*>::iterator iter = m_MyHand.begin();
-	//list<CCard*>::iterator end = m_MyHand.end();
-
 	list<CCard*>::iterator iter = m_MyHand.begin();
 	list<CCard*>::iterator end = m_MyHand.end();
+
 	for (int i = 0; iter != end; iter++)
 	{
 		(*iter)->SetEnable(true);
