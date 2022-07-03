@@ -1,12 +1,12 @@
 #include "GameManager.h"
 #include "resource.h"
 #include "Timer.h"
-#include "GameObject/Player.h"
 #include "Scene/SceneManager.h"
 #include "Input.h"
 #include "Resource/ResourceManager.h"
 #include "PathManager.h"
 #include "Collision/CollisionManager.h"
+#include "Scene/BattleScene.h"
 
 DEFINITION_SINGLE(CGameManager) //게임매니저 포인터 타입의 m_Inst를 nullptr로 설정
 bool CGameManager::m_Loop = true;

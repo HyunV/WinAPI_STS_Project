@@ -29,5 +29,7 @@ private:
 	//내림차순으로 정렬해야 제일 앞에 있는 물체와 충돌이 일어난다.
 
 	static bool SortWidget(class CWidgetWindow* Src, class CWidgetWindow* Dest);
+	static bool SortCard(class CCollider* Src, class CCollider* Dest);
+	static bool SelectedSort(class CCollider* Src, class CCollider* Dest);
 };
 

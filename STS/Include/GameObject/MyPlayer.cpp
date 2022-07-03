@@ -1,5 +1,6 @@
 #include "MyPlayer.h"
 #include "../Collision/ColliderBox.h"
+#include "../Widget/ProgressBar.h"
 //idle 애니메이션
 //공격애니메이션: 살짝 앞으로 갔다가 뒤로 슬슬 빠짐
 //수비 애니메이션: 히트박스 레이어가 뜨고 가운데 실드 애니메이션 실드 HUI 애니메이션
@@ -22,6 +23,8 @@ bool CMyPlayer::Init()
 {
 	CGameObject::Init();
 	CCharacter::Init();
+	
+	
 	SetMaxEnergy(5);
 	m_Energy = 999;
 	
@@ -35,13 +38,11 @@ bool CMyPlayer::Init()
 	m_MaxHP = 80;
 	m_HP = m_MaxHP;
 	m_Shield = 0;
-	m_Atk = 3;
-	cnt = 0;
 
-	SetPos(140.f, 370.f);
-	OriginPos = GetPos();
+	SetPos(240.f, 470.f);
+	m_OriginPos = GetPos();
 	SetSize(270.f, 191.f);
-	SetPivot(0.f, 0.f);
+	SetPivot(0.5f, 0.5f);
 
 	SetTexture("Player", TEXT("Player/PlayerH.bmp"));
 	SetColorKey(255, 0, 255);
@@ -50,16 +51,20 @@ bool CMyPlayer::Init()
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
 	Box->SetExtent(1000, 300.f); //크기 세팅
-	Box->SetOffset(480.f, 1.f); //위치세팅
+	Box->SetOffset(380.f, -150.f); //위치세팅
 	Box->SetCollisionProfile("MyPlayer");
 
 	Box->SetCollisionBeginFunction<CMyPlayer>(this, &CMyPlayer::CollisionBegin);
 	Box->SetCollisionEndFunction<CMyPlayer>(this, &CMyPlayer::CollisionEnd);
 	m_Shield = 0;
 
-	m_HPBarFrame->SetPos(170.f, 180.f);
-	m_HPBar->SetPos(170.f, 180.f);
-	m_HPText->SetPos(220.f, 215.f);
+	//m_HPBarFrame->SetPos(170.f, 180.f);
+	//m_HPBar->SetPos(170.f, 180.f);
+	//m_HPText->SetPos(220.f, 215.f);
+
+	m_HPBarFrame->SetPos(0.f, 100.f);
+	m_HPBar->SetPos(0.f, 100.f);
+	m_HPText->SetPos(50.f, 137.f);
 	
 	
 	return true;
@@ -72,15 +77,15 @@ void CMyPlayer::Update(float DeltaTime)
 	CCharacter::Update(DeltaTime);
 	if (m_EnableAttack) {	
 		AttackMotion(m_AttackDir, m_AttackSpeed);
-		cnt++;
-		if (cnt == 30) {
+		m_Cnt++;
+		if (m_Cnt == 30) {
 			m_AttackDir = -10;
 		}
-		if (cnt>30 && OriginPos.x > m_Pos.x)
+		if (m_Cnt >30 && m_OriginPos.x > m_Pos.x)
 		{
-			SetPos(OriginPos);
+			SetPos(m_OriginPos);
 			m_EnableAttack = false;
-			cnt = 0;
+			m_Cnt = 0;
 			m_AttackDir = 10;
 		}
 	}
@@ -98,7 +103,28 @@ void CMyPlayer::Render(HDC hDC, float DeltaTime)
 
 float CMyPlayer::InflictDamage(float Damage)
 {
-	return 0.0f;
+	Damage = CCharacter::InflictDamage(Damage);
+	
+	if (m_Shield > 0) {
+		m_Shield -= (int)Damage;
+		if (m_Shield < 0) {
+			m_HP += (m_Shield);
+			m_Shield = 0;
+		}
+	}
+	else
+	{
+		m_HP -= (int)Damage;
+	}
+	
+	m_HPBar->GetWidget<CProgressBar>()->SetValue(m_HP / (float)m_MaxHP);
+	
+	if (m_HP <= 0)
+	{
+		//사망
+		SetEnable(false);
+	}
+	return Damage;
 }
 
 float CMyPlayer::AddShield(float shield)

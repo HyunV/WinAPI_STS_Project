@@ -27,7 +27,8 @@ CGameObject::CGameObject() :
 	m_DirValue(1),
 	m_EnableAttack(false),
 	m_UsedCard(false),
-	m_SelectedCard(false)
+	m_SelectedCard(false),
+	m_CardControl(false)
 {
 	SetTypeID<CGameObject>();
 }
@@ -515,7 +516,7 @@ void CGameObject::Render(HDC hDC, float DeltaTime)
 				{
 					///////////////////////////////////////////////////
 					if (m_MoveObject) {
-						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y+ m_MovingObject,
+						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y+ (int)m_MovingObject,
 							(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
 							0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
 					}

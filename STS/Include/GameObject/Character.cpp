@@ -4,14 +4,27 @@
 #include "../Widget/WidgetComponent.h"
 #include "../Widget/Text.h"
 #include "../Widget/ProgressBar.h"
+#include "../Widget/ImageWidget2.h"
 
-CCharacter::CCharacter()
+CCharacter::CCharacter() :
+	m_AttackDir(0),
+	m_AttackSpeed(0),
+	m_Cnt(0),
+	m_HP(1),
+	m_MaxHP(1)
 {
 	SetTypeID<CCharacter>();
+	
 }
 
 CCharacter::CCharacter(const CCharacter& Obj) :
-	CGameObject(Obj)
+	CGameObject(Obj),
+	m_AttackDir(0),
+	m_AttackSpeed(0),
+	m_Cnt(0),
+	m_HP(1),
+	m_MaxHP(1)
+
 {
 }
 
@@ -50,6 +63,28 @@ bool CCharacter::Init()
 	m_HPText->GetWidget<CText>()->SetFont("UI");
 	m_HPText->GetWidget<CText>()->SetSize(100, 100);
 
+	m_HPBarFrame->SetPos(0.f, 100.f);
+	m_HPBar->SetPos(0.f, 100.f);
+	m_HPText->SetPos(50.f, 137.f);
+
+	m_ShieldImage = CreateWidgetComponent<CImageWidget2>("ShieldImage");
+	m_ShieldImage->GetWidget<CImageWidget2>()->SetTexture("AddShield", TEXT("Effects/block.bmp"));
+	m_ShieldImage->GetWidget<CImageWidget2>()->SetSize(32, 32);
+	m_ShieldImage->SetPos(-60, 98);
+	m_ShieldImage->GetWidget<CImageWidget2>()->SetColorKey(255, 0, 255);
+	m_ShieldImage->GetWidget<CImageWidget2>()->SetEnable(false);
+
+	m_ShieldText = CreateWidgetComponent<CText>("ShieldText");
+	m_ShieldText->GetWidget<CText>()->SetText(TEXT("5"));
+	m_ShieldText->GetWidget<CText>()->EnableShadow(true);
+	m_ShieldText->GetWidget<CText>()->SetTextColor(255, 255, 255);
+	m_ShieldText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
+	m_ShieldText->GetWidget<CText>()->SetFont("Shield");
+	m_ShieldText->GetWidget<CText>()->SetSize(32, 32);
+	m_ShieldText->SetPos(-46, 100);
+	m_ShieldText->GetWidget<CImageWidget2>()->SetEnable(false);
+
+
 	return true;
 }
 
@@ -60,13 +95,24 @@ void CCharacter::Update(float DeltaTime)
 	//	AttackMotion(m_AttackDir, m_AttackSpeed);
 	//	m_AttackOn = false;
 	//}
-		if (m_Shield) {
+		if (m_Shield > 0) {
 		m_HPBarFrame->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
 		m_HPBar->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
+		m_ShieldImage->GetWidget<CImageWidget2>()->SetEnable(true);
+		m_ShieldText->GetWidget<CImageWidget2>()->SetEnable(true);
+		char Text2[256] = {};
+		sprintf_s(Text2, "%d", m_Shield);
+
+		TCHAR Unicode2[256] = {};
+		int Length2 = MultiByteToWideChar(CP_ACP, 0, Text2, -1, 0, 0);
+		MultiByteToWideChar(CP_ACP, 0, Text2, -1, Unicode2, Length2);
+		m_ShieldText->GetWidget<CText>()->SetText(Unicode2);
 	}
 	else {
 		m_HPBarFrame->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Default);
 		m_HPBar->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Default);
+		m_ShieldImage->GetWidget<CImageWidget2>()->SetEnable(false);
+		m_ShieldText->GetWidget<CImageWidget2>()->SetEnable(false);
 	}
 
 	char Text[256] = {};
@@ -76,6 +122,8 @@ void CCharacter::Update(float DeltaTime)
 	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
 	m_HPText->GetWidget<CText>()->SetText(Unicode);
+
+
 }
 
 void CCharacter::Render(HDC hDC, float DeltaTime)

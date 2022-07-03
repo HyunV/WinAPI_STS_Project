@@ -30,9 +30,6 @@
     <Filter Include="01.GameManager\04.Input">
       <UniqueIdentifier>{cd6a2dad-e7ee-4d51-b27a-8ba364ac2893}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\02.Bullet">
-      <UniqueIdentifier>{721221f6-ac25-477c-8c48-430a72f7f8f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.Resource">
       <UniqueIdentifier>{d98c949d-5eb8-4469-89dc-bd8d8af34cae}</UniqueIdentifier>
     </Filter>
@@ -123,13 +120,7 @@
     <ClCompile Include="GameObject\Character.cpp">
       <Filter>02.GameObject\01.Character</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\Player.cpp">
-      <Filter>02.GameObject\01.Character</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
-      <Filter>03.Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\MainScene.cpp">
       <Filter>03.Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
@@ -143,18 +134,6 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>01.GameManager\04.Input</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Monster.cpp">
-      <Filter>02.GameObject\01.Character</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Bullet.cpp">
-      <Filter>02.GameObject\02.Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Tornado.cpp">
-      <Filter>02.GameObject\02.Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Satellite.cpp">
-      <Filter>02.GameObject\02.Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Resource\ResourceManager.cpp">
       <Filter>04.Resource</Filter>
@@ -170,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneResource.cpp">
       <Filter>03.Scene\01.Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\PlayerBullet.cpp">
-      <Filter>02.GameObject\02.Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Animation\Animation.cpp">
       <Filter>05.Animation</Filter>
@@ -219,23 +195,11 @@
     <ClCompile Include="Widget\WidgetWindow.cpp">
       <Filter>07.UI\02.Window</Filter>
     </ClCompile>
-    <ClCompile Include="Widget\StartWindow.cpp">
-      <Filter>07.UI\02.Window</Filter>
-    </ClCompile>
     <ClCompile Include="Widget\Button.cpp">
       <Filter>07.UI\01.Widget</Filter>
     </ClCompile>
     <ClCompile Include="Widget\Widget.cpp">
       <Filter>07.UI\01.Widget</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\StartScene.cpp">
-      <Filter>03.Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget\ImageWidget.cpp">
-      <Filter>07.UI\01.Widget</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget\CharacterHUD.cpp">
-      <Filter>07.UI\02.Window</Filter>
     </ClCompile>
     <ClCompile Include="Widget\ProgressBar.cpp">
       <Filter>07.UI\01.Widget</Filter>
@@ -294,6 +258,18 @@
     <ClCompile Include="GameObject\Deco.cpp">
       <Filter>02.GameObject\03.Back</Filter>
     </ClCompile>
+    <ClCompile Include="Widget\MapBack.cpp">
+      <Filter>07.UI\02.Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\CameraObject.cpp">
+      <Filter>02.GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FrontObj.cpp">
+      <Filter>02.GameObject\03.Back</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\FloatingDamage.cpp">
+      <Filter>07.UI\01.Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -317,13 +293,7 @@
     <ClInclude Include="GameObject\Character.h">
       <Filter>02.GameObject\01.Character</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\Player.h">
-      <Filter>02.GameObject\01.Character</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
-      <Filter>03.Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\MainScene.h">
       <Filter>03.Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Scene.h">
@@ -340,18 +310,6 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>01.GameManager\04.Input</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Monster.h">
-      <Filter>02.GameObject\01.Character</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Bullet.h">
-      <Filter>02.GameObject\02.Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Tornado.h">
-      <Filter>02.GameObject\02.Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Satellite.h">
-      <Filter>02.GameObject\02.Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Resource\ResourceManager.h">
       <Filter>04.Resource</Filter>
@@ -370,9 +328,6 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneResource.h">
       <Filter>03.Scene\01.Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\PlayerBullet.h">
-      <Filter>02.GameObject\02.Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Animation\Animation.h">
       <Filter>05.Animation</Filter>
@@ -443,23 +398,11 @@
     <ClInclude Include="Widget\WidgetWindow.h">
       <Filter>07.UI\02.Window</Filter>
     </ClInclude>
-    <ClInclude Include="Widget\StartWindow.h">
-      <Filter>07.UI\02.Window</Filter>
-    </ClInclude>
     <ClInclude Include="Widget\Button.h">
       <Filter>07.UI\01.Widget</Filter>
     </ClInclude>
     <ClInclude Include="Widget\Widget.h">
       <Filter>07.UI\01.Widget</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\StartScene.h">
-      <Filter>03.Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Widget\ImageWidget.h">
-      <Filter>07.UI\01.Widget</Filter>
-    </ClInclude>
-    <ClInclude Include="Widget\CharacterHUD.h">
-      <Filter>07.UI\02.Window</Filter>
     </ClInclude>
     <ClInclude Include="Widget\ProgressBar.h">
       <Filter>07.UI\01.Widget</Filter>
@@ -520,6 +463,18 @@
     </ClInclude>
     <ClInclude Include="GameObject\Deco.h">
       <Filter>02.GameObject\03.Back</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\MapBack.h">
+      <Filter>07.UI\02.Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\CameraObject.h">
+      <Filter>02.GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FrontObj.h">
+      <Filter>02.GameObject\03.Back</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\FloatingDamage.h">
+      <Filter>07.UI\01.Widget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

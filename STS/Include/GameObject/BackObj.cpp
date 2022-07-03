@@ -2,7 +2,6 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Resource/ResourceManager.h"
-#include "Deco.h"
 
 CBackObj::CBackObj()
 {
@@ -26,6 +25,7 @@ bool CBackObj::Init()
 	SetPivot(0.f, 0.f);
 
 	SetTexture("BattleScene", TEXT("Scene/scene3.bmp"));
+	
 
 	//BackImages.push_back(TEXT("Scene/B.bmp"));
 	//BackImages.push_back(TEXT("Scene/C.bmp"));

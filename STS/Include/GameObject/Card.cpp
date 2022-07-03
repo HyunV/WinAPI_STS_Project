@@ -16,7 +16,7 @@ CCard::CCard()
 	SetTypeID<CCard>();
 	m_mouseHovered = false;
 	m_mouseClicked = false;
-
+	m_RenderLayer = ERender_Layer::Hand;
 
 }
 
@@ -62,11 +62,11 @@ bool CCard::Init()
 	cardPanelFiles.push_back(TEXT("Cards/cardPanel_Curse.bmp")); //6
 
 	m_Scene->GetSceneResource()->LoadTexture("cardPanel", cardPanelFiles);
-	SetSize(148, 208);
+	SetSize(148, 209);
 
 	//카드 이미지
 	m_cardImageSize = Vector2(123, 93);
-	m_cardImageOffset = Vector2(12, 20);
+	m_cardImageOffset = Vector2(13, 20);
 
 	//카드 테두리
 	//카드타입에따라 edge텍스처와 nameTag와 이미지
@@ -81,8 +81,8 @@ bool CCard::Init()
 	cardEdgeFiles.push_back(TEXT("Cards/cardEdge_R3.bmp")); //	 8
 
 	//카드파츠들의 이미지를 불러와서 그릴 준비m_cardEdgeSize
-	m_cardEdgeSize = Vector2(133, 118);
-	m_cardEdgeOffset = Vector2(7, 0);
+	m_cardEdgeSize = Vector2(135, 119);
+	m_cardEdgeOffset = Vector2(7, -1);
 	m_Scene->GetSceneResource()->LoadTexture("CardEdge", cardEdgeFiles);
 
 	//카드 네임택
@@ -90,13 +90,13 @@ bool CCard::Init()
 	cardNameTagFiles.push_back(TEXT("Cards/cardNameTag_S.bmp")); //2 SPECIAL
 	cardNameTagFiles.push_back(TEXT("Cards/cardNameTag_R.bmp")); //1 RARE
 
-	m_cardNameTagSize = Vector2(161, 35);
-	m_cardNameTagOffset = Vector2(-7, 10);
+	m_cardNameTagSize = Vector2(162, 36);
+	m_cardNameTagOffset = Vector2(-7, 9);
 	m_Scene->GetSceneResource()->LoadTexture("CardNameTags", cardNameTagFiles);
 
 	//코스트 이미지
 	m_Scene->GetSceneResource()->LoadTexture("CostImage", TEXT("Cards/cardCost.bmp"));
-	m_costImageSize = Vector2(34, 34);
+	m_costImageSize = Vector2(35, 34);
 	m_costImageOffset = Vector2(-10, -10);
 
 
@@ -219,7 +219,7 @@ void CCard::Render(HDC hDC, float DeltaTime)
 void CCard::Update(float DeltaTime)
 {
 	//마우스 드래그
-	if (m_mouseHovered) {		
+	if (m_mouseHovered) {
 		if (CInput::GetInst()->GetMouseLDown())
 		{		
 			if (m_cardOriginPos.x == 0.f && m_cardOriginPos.y == 0.f) 
@@ -409,7 +409,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 
 	m_MycardType = CreateWidgetComponent<CText>("cardType");
 	m_MycardType->GetWidget<CText>()->SetText(Change);
-	m_MycardType->SetPos(73, 104);
+	m_MycardType->SetPos(74, 105);
 	m_MycardType->GetWidget<CText>()->SetTextColor(64, 64, 64);
 	m_MycardType->GetWidget<CText>()->SetFont("TypeFont");
 
@@ -462,7 +462,7 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 	ss << "cardExplain" << m_Abilitys.size();
 
 	 CWidgetComponent* text = CreateWidgetComponent<CText>(ss.str());
-	 text->SetPos(75, 100 + m_Abilitys.size()*20);
+	 text->SetPos(75.f, (float)(100 + m_Abilitys.size()*20));
 	 text->GetWidget<CText>()->EnableShadow(true);
 	 text->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
 	 text->GetWidget<CText>()->SetTextColor(255, 249, 229);
@@ -514,49 +514,14 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 
 	owner->SetUsedCard(true);
 	m_Scene->SetUseCard(true);
-	//CCardManager::GetInst()->AddDiscard(owner);
-	//owner->SetEnable(false);
-	//owner->SetActive(false);
-
-	//정렬
-	//list<CCard*> hand = CCardManager::GetInst()->GetHand();
-
-	//CCardManager::GetInst()->SetHand(hand);
-
-	//list<CCard*>::iterator iter = hand.begin();
-	//list<CCard*>::iterator end = hand.end();
-	//for (; iter != end; iter++)
-	//{
-	//	if ((*iter)->GetUsedCard()) {
-	//		iter = hand.erase(iter);
-	//		end = hand.end();
-	//	}
-	//}
-	//이터레이터 돌려서 사용된카드 확인
-//그 카드를 핸드에서 제거하고 버린 카드로 이동한다.
-
-
-	//CCardManager::GetInst()->UseCard();
-	/*
-	switch (m_cardType)
-	{
-	case Card_Type::Attack:
-		target->InflictDamage(m_CardPower);
-		break;
-	case Card_Type::Skill:
-		break;
-	case Card_Type::Power:
-		break;
-	case Card_Type::Curse:
-		//사용 못함
-		break;
-	}*/
-
 }
 
 void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 {
-	if (!CCardManager::GetInst()->CardCheck()) {
+	if(!(m_Scene->GetBlackSwitch()))
+	{
+	if (!CCardManager::GetInst()->CardCheck()) 
+	{
 		CCardManager::GetInst()->SetCardCheck(Src->GetOwner());
 		if (!m_mouseHovered) {
 			m_mouseHovered = true;
@@ -569,25 +534,28 @@ void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 			}
 		}
 	}
+	}
 }
 
 void CCard::CollisionMouseEnd(CCollider* Src, const Vector2& MousePos)
 {
-	if (m_mouseHovered) {
-		m_mouseHovered = false;
-		//m_SelectCard = 0;
-	}
+	if (m_mouseHovered)
+	{
+		m_mouseHovered =false;
 		SetPos(GetPos() - m_HoveredOffset);
-		//Src->SetMouseCollision(false);
 		Src->GetOwner()->SetSelectedCard(false);
 		CCardManager::GetInst()->SetCardCheck(nullptr);
 		CCardManager::GetInst()->HandSort();
-		
+	}		
 }
 
 void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)
 {
-	m_collisionInteraction = true;
+	if (!(m_Scene->GetBlackSwitch()))
+	{
+		m_collisionInteraction = true;
+	}
+	
 	
 	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
 }
@@ -597,11 +565,9 @@ void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
 	if (m_collisionInteraction) 
 	{
 		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
-		{
-			
+		{	
 			useCard(Src->GetOwner(), Dest->GetOwner());
 			//카드 버리는 로직
-			//
 			m_collisionInteraction = false;
 		}
 

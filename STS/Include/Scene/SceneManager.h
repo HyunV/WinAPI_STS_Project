@@ -31,6 +31,7 @@ public:
 	{
 		T* Scene = new T;
 
+		//Ãß°¡
 		CCardManager::GetInst()->m_Scene = Scene;
 
 		if (!Scene->Init())

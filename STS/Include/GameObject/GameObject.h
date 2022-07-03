@@ -41,6 +41,7 @@ protected:
 	int m_Energy;
 	int m_MaxEnergy;
 	bool m_UsedCard;
+	bool m_CardControl;
 
 	//공격여부
 	bool m_EnableAttack;
@@ -101,6 +102,9 @@ public: /////////////////애니메이션 관련////////////////////////////
 	{
 		m_Shield += Shield;
 	}
+	void ClearShield() {
+		m_Shield = 0;
+	}
 	void SetEnergy(int value) {
 		m_Energy = value;
 	}
@@ -133,6 +137,14 @@ public: /////////////////애니메이션 관련////////////////////////////
 	bool GetSelectedCard()
 	{
 		return m_SelectedCard;
+	}
+	void SetCardControl(bool Enable)
+	{
+		m_CardControl = Enable;
+	}
+	bool GetCardControl()
+	{
+		return m_CardControl;
 	}
 
 	//중력관련
@@ -175,6 +187,11 @@ public:
 	{
 		m_Pos.x = x;
 		m_Pos.y = y;
+	}
+	void SetPrevPos(float x, float y)
+	{
+		m_PrevPos.x = x;
+		m_PrevPos.y = y;
 	}
 	void SetPos(const Vector2& Pos)
 	{

@@ -10,12 +10,6 @@ protected:
     CMyPlayer(const CMyPlayer& Obj);
     virtual ~CMyPlayer();
 
-private:
-	int m_Atk;
-
-	Vector2 Dir;
-	Vector2 OriginPos;
-	int cnt;
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

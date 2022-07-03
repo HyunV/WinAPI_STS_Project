@@ -25,12 +25,11 @@ enum class Card_Value //³ë¸» Æ¯º° Èñ±Í
 
 enum class Card_Attribute
 {
+	None,
 	Damage,
 	Shield,
 	DrawCard,
 	Attack,
-
-
 };
 
 enum class Card_Preview

@@ -3,6 +3,7 @@
 #include "../Input.h"
 #include "../Widget/WidgetWindow.h"
 #include "../Widget/Widget.h"
+#include "../GameObject/GameObject.h"
 
 CSceneCollision::CSceneCollision() :
 	m_MouseCollision(nullptr),
@@ -84,6 +85,9 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 		{
 			if (Size > 1)  //정렬은 1개 이상일 때 진행
 				std::sort(m_vecCollider.begin(), m_vecCollider.end(), CSceneCollision::SortY);
+				std::sort(m_vecCollider.begin(), m_vecCollider.end(), CSceneCollision::SortCard);
+				std::sort(m_vecCollider.begin(), m_vecCollider.end(), CSceneCollision::SelectedSort);
+
 			//vector는 기본적으로 sort기능이 제공되지 않기 때문에 알고리즘
 			//가장 앞에 있는 물체와 충돌하기 위한 내림차순 정렬
 			Vector2	MouseWorldPos = CInput::GetInst()->GetMouseWorldPos(); //마우스 월드위치 가져옴
@@ -121,6 +125,7 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 							m_MouseCollision->SetMouseCollision(false);
 						
 						// 충돌 시작 함수를 호출한다.
+						
 						Dest->CallMouseCollisionBegin(MouseWorldPos);
 						Dest->SetMouseCollision(true); //마우스 충돌되고있다(활성화)
 						
@@ -233,4 +238,21 @@ bool CSceneCollision::SortY(CCollider* Src, CCollider* Dest)
 bool CSceneCollision::SortWidget(CWidgetWindow* Src, CWidgetWindow* Dest)
 {
 	return Src->GetZOrder() > Dest->GetZOrder();
+}
+
+bool CSceneCollision::SortCard(CCollider* Src, CCollider* Dest)
+{
+	CGameObject* Srcs = Src->GetOwner();
+	CGameObject* Dests = Dest->GetOwner();
+	Vector2 SrcX = Srcs->GetPos();
+	Vector2 SrcY = Dests->GetPos();
+	return  SrcX.x > SrcY.x;
+}
+
+bool CSceneCollision::SelectedSort(CCollider* Src, CCollider* Dest)
+{
+	CGameObject* Srcs = Src->GetOwner();
+	CGameObject* Dests = Dest->GetOwner();
+
+	return Srcs->GetSelectedCard() > Dests->GetSelectedCard();
 }

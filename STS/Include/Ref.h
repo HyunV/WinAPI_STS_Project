@@ -17,7 +17,7 @@ protected:
 	size_t	m_TypeID; // id 값?
 	bool	m_Enable;	// 활성, 비활성
 	bool	m_Active;	// 살아 있는지 죽었는지 이걸 이용해서 안전하게 객체를 뺄 예정
-
+	
 public:
 	void AddRef(); //++
 	int Release(); //--, 소멸

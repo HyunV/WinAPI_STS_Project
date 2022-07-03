@@ -77,7 +77,9 @@ struct CollisionProfile //충돌 정보 모음
 	이것들을 선택정렬해서 충돌처리하냐 무시하냐 세팅한다.
 	*/
 	CollisionProfile() :
-		Enable(true) //초기값 true로 해준 모습
+		Enable(true), //초기값 true로 해준 모습
+		Name("Noname"),
+		Channel(ECollision_Channel::Default)
 	{
 
 	}

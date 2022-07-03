@@ -10,12 +10,12 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 	{
 	case Card_Attribute::Damage:
 		
-		target->InflictDamage(m_Power);
+		target->InflictDamage((float)m_Power);
 		m_Scene->GetPlayer()->SetEnableAttack(true);
 		break;
 	case Card_Attribute::Shield:
+		m_Scene->GetPlayer()->AddShield(m_Power);
 		//플레이어 -> addShield(m_Power);
-
 		break;
 	}
 }
@@ -23,7 +23,7 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 void CGiveAttribute::SetType(Card_Attribute Type, float Power)
 {
 	m_Type = Type;
-	m_Power = Power;
+	m_Power = (int)Power;
 	
 
 	char	Text[256] = {};
@@ -43,9 +43,6 @@ void CGiveAttribute::SetType(Card_Attribute Type, float Power)
 	
 	break;
 	}
-
-
-
 
 	TCHAR	Unicode[256] = {};
 	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);

@@ -1,6 +1,4 @@
 #include "SceneManager.h"
-#include "MainScene.h"
-#include "StartScene.h"
 #include "BattleScene.h"
 #include "../Input.h"
 

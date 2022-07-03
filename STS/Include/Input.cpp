@@ -60,8 +60,8 @@ bool CInput::Init(HWND hWnd)
 	//바인드 키 만든 예제
 	AddBindKey("GunRotation", 'D');
 	AddBindKey("GunRotationInv", 'A');
-	AddBindKey("MoveFront", 'W');
-	AddBindKey("MoveBack", 'S');
+	AddBindKey("CameraUp", 'W');
+	AddBindKey("CameraDown", 'S');
 	AddBindKey("Fire", VK_LBUTTON);
 	AddBindKey("Jump", VK_SPACE);
 	AddBindKey("Skill1", '1');
@@ -113,6 +113,7 @@ bool CInput::Init(HWND hWnd)
 	m_MouseObj->CreateAnimation();
 
 	m_MouseObj->AddAnimation("MouseDefault", true);
+	m_MouseData = m_MouseObj;
 
 	ShowCursor(FALSE); //기본 마우스는 안보이게
 	//주의: 카운트 잘 맞춰서 쓰기 안그러면 true로 세팅해도 마우스 안보일 수 있음

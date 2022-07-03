@@ -9,7 +9,10 @@ CEffect::CEffect() :
 }
 
 CEffect::CEffect(const CEffect& Obj) :
-    CGameObject(Obj)
+    CGameObject(Obj),
+    m_EffectType(EEffect_Type::Once),
+    m_Duration(0.f),
+    m_Time(0.f)
 {
 
 }

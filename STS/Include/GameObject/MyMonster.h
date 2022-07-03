@@ -19,8 +19,7 @@ protected:
     virtual ~CMyMonster();
 
 private:
-    int m_AttackDamage;
-    
+    //int m_AttackDamage;
     
    
 public:

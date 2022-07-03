@@ -21,6 +21,7 @@ protected:
 	//이 오브젝트 목록을 이용해 씬을 그려내고 있다. 매 프레임마다 y소팅, 혹은 정렬을 해주어야 한다.
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 	CSharedPtr<class CGameObject> m_Player;
+	CSharedPtr<class CGameObject> m_CameraObj;
 	CSharedPtr<class CTileMap>		m_TileMap;
 
 	std::vector<CSharedPtr<CWidgetWindow>>	m_vecWidgetWindow;
@@ -28,6 +29,7 @@ protected:
 public:
 	std::list<CSharedPtr<class CGameObject>>	 m_CardList;
 	bool m_SceneUsedCard;
+	bool m_BlackLayerSwitch;
 
 public:
 
@@ -55,9 +57,14 @@ public:
 	{
 		return m_TileMap;
 	}
+	class CGameObject* GetCameraObj() const
+	{
+		return m_CameraObj;
+	}
 
 	void SetTileMap(class CTileMap* TileMap);
 	void SetPlayer(class CGameObject* Player);
+	void SetCameraObj(class CGameObject* Camera);
 
 	void AddWidgetComponent(CWidgetComponent* Widget)
 	{
@@ -72,6 +79,14 @@ public:
 	void SetUseCard(bool Enable)
 	{
 		m_SceneUsedCard = Enable;
+	}
+	void SetBlackSwitch(bool Enable)
+	{
+		m_BlackLayerSwitch = Enable;
+	}
+	bool GetBlackSwitch()
+	{
+		return m_BlackLayerSwitch;
 	}
 
 public:
@@ -149,5 +164,7 @@ private:
 	static bool SortY(const CSharedPtr<class CGameObject>& Src, const CSharedPtr<class CGameObject>& Dest);
 	static bool SortYWidgetComponent(const CSharedPtr<class CWidgetComponent>& Src, const CSharedPtr<class CWidgetComponent>& Dest);
 	static bool SortWidget(const CSharedPtr<CWidgetWindow>& Src, const CSharedPtr<CWidgetWindow>& Dest);
+	static bool SortCard(const CSharedPtr<class CGameObject>& Src, const CSharedPtr<class CGameObject>& Dest);
+	static bool SortCard2(const CSharedPtr<class CGameObject>& Src, const CSharedPtr<class CGameObject>& Dest);
 };
 

@@ -20,12 +20,18 @@ protected:
 	CSharedPtr<class CWidgetComponent> m_HPBar;
 	CSharedPtr<class CWidgetComponent> m_NameBar;
 	CSharedPtr<class CWidgetComponent> m_HPText;
+	
+	CSharedPtr<class CWidgetComponent> m_ShieldImage;
+	CSharedPtr<class CWidgetComponent> m_ShieldText;
 
 	int m_MaxHP;
 	int m_HP;
 
 	float m_AttackDir;
 	float m_AttackSpeed;
+
+	Vector2 m_OriginPos;
+	int m_Cnt;
 
 	void AttackMotion(float Dir, float Speed);
 

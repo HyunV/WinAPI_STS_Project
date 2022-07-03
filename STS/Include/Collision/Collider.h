@@ -70,6 +70,9 @@ public:
         m_Offset = Vector2(x, y);
     }
 
+    Vector2 GetOffset() {
+        return m_Offset;
+    }
 public:
     bool GetMouseCollision()    const
     {

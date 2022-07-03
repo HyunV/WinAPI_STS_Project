@@ -2,6 +2,8 @@
 
 CCardAbility::CCardAbility()
 {
+	m_Power = 0;
+	m_Explain[0] = {};
 }
 
 CCardAbility::~CCardAbility()

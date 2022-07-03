@@ -29,10 +29,20 @@ private:
 	vector<CCard*> m_Hand; //손패
 
 	bool m_UsedCard;
+
 	bool m_MouseClicked;
+
+	bool m_MouseHovered;
+
 	class CGameObject* m_CardCheck;
 	//사용한 카드 더미
 	
+	//게임 시스템 설계
+	bool m_PlayerTurn;
+	bool m_MonstersTurn;
+	int m_TurnCount;
+
+	//
 public:
 	//void AddCardToMyDeck(); //카드를 리스트에 추가한다
 		
@@ -59,13 +69,49 @@ public:
 		m_mainDeck = usingDeck;
 	}
 	int getMaindeckCount() {
-		return m_mainDeck.size();
+		return (int)m_mainDeck.size();
 	}
 	int getBringCardCount() {
-		return m_bringCardDummy.size();
+		return (int)m_bringCardDummy.size();
 	}
 	int getDiscardCount() {
-		return m_disCardDummy.size();
+		return (int)m_disCardDummy.size();
+	}
+	void SetBringCardDeck(vector<CCard*> deck) {
+		m_bringCardDummy = deck;
+	}
+	vector<CCard*> GetBringDeck() {
+		return m_bringCardDummy;
+	}
+	void SetDiscardDeck(vector<CCard*> deck) {
+		m_disCardDummy = deck;
+	}
+	vector<CCard*> GetDiscardDeck() {
+		return m_disCardDummy;
+	}
+	void SetPlayerTurn(bool Enable)
+	{
+		m_PlayerTurn = Enable;
+	}
+	bool GetPlayerTurn()
+	{
+		return m_PlayerTurn;
+	}
+	void SetMonstersTurn(bool Enable)
+	{
+		m_MonstersTurn = Enable;
+	}
+	bool GetMonstersTurn()
+	{
+		return m_MonstersTurn;
+	}
+	void SetTurnCount(int value)
+	{
+		m_TurnCount = value;
+	}
+	int GetTurnCount()
+	{
+		return m_TurnCount;
 	}
 	void InitMyDeck(); //타격 5장, 수비 4장
 
@@ -85,6 +131,14 @@ public:
 		m_CardCheck = card;
 	}
 
+	bool GetMouseHovered()
+	{
+		return m_MouseHovered;
+	}
+	void SetMouseHovered(bool Check)
+	{
+		m_MouseHovered = Check;
+	}
 	bool GetMouseClicked()
 	{
 		return m_MouseClicked;
@@ -94,8 +148,12 @@ public:
 		m_MouseClicked = Check;
 	}
 
+	void EnableHand(bool Enable);
 	void HandSort();
-	void UseCard();
+	void CardView(vector<CCard*> deck);
+	void ClearCard(vector<CCard*> deck);
+	void HandToDiscard(); //턴 종료 시 남은 핸드를 모두 버린다
+	
 	bool Init();
 
 	DECLARE_SINGLE(CCardManager)

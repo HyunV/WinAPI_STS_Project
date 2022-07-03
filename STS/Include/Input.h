@@ -88,9 +88,13 @@ private:
 	bool	m_MouseLUp; //¸¶¿ì½º ¶¿ ¶§
 	CollisionProfile* m_MouseProfile;
 	CSharedPtr<class CGameObject> m_MouseObj;
+	class CGameObject* m_MouseData;
 	bool m_ShowCursor;
 
 public:
+	class CGameObject* GetMouseObj() {
+		return m_MouseData;
+	}
 	bool GetMouseLDown()	const
 	{
 		return m_MouseLDown;
