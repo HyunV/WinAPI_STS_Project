@@ -485,7 +485,6 @@ void CTopPanel::TurnOffCallBack()
 void CTopPanel::BackCallBack()
 {
     CCardManager::GetInst()->ClearCard(m_CardTemp);
-    CCardManager::GetInst()->SetMainDeck(m_CardTemp);
     m_CardTemp.clear();
     m_Scene->SetBlackSwitch(false);
     m_BackButton->SetEnable(false);
