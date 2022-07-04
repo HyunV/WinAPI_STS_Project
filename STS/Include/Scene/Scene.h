@@ -22,6 +22,7 @@ protected:
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 	CSharedPtr<class CGameObject> m_Player;
 	CSharedPtr<class CGameObject> m_CameraObj;
+	CSharedPtr<class CGameObject> m_Monster;
 	CSharedPtr<class CTileMap>		m_TileMap;
 
 	std::vector<CSharedPtr<CWidgetWindow>>	m_vecWidgetWindow;
@@ -52,6 +53,10 @@ public:
 	{
 		return m_Player;
 	}
+	class CGameObject* GetMonster() const
+	{
+		return m_Monster;
+	}
 
 	class CTileMap* GetTileMap()	const
 	{
@@ -65,6 +70,7 @@ public:
 	void SetTileMap(class CTileMap* TileMap);
 	void SetPlayer(class CGameObject* Player);
 	void SetCameraObj(class CGameObject* Camera);
+	void SetMonster(class CGameObject* Monster);
 
 	void AddWidgetComponent(CWidgetComponent* Widget)
 	{

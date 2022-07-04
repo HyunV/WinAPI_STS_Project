@@ -13,6 +13,8 @@
 #include "../Scene/BattleScene.h"
 #include "../GameObject/MyMonster.h"
 #include "../GameObject/BubbleMessage.h"
+#include "../GameObject/TurnEffect.h"
+#include "../GameObject/MyPlayer.h"
 CTopPanel::CTopPanel()
 {
     
@@ -398,10 +400,11 @@ void CTopPanel::TestCallback()
 
 void CTopPanel::SettingButtonCallback()
 {
-    m_Scene->GetPlayer()->AddShield(5);
-    CCardManager::GetInst()->DrawCard(2);
-
-    
+    //m_Scene->GetPlayer()->AddShield(5);
+    //CCardManager::GetInst()->DrawCard(2);
+    m_Scene->GetPlayer()->SetEnableDamaged(true);
+    //m_Scene->GetMonster()->SetEnableAttack(true);
+    m_Scene->GetMonster()->SetEnableDamaged(true);
 }
 
 void CTopPanel::DeckButtonCallback()
@@ -446,7 +449,7 @@ void CTopPanel::DiscardCallBack()
 {
     if (CCardManager::GetInst()->getDiscardCount() == 0) {
         CBubbleMessage* Message = m_Scene->CreateObject<CBubbleMessage>("Messages");
-        Message->SetMessageType(EMessageBox_Type::Shop);
+        Message->SetMessageType(EMessageBox_Type::Default);
         Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("버린 카드 더미가 비어있다."));
         return;
     }
@@ -463,24 +466,32 @@ void CTopPanel::DiscardCallBack()
 
 void CTopPanel::TurnOffCallBack()
 {  
-   // MessageBox(nullptr, TEXT("6"), TEXT("a"), MB_OK);
-    CCardManager::GetInst()->HandToDiscard();
-    //CCardManager::GetInst()->HandSort();
-    m_Scene->GetPlayer()->SetEnergy(m_Scene->GetPlayer()->GetMaxEnergy());
+    if (!CCardManager::GetInst()->GetMonstersTurn() 
+        && CCardManager::GetInst()->GetPlayerTurn())
+    {
+        if (CCardManager::GetInst()->GetTurnEffect() == nullptr) 
+        {
+            //MessageBox(nullptr, TEXT("작동안함"), TEXT("a"), MB_OK);
+            CCardManager::GetInst()->SetPlayerTurn(false);
+            CCardManager::GetInst()->HandToDiscard();
+            CTurnEffect* TurnMessage = m_Scene->CreateObject<CTurnEffect>("TurnMessage");
+            TurnMessage->SetTurnMessage(EWhos_Turn::Monster);
+            m_Scene->GetMonster()->SetEnableAttack(true);
+        }
+    }
     
-    //턴이 시작될 때 쉴드를 없앤다//m_Scene->GetPlayer()->ClearShield();
-    CCardManager::GetInst()->SetMonstersTurn(true);    
-    CCardManager::GetInst()->SetPlayerTurn(false);
 }
 
 void CTopPanel::BackCallBack()
 {
+    CCardManager::GetInst()->ClearCard(m_CardTemp);
+    CCardManager::GetInst()->SetMainDeck(m_CardTemp);
+    m_CardTemp.clear();
     m_Scene->SetBlackSwitch(false);
     m_BackButton->SetEnable(false);
-    CCardManager::GetInst()->ClearCard(m_CardTemp);
-    HideOnUI(true);
-    m_Scene->GetCameraObj()->SetPos(640, 400);
     
+    HideOnUI(true);
+    m_Scene->GetCameraObj()->SetPos(640, 400);  
     
 }
 

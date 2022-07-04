@@ -23,14 +23,5 @@ protected:
 	
 	CSharedPtr<class CWidgetComponent> m_ShieldImage;
 	CSharedPtr<class CWidgetComponent> m_ShieldText;
-
-	float m_AttackDir;
-	float m_AttackSpeed;
-
-	Vector2 m_OriginPos;
-	int m_Cnt;
-
-	void AttackMotion(float Dir, float Speed);
-
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "../Singletone.h"
 class CTurnEffect :
     public CGameObject
 {
@@ -20,6 +21,7 @@ public:
     virtual void Update(float DeltaTime);
     virtual void PostUpdate(float DeltaTime);
     virtual void Render(HDC hDC, float DeltaTime);
+
     void SetTurnMessage(EWhos_Turn Type) 
     {
         m_Turn = Type;

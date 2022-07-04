@@ -8,14 +8,15 @@
 #include "../Widget/ImageWidget2.h"
 #include "../GameObject/CardManager.h"
 #include "../GameObject/FloatingDamage.h"
-
+#include "../GameObject/TurnEffect.h"
 
 CMyMonster::CMyMonster()
 {
 	SetTypeID<CMyMonster>();
 }
 
-CMyMonster::CMyMonster(const CMyMonster& Obj)
+CMyMonster::CMyMonster(const CMyMonster& Obj) :
+	CCharacter(Obj)
 {
 }
 
@@ -25,21 +26,20 @@ CMyMonster::~CMyMonster()
 
 bool CMyMonster::Init()
 {
-	CGameObject::Init();
 	CCharacter::Init();
-
-	m_MoveSpeed = 20;
-	m_AttackSpeed = 200;
+	m_AttackDir = -1.f;
+	m_AttackSpeed = 1500.f;
 	SetMoveObject(true);
+
+	m_MoveSpeed = 30.f;
+
 	SetPos(1000.f, 450.f);
+	m_OriginPos = GetPos();
 	SetSize(180.f, 180.f);
 	SetPivot(0.5f, 0.5f);
 
-	m_OriginPos = GetPos();
-
 	SetTexture("MyMonster", TEXT("Monster/enemy1.bmp"));
 	SetColorKey(255, 0, 255);
-
 
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 	Box->SetExtent(180.f, 180.f);
@@ -52,8 +52,7 @@ bool CMyMonster::Init()
 	
 	m_HP = 100;
 	m_MaxHP = 100;
-	m_Shield = 10;
-
+	//m_Shield = 10;
 
 	m_NameBar = CreateWidgetComponent<CText>("MonsterNameBar");
 	m_NameBar->GetWidget<CText>()->SetText(TEXT("광신자"));
@@ -62,48 +61,70 @@ bool CMyMonster::Init()
 	m_NameBar->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_NameBar->GetWidget<CText>()->SetFont("NameFont");
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_NameBar->SetPos(0.f, 110.f);
-
-	
-	//Vector2 v = GetPos();
-	
-	Vector2 v = GetPos();
-	//Damage->SetPos(v.x, v.y-50.f);
-	
-
+	m_NameBar->SetPos(0.f, 110.f);	
 
 	return true;
 }
 
 void CMyMonster::Update(float DeltaTime)
 {
-
-	CGameObject::Update(DeltaTime);
 	CCharacter::Update(DeltaTime);
+
+	//임시코드
 	if (CCardManager::GetInst()->GetMonstersTurn())
 	{
-		AttackMotion(m_AttackDir, m_AttackSpeed);
-		m_Cnt++;
-		if (m_Cnt == 30) {
-			m_AttackDir = 10;
-		}
-		if (m_Cnt > 30 && m_OriginPos.x < m_Pos.x)
+		//
+		if (m_EnableAttack)
 		{
-			//데미지
-			m_Scene->GetPlayer()->InflictDamage(12);
+			m_Pos.x += m_AttackDir * m_AttackSpeed * DeltaTime;
+			if (m_OriginPos.x - GetPos().x >= 150.f)
+			{
+				m_AttackDir = 1.f;
+				m_AttackSpeed = 800.f;
+			}
+			if (m_Pos.x >= m_OriginPos.x) {
+				SetPos(m_OriginPos);
+				m_AttackDir = -1.f;
+				m_AttackSpeed = 1500.f;
+				//m_EnableAttack = false;
+				///////////////////////////////임시 코드
 
+				m_Scene->GetPlayer()->InflictDamage(12);
+				SetEnableAttack(false);
 
+				if (CCardManager::GetInst()->GetTurnEffect() == nullptr)
+				{
+					CTurnEffect* TurnMessage = m_Scene->CreateObject<CTurnEffect>("TurnMessage");
+					TurnMessage->SetTurnMessage(EWhos_Turn::Player);
+					CCardManager::GetInst()->SetTurnCount(CCardManager::GetInst()->GetTurnCount() + 1);
+				}
+				
+			}
+		}
+		//
+	}
+
+	//데미지 모션
+	if (m_EnableDamaged)
+	{
+		m_Pos.x += m_AttackDir * (-1.f) * m_AttackSpeed * DeltaTime;
+		if (GetPos().x - m_OriginPos.x >= 50.f)
+		{
+			m_AttackDir = 1.f;
+			m_AttackSpeed = 800.f;
+		}
+		if (m_Pos.x <= m_OriginPos.x) {
 			SetPos(m_OriginPos);
-			m_Cnt = 0;
-			m_AttackDir = -10;
-			CCardManager::GetInst()->SetMonstersTurn(false);
+			m_AttackDir = -1.f;
+			m_AttackSpeed = 1500.f;
+			m_EnableDamaged = false;
 		}
 	}
 }
 
 void CMyMonster::PostUpdate(float DeltaTime)
 {
-	CCharacter::PostUpdate(DeltaTime);
+	CGameObject::PostUpdate(DeltaTime);
 }
 
 void CMyMonster::Render(HDC hDC, float DeltaTime)
@@ -136,7 +157,9 @@ float CMyMonster::InflictDamage(float Damage)
 	int Length = MultiByteToWideChar(CP_ACP, 0, ch, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);
 	Damages->GetText()->GetWidget<CText>()->SetText(t);
-	
+	//
+	SetEnableDamaged(true);
+
 	//사망
 	if (m_HP <= 0)
 	{

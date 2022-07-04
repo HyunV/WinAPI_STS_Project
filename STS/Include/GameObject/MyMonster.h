@@ -17,9 +17,6 @@ protected:
     CMyMonster();
     CMyMonster(const CMyMonster& Obj);
     virtual ~CMyMonster();
-
-private:
-    //int m_AttackDamage;
     
    
 public:
@@ -35,5 +32,8 @@ private:
     void CollisionMouseEnd(CCollider* Src, const Vector2& MousePos);
     void CollisionBegin(CCollider* Src, CCollider* Dest);
     void CollisionEnd(CCollider* Src, CCollider* Dest);
+
+    float m_AttackDir;
+    float m_AttackSpeed;
 };
 

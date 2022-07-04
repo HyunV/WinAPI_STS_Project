@@ -17,12 +17,11 @@ public:
 	virtual void Render(HDC hDC, float DeltaTime);
 	virtual float InflictDamage(float Damage);
 
-public:
-	float AddShield(float shield);
-	void Buff();
-	void Debuff();
 private:
 	void CollisionBegin(CCollider* Src, CCollider* Dest);
 	void CollisionEnd(CCollider* Src, CCollider* Dest);
+
+	float m_AttackDir;
+	float m_AttackSpeed;
 };
 

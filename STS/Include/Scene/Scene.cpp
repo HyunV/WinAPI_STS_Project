@@ -41,6 +41,11 @@ void CScene::SetCameraObj(CGameObject* Camera)
 	m_CameraObj = Camera;
 }
 
+void CScene::SetMonster(CGameObject* Monster)
+{
+	m_Monster = Monster;
+}
+
 bool CScene::Init()
 {
 	return true;

@@ -6,22 +6,13 @@
 #include "../Widget/ProgressBar.h"
 #include "../Widget/ImageWidget2.h"
 
-CCharacter::CCharacter() :
-	m_AttackDir(0),
-	m_AttackSpeed(0),
-	m_Cnt(0)
-
+CCharacter::CCharacter()
 {
 	SetTypeID<CCharacter>();
-	
 }
 
 CCharacter::CCharacter(const CCharacter& Obj) :
-	CGameObject(Obj),
-	m_AttackDir(0),
-	m_AttackSpeed(0),
-	m_Cnt(0)
-
+	CGameObject(Obj)
 {
 }
 
@@ -31,9 +22,6 @@ CCharacter::~CCharacter()
 
 bool CCharacter::Init()
 {
-	m_Shield = 0;
-	float m_AttackDir = 50;
-	float m_AttackSpeed = 1000;
 
 	m_HPBarFrame = CreateWidgetComponent<CProgressBar>("HPBarFrame");
 	m_HPBarFrame->GetWidget<CProgressBar>()->SetTexture(EProgressBar_Texture_Type::Back,
@@ -128,7 +116,3 @@ void CCharacter::Render(HDC hDC, float DeltaTime)
 	CGameObject::Render(hDC, DeltaTime);
 }
 
-void CCharacter::AttackMotion(float Dir, float Speed)
-{	
-	m_Pos.x += Dir * Speed * DELTA_TIME * m_TimeScale;
-}

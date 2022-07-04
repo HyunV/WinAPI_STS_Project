@@ -32,10 +32,17 @@ protected:
 	std::list<CSharedPtr<class CCollider>> m_ColliderList;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 
+	Vector2 m_OriginPos;
+	//캐릭터 모션 방향, 속도
+	//float m_AttackDir;
+	//float m_AttackSpeed;
+
 	//플레이어, 적 이동관련 애니메이션
 	bool m_MoveObject;
 	float m_MovingObject;
 	float m_DirValue;
+
+	float m_Time;
 
 	//에너지
 	int m_MaxHP;
@@ -50,6 +57,9 @@ protected:
 	bool m_EnableAttack;
 	bool m_AttackCard;
 	int m_Shield; //방어도
+	
+	//데미지 여부
+	bool m_EnableDamaged;
 
 	//카드 오브젝트 관련
 	bool m_SelectedCard;
@@ -97,10 +107,19 @@ public: /////////////////애니메이션 관련////////////////////////////
 	{
 		m_MoveObject = Move;
 	}
-	void SetEnableAttack(bool Attack)
+
+
+	//전투 관련 이게 true이면 애니메이션 작동
+	void SetEnableAttack(bool Enable)
 	{
-		m_EnableAttack = Attack;
+		m_EnableAttack = Enable;
 	}
+	void SetEnableDamaged(bool Enable)
+	{
+		m_EnableDamaged = Enable;
+	}
+
+	//전투 관련
 	void AddShield(int Shield)
 	{
 		m_Shield += Shield;

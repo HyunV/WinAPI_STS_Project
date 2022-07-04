@@ -7,6 +7,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/SceneResource.h"
 #include "GameObject.h"
+#include "BubbleMessage.h"
 
 DEFINITION_SINGLE(CCardManager);
 
@@ -17,9 +18,10 @@ CCardManager::CCardManager()
 	m_MouseHovered = false;
 	m_MonstersTurn = false;
 	m_PlayerTurn = false;
-	m_TurnCount = 0;
+	m_TurnCount = 1;
 	m_UsedCard = false;
 	m_Scene = nullptr;
+	m_DrawCard = 5;
 }
 
 CCardManager::~CCardManager()
@@ -78,13 +80,12 @@ void CCardManager::ClearCard(vector<CCard*> deck)
 {
 	
 	for (int i = 0; i < deck.size(); i++)
-	{
+	{		
+		deck[i]->SetPos(0.f, 0.f);
 		deck[i]->SetEnable(false);
-		deck[i]->SetPos(0, 0);	
 	}
-	HandSort();
-	vector<CCard*> card = CCardManager::GetInst()->GetMainDeck();
 
+	HandSort();
 }
 void CCardManager::HandToDiscard()
 {
@@ -109,8 +110,15 @@ bool CCardManager::Init()
 {
 	m_PlayerTurn = false;
 	m_MonstersTurn = false;
-	m_TurnCount = 0;
+	m_TurnCount = 1;
 	return true;
+}
+
+
+
+void CCardManager::SetPlayerTurn(bool Enable)
+{
+		m_PlayerTurn = Enable;
 }
 
 void CCardManager::InitMyDeck()
@@ -199,7 +207,8 @@ void CCardManager::DrawCard(int value)
 		//뽑을카드가 없을 때
 		if (m_bringCardDummy.size() == 0) { 
 			if (m_disCardDummy.size() == 0) {
-				MessageBox(nullptr, TEXT("뽑을 카드가 없다"), TEXT("^모^"), MB_OK);
+				CBubbleMessage* Message = m_Scene->CreateObject<CBubbleMessage>("Messages");
+				Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("손이 가득 찼다."));
 				HandSort();
 				return;
 			}

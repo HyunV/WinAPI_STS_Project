@@ -39,17 +39,6 @@ CCard::~CCard()
 
 bool CCard::Init()
 {
-	//m_Enable = false;
-	//m_SelectCard = false;
-	//m_cardName = "NoName";
-	//m_colorless = false;
-	//m_curse = false;
-	//m_Enhanced = false;
-	//m_EnableCollider = true;
-	//m_CardExplain[0] = {};
-
-
-
 	m_cardOriginPos = (0.f, 0.f);
 	//1. 카드를 띄운다
 	//-> 텍스처가 필요하다

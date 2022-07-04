@@ -41,7 +41,9 @@ private:
 	bool m_PlayerTurn;
 	bool m_MonstersTurn;
 	int m_TurnCount;
+	int m_DrawCard;
 
+	class CTurnEffect* m_Temp; //생성되어있는지 여부
 	//
 public:
 	//void AddCardToMyDeck(); //카드를 리스트에 추가한다
@@ -89,10 +91,8 @@ public:
 	vector<CCard*> GetDiscardDeck() {
 		return m_disCardDummy;
 	}
-	void SetPlayerTurn(bool Enable)
-	{
-		m_PlayerTurn = Enable;
-	}
+	void SetPlayerTurn(bool Enable );
+
 	bool GetPlayerTurn()
 	{
 		return m_PlayerTurn;
@@ -113,6 +113,23 @@ public:
 	{
 		return m_TurnCount;
 	}
+	void SetTurnEffect(CTurnEffect* Temp)
+	{
+		m_Temp = Temp;
+	}
+	class CTurnEffect* GetTurnEffect() const
+	{
+		return m_Temp;
+	}
+	int GetDrawCard()
+	{
+		return m_DrawCard;
+	}
+	void SetDrawCard(int value)
+	{
+		m_DrawCard = value;
+	}
+
 	void InitMyDeck(); //타격 5장, 수비 4장
 
 	void SetBringDeck(); //사용할 카드의 덱을 짠다

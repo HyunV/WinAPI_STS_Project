@@ -31,12 +31,11 @@ bool CMyPlayer::Init()
 	SetMaxEnergy(5);
 	m_Energy = 999;
 	
-	
-	SetMoveObject(true);
-	m_MoveSpeed = 12;
+	m_AttackDir = 1.f;
+	m_AttackSpeed = 1500.f;
 
-	m_AttackDir = 10;
-	m_AttackSpeed = 200;
+	SetMoveObject(true);
+	m_MoveSpeed = 35.f;
 
 	m_MaxHP = 80;
 	m_HP = m_MaxHP;
@@ -53,8 +52,8 @@ bool CMyPlayer::Init()
 		// 충돌체 추가
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
-	Box->SetExtent(1000, 300.f); //크기 세팅
-	Box->SetOffset(380.f, -150.f); //위치세팅
+	Box->SetExtent(1000, 230.f); //크기 세팅
+	Box->SetOffset(380.f, -100.f); //위치세팅
 	Box->SetCollisionProfile("MyPlayer");
 
 	Box->SetCollisionBeginFunction<CMyPlayer>(this, &CMyPlayer::CollisionBegin);
@@ -71,27 +70,42 @@ bool CMyPlayer::Init()
 	m_ShieldImage->SetPos(-25, 98);
 	m_ShieldText->SetPos(-11, 100);
 	
-	
 	return true;
 }
 
 void CMyPlayer::Update(float DeltaTime)
-{
-
-	CGameObject::Update(DeltaTime);
+{	
 	CCharacter::Update(DeltaTime);
-	if (m_EnableAttack) {	
-		AttackMotion(m_AttackDir, m_AttackSpeed);
-		m_Cnt++;
-		if (m_Cnt == 30) {
-			m_AttackDir = -10;
-		}
-		if (m_Cnt >30 && m_OriginPos.x > m_Pos.x)
+	//공격모션
+	if (m_EnableAttack) 
+	{
+		m_Pos.x += m_AttackDir * m_AttackSpeed * DeltaTime;
+		if (GetPos().x - m_OriginPos.x >= 150.f)
 		{
+			m_AttackDir = -1.f;
+			m_AttackSpeed = 800.f;
+		}
+		if (m_Pos.x <= m_OriginPos.x) {
 			SetPos(m_OriginPos);
+			m_AttackDir = 1.f;
+			m_AttackSpeed = 1500.f;
 			m_EnableAttack = false;
-			m_Cnt = 0;
-			m_AttackDir = 10;
+		}
+	}
+	//데미지 모션
+	if (m_EnableDamaged)
+	{		
+		m_Pos.x += m_AttackDir * (-1.f) * m_AttackSpeed * DeltaTime;
+		if (m_OriginPos.x - GetPos().x >= 50.f)
+		{
+			m_AttackDir = -1.f;
+			m_AttackSpeed = 800.f;
+		}
+		if (m_Pos.x >= m_OriginPos.x) {
+			SetPos(m_OriginPos);
+			m_AttackDir = 1.f;
+			m_AttackSpeed = 1500.f;
+			m_EnableDamaged = false;
 		}
 	}
 }
@@ -134,6 +148,8 @@ float CMyPlayer::InflictDamage(float Damage)
 	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);
 	Damages->GetText()->GetWidget<CText>()->SetText(t);
 
+	SetEnableDamaged(true);
+
 	if (m_HP <= 0)
 	{
 		//사망
@@ -142,20 +158,7 @@ float CMyPlayer::InflictDamage(float Damage)
 	return Damage;
 }
 
-float CMyPlayer::AddShield(float shield)
-{
-	//플레이어의 방어도를 올린다.
-	return 0.0f;
-}
 
-void CMyPlayer::Buff()
-{
-	//
-}
-
-void CMyPlayer::Debuff()
-{
-}
 
 void CMyPlayer::CollisionBegin(CCollider* Src, CCollider* Dest)
 {

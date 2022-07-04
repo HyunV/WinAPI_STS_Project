@@ -85,14 +85,18 @@ bool CBattleScene::Init()
 	CCardManager::GetInst()->InitMyDeck();
 	
 	CCardManager::GetInst()->SetBringDeck();
-	CCardManager::GetInst()->DrawCard(1);
+	CCardManager::GetInst()->DrawCard(5);
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
 
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
+	SetMonster(Monster);
 	//CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
 	//Monster2->SetPos(1050, 250);
+	//
 	CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
+	
+
 	CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
 
 
