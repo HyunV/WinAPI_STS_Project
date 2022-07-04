@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "../Input.h"
 
+#include "../GameObject/BubbleMessage.h"
 
 #include "../Widget/WidgetComponent.h"
 #include "../Widget/WidgetWindow.h"
@@ -23,6 +24,9 @@
 #include "../GameObject/CardManager.h"
 
 #include "../GameObject/CameraObject.h"
+
+#include "../GameObject/TurnEffect.h"
+#include "../GameObject/Effects/BattleStartImage.h"
 
 CBattleScene::CBattleScene()
 {
@@ -88,6 +92,10 @@ bool CBattleScene::Init()
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
 	//CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
 	//Monster2->SetPos(1050, 250);
+	CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
+	CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
+
+
 
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));

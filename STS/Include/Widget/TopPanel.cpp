@@ -12,8 +12,7 @@
 
 #include "../Scene/BattleScene.h"
 #include "../GameObject/MyMonster.h"
-
-#include "../Widget/MapBack.h"
+#include "../GameObject/BubbleMessage.h"
 CTopPanel::CTopPanel()
 {
     
@@ -308,6 +307,17 @@ void CTopPanel::Update(float DeltaTime)
 
     m_Energy->SetText(Unicode3);
    
+    int PlayerHP = m_Scene->GetPlayer()->GetHP();
+    int PlayerMaxHP = m_Scene->GetPlayer()->GetMaxHP();
+
+    char    Text5[256] = {};
+    sprintf_s(Text5, "%d/%d", PlayerHP, PlayerMaxHP);
+    TCHAR	Unicode5[256] = {};
+    int Length5 = MultiByteToWideChar(CP_ACP, 0, Text5, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text5, -1, Unicode5, Length5);
+    
+    m_LifeUI ->SetText(Unicode5);
+
 #ifdef _DEBUG
     float FPS = CGameManager::GetInst()->GetFPS();
 
@@ -319,9 +329,37 @@ void CTopPanel::Update(float DeltaTime)
     MultiByteToWideChar(CP_ACP, 0, Text4, -1, Unicode4, Length4);
 
     m_FPSText->SetText(Unicode4);
+
+
+    //static float CurrentTime = 0.f;
+
+    //CurrentTime += DeltaTime;
+
+    //char    TimeText[64] = {};
+
+    //sprintf_s(TimeText, "Time : %.5f", CurrentTime);
+   
+
 #endif // DEBUG
 
 
+}
+
+void CTopPanel::Render(HDC hDC, float DeltaTime)
+{
+    CWidgetWindow::Render(hDC, DeltaTime);
+#ifdef _DEBUG
+    static float CurrentTime = 0.f;
+    static int Min = 0;
+    CurrentTime += DeltaTime;
+    if (CurrentTime >= 60.f) {
+        CurrentTime = 0;
+        Min++;
+    }
+    char TimeText[64] = {};
+    sprintf_s(TimeText, "Time : %d:%.5f", Min, CurrentTime);
+    TextOutA(hDC, 1000, 100, TimeText, strlen(TimeText));
+#endif // _DEBUG
 }
 
 void CTopPanel::HideOnUI(bool Enable)
@@ -362,6 +400,8 @@ void CTopPanel::SettingButtonCallback()
 {
     m_Scene->GetPlayer()->AddShield(5);
     CCardManager::GetInst()->DrawCard(2);
+
+    
 }
 
 void CTopPanel::DeckButtonCallback()
@@ -387,6 +427,11 @@ void CTopPanel::MapButtonCallback()
 
 void CTopPanel::DrawButtonCallBack()
 {
+    if (CCardManager::GetInst()->getBringCardCount() == 0) {
+        CBubbleMessage* Message = m_Scene->CreateObject<CBubbleMessage>("Messages");
+        Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("뽑을 카드 더미가 비어있다."));
+        return;
+    }
     if (!m_Scene->GetBlackSwitch())
     {
         m_CardTemp = CCardManager::GetInst()->GetBringDeck();
@@ -399,6 +444,12 @@ void CTopPanel::DrawButtonCallBack()
 
 void CTopPanel::DiscardCallBack()
 {
+    if (CCardManager::GetInst()->getDiscardCount() == 0) {
+        CBubbleMessage* Message = m_Scene->CreateObject<CBubbleMessage>("Messages");
+        Message->SetMessageType(EMessageBox_Type::Shop);
+        Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("버린 카드 더미가 비어있다."));
+        return;
+    }
     if (!m_Scene->GetBlackSwitch())
     {
         m_CardTemp = CCardManager::GetInst()->GetDiscardDeck();
@@ -429,6 +480,8 @@ void CTopPanel::BackCallBack()
     CCardManager::GetInst()->ClearCard(m_CardTemp);
     HideOnUI(true);
     m_Scene->GetCameraObj()->SetPos(640, 400);
+    
+    
 }
 
 void CTopPanel::ConfirmCallBack()

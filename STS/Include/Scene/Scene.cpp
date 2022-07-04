@@ -211,19 +211,19 @@ void CScene::Render(HDC hDC, float DeltaTime)
 
 			auto iter2 = m_WidgetComponentList.begin();
 			auto iterEnd2 = m_WidgetComponentList.end();
-			//for (; iter2 != iterEnd2;)
-			//{
-			//	if (!(*iter2)->GetActive())
-			//	{
-			//		iter2 = m_WidgetComponentList.erase(iter2);
-			//		iterEnd2 = m_WidgetComponentList.end();
-			//		continue;
-			//	}
-			//	++iter2;
-			//}
+			for (; iter2 != iterEnd2;)
+			{
+				if (!(*iter2)->GetActive())
+				{
+					iter2 = m_WidgetComponentList.erase(iter2);
+					iterEnd2 = m_WidgetComponentList.end();
+					continue;
+				}
+				++iter2;
+			}
 			
-			//iter2 = m_WidgetComponentList.begin();
-			//iterEnd2 = m_WidgetComponentList.end();
+			iter2 = m_WidgetComponentList.begin();
+			iterEnd2 = m_WidgetComponentList.end();
 			for (; iter2 != iterEnd2;)
 			{
 				if (!(*iter2)->GetWidget()->GetEnable())

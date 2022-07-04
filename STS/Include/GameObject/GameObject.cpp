@@ -28,7 +28,9 @@ CGameObject::CGameObject() :
 	m_EnableAttack(false),
 	m_UsedCard(false),
 	m_SelectedCard(false),
-	m_CardControl(false)
+	m_CardControl(false),
+	m_HP(1),
+	m_MaxHP(1)
 {
 	SetTypeID<CGameObject>();
 }
@@ -51,7 +53,9 @@ CGameObject::CGameObject(const CGameObject& Obj) :
 	m_Shield(0),
 	m_MaxEnergy(0),
 	m_Energy(Obj.m_MaxEnergy),
-	m_AttackCard(false)
+	m_AttackCard(false),
+	m_HP(1),
+	m_MaxHP(1)
 {
 }
 

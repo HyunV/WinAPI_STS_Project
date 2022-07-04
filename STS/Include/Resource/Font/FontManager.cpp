@@ -13,17 +13,22 @@ CFontManager::~CFontManager()
 bool CFontManager::Init()
 {
 	LoadFont(TEXT("경기천년바탕 Bold"));
-	LoadFont(TEXT("Kreon"));
+	LoadFont(TEXT("Kreon-Bold.ttf"));
+	LoadFont(TEXT("04b03"));
 
 	LoadFont("DefaultFont", TEXT("경기천년바탕 Bold"), 0, 0);
 	LoadFont("NameFont", TEXT("경기천년바탕 Bold"), 0, 14);
 	LoadFont("TypeFont", TEXT("경기천년바탕 Bold"), 0, -10);
 	LoadFont("CostFont", TEXT("경기천년바탕 Bold"), 0, 26);
-	LoadFont("ExplainFont", TEXT("경기천년바탕 Bold"), 0, 14);
+	LoadFont("ExplainFont", TEXT("04b03"), 0, 14);
 
 	LoadFont("PlayerNameFont", TEXT("경기천년바탕 Bold"), 0, 15);
 	LoadFont("UI", TEXT("경기천년바탕 Bold"), 0, 20);
 	LoadFont("Shield", TEXT("경기천년바탕 Bold"), 0, 18);
+	LoadFont("DamageFont", TEXT("경기천년바탕 Bold"), 0, 40);
+	LoadFont("TurnMessageFont", TEXT("경기천년바탕 Bold"), 0, 60);
+	
+	m_mapFont;
 
 	return true;
 }

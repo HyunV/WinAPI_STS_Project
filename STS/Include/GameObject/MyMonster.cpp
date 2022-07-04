@@ -7,6 +7,7 @@
 #include "../Widget/ProgressBar.h"
 #include "../Widget/ImageWidget2.h"
 #include "../GameObject/CardManager.h"
+#include "../GameObject/FloatingDamage.h"
 
 
 CMyMonster::CMyMonster()
@@ -63,11 +64,20 @@ bool CMyMonster::Init()
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
 	m_NameBar->SetPos(0.f, 110.f);
 
+	
+	//Vector2 v = GetPos();
+	
+	Vector2 v = GetPos();
+	//Damage->SetPos(v.x, v.y-50.f);
+	
+
+
 	return true;
 }
 
 void CMyMonster::Update(float DeltaTime)
 {
+
 	CGameObject::Update(DeltaTime);
 	CCharacter::Update(DeltaTime);
 	if (CCardManager::GetInst()->GetMonstersTurn())
@@ -116,7 +126,18 @@ float CMyMonster::InflictDamage(float Damage)
 	{
 		m_HP -= (int)Damage;
 	}
+
+	//데미지 출력
+	CFloatingDamage* Damages = m_Scene->CreateObject<CFloatingDamage>("Damages");
+	Damages->SetPos(GetPos().x, GetPos().y-100.f);
+	char ch[256] = {};
+	sprintf_s(ch, "%d", (int)Damage);
+	TCHAR t[256] = {};
+	int Length = MultiByteToWideChar(CP_ACP, 0, ch, -1, 0, 0);
+	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);
+	Damages->GetText()->GetWidget<CText>()->SetText(t);
 	
+	//사망
 	if (m_HP <= 0)
 	{
 		SetActive(false);

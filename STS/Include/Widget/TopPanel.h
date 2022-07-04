@@ -12,7 +12,7 @@ protected:
     virtual ~CTopPanel();
 
 private:
-    //HWND m_hWnd;
+    HWND m_hWnd;
 
     CSharedPtr<class CText> m_PlayerName; //이름
     CSharedPtr<class CText> m_Job; //직업
@@ -58,6 +58,7 @@ private:
 public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
+    virtual void Render(HDC hDC, float DeltaTime);
 public:
     void HideOnUI(bool Enable);
 

@@ -1,6 +1,9 @@
 #include "MyPlayer.h"
+#include "../Scene/Scene.h"
 #include "../Collision/ColliderBox.h"
 #include "../Widget/ProgressBar.h"
+#include "../Widget/Text.h"
+#include "../GameObject/FloatingDamage.h"
 //idle 애니메이션
 //공격애니메이션: 살짝 앞으로 갔다가 뒤로 슬슬 빠짐
 //수비 애니메이션: 히트박스 레이어가 뜨고 가운데 실드 애니메이션 실드 HUI 애니메이션
@@ -62,9 +65,11 @@ bool CMyPlayer::Init()
 	//m_HPBar->SetPos(170.f, 180.f);
 	//m_HPText->SetPos(220.f, 215.f);
 
-	m_HPBarFrame->SetPos(0.f, 100.f);
-	m_HPBar->SetPos(0.f, 100.f);
-	m_HPText->SetPos(50.f, 137.f);
+	m_HPBarFrame->SetPos(35.f, 100.f);
+	m_HPBar->SetPos(35.f, 100.f);
+	m_HPText->SetPos(85.f, 137.f);
+	m_ShieldImage->SetPos(-25, 98);
+	m_ShieldText->SetPos(-11, 100);
 	
 	
 	return true;
@@ -119,6 +124,16 @@ float CMyPlayer::InflictDamage(float Damage)
 	
 	m_HPBar->GetWidget<CProgressBar>()->SetValue(m_HP / (float)m_MaxHP);
 	
+	//데미지 출력
+	CFloatingDamage* Damages = m_Scene->CreateObject<CFloatingDamage>("Damages");
+	Damages->SetPos(GetPos().x,GetPos().y-100.f);
+	char ch[256] = {};
+	sprintf_s(ch, "%d", (int)Damage);
+	TCHAR t[256] = {};
+	int Length = MultiByteToWideChar(CP_ACP, 0, ch, -1, 0, 0);
+	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);
+	Damages->GetText()->GetWidget<CText>()->SetText(t);
+
 	if (m_HP <= 0)
 	{
 		//사망

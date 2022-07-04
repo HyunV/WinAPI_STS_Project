@@ -89,3 +89,16 @@ enum class ETile_Option //일반 발판, 아이스 발판 이런것들
 	Normal,
 	ImpossibleToMove
 };
+
+enum class EMessageBox_Type
+{
+	Default,
+	Shop
+};
+
+enum class EWhos_Turn
+{
+	None,
+	Player,
+	Monster
+};

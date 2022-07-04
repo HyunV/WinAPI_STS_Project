@@ -38,6 +38,9 @@ protected:
 	float m_DirValue;
 
 	//에너지
+	int m_MaxHP;
+	int m_HP;
+
 	int m_Energy;
 	int m_MaxEnergy;
 	bool m_UsedCard;
@@ -145,6 +148,20 @@ public: /////////////////애니메이션 관련////////////////////////////
 	bool GetCardControl()
 	{
 		return m_CardControl;
+	}
+	int GetHP() {
+		return m_HP;
+	}
+	void SetHP(int Value)
+	{
+		m_HP = Value;
+	}
+	int GetMaxHP() {
+		return m_MaxHP;
+	}
+	void SetMaxHP(int Value)
+	{
+		m_MaxHP = Value;
 	}
 
 	//중력관련

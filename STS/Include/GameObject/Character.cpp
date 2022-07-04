@@ -9,9 +9,8 @@
 CCharacter::CCharacter() :
 	m_AttackDir(0),
 	m_AttackSpeed(0),
-	m_Cnt(0),
-	m_HP(1),
-	m_MaxHP(1)
+	m_Cnt(0)
+
 {
 	SetTypeID<CCharacter>();
 	
@@ -21,9 +20,7 @@ CCharacter::CCharacter(const CCharacter& Obj) :
 	CGameObject(Obj),
 	m_AttackDir(0),
 	m_AttackSpeed(0),
-	m_Cnt(0),
-	m_HP(1),
-	m_MaxHP(1)
+	m_Cnt(0)
 
 {
 }

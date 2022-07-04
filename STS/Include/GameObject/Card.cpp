@@ -9,6 +9,7 @@
 #include "../Input.h"
 #include "../GameObject/Cards/CardAbility.h"
 #include "../GameObject/CardManager.h"
+#include "../GameObject/BubbleMessage.h"
 #include <sstream>
 
 CCard::CCard()
@@ -17,6 +18,14 @@ CCard::CCard()
 	m_mouseHovered = false;
 	m_mouseClicked = false;
 	m_RenderLayer = ERender_Layer::Hand;
+	m_Enable = false;
+	m_SelectCard = false;
+	m_cardName = "NoName";
+	m_colorless = false;
+	m_curse = false;
+	m_Enhanced = false;
+	m_EnableCollider = true;
+	m_CardExplain[0] = {};
 
 }
 
@@ -30,14 +39,14 @@ CCard::~CCard()
 
 bool CCard::Init()
 {
-	m_Enable = false;
-	m_SelectCard = false;
-	m_cardName = "NoName";
-	m_colorless = false;
-	m_curse = false;
-	m_Enhanced = false;
-	m_EnableCollider = true;
-	m_CardExplain[256] = {};
+	//m_Enable = false;
+	//m_SelectCard = false;
+	//m_cardName = "NoName";
+	//m_colorless = false;
+	//m_curse = false;
+	//m_Enhanced = false;
+	//m_EnableCollider = true;
+	//m_CardExplain[0] = {};
 
 
 
@@ -496,8 +505,8 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	int cost = owner->GetEnergy();
 	int PlayerEnergy = m_Scene->GetPlayer()->GetEnergy();
 	if (PlayerEnergy - cost < 0) {
-		//여기에 다이얼로그 메시지
-		//MessageBox(nullptr, TEXT("코스트 부족"), TEXT("^모^"), MB_OK);
+		CBubbleMessage* Message = m_Scene->CreateObject<CBubbleMessage>("Messages");
+		Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("에너지가 부족해."));
 		return;
 	}
 	else {

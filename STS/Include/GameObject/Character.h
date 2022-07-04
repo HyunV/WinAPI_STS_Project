@@ -24,9 +24,6 @@ protected:
 	CSharedPtr<class CWidgetComponent> m_ShieldImage;
 	CSharedPtr<class CWidgetComponent> m_ShieldText;
 
-	int m_MaxHP;
-	int m_HP;
-
 	float m_AttackDir;
 	float m_AttackSpeed;
 
