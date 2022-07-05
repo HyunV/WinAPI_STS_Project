@@ -229,9 +229,9 @@ void CCard::Update(float DeltaTime)
 		}
 		
 		if (CInput::GetInst()->GetMouseLPush())
-		{	
-			
+		{				
 			SetPos(CInput::GetInst()->GetMousePos() - m_Size * 0.5f);
+
 		}
 
 		if (CInput::GetInst()->GetMouseLUp()) //뗐을 때
@@ -255,7 +255,9 @@ void CCard::SetCardInfo(string CardName, Card_Type Type, Card_Value Value, bool 
 	switch (Type)
 	{
 	case Card_Type::Attack:
-		if (m_colorless)
+		if (m_curse)
+			m_cardInfo[0] = 6;
+		else if (m_colorless)
 			m_cardInfo[0] = 0;
 		else
 			m_cardInfo[0] = 3;
@@ -431,32 +433,16 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	m_MycardCost->GetWidget<CText>()->SetFont("CostFont");
 
 	//카드 설명
-	//m_MycardExplain = CreateWidgetComponent<CText>("cardExplain");
-	//SetAbility();
-	////m_MycardExplain->GetWidget<CText>()->SetText(cardExplain);
-	//m_MycardExplain->SetPos(0, 0);
-	//m_MycardExplain->GetWidget<CText>()->EnableShadow(true);
-	//m_MycardExplain->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	//m_MycardExplain->GetWidget<CText>()->SetTextColor(255, 249, 229);
-	//m_MycardExplain->GetWidget<CText>()->SetFont("NameFont");
 
 }
 
-void CCard::SetAbility()
-{
-	TCHAR Unicode[256] = {};
-	int Length = MultiByteToWideChar(CP_ACP, 0, m_CardExplain, -1, 0, 0);
-	MultiByteToWideChar(CP_ACP, 0, m_CardExplain, -1, Unicode, Length);
+//카드 설명 구간
 
-	m_MycardExplain->GetWidget<CText>()->SetText(Unicode);
-}
 
 void CCard::AddAbility(CCardAbility* givedAbility)
 {
 	m_Abilitys.push_back(givedAbility);
-
 	stringstream ss;
-	
 	ss << "cardExplain" << m_Abilitys.size();
 
 	 CWidgetComponent* text = CreateWidgetComponent<CText>(ss.str());
@@ -466,9 +452,14 @@ void CCard::AddAbility(CCardAbility* givedAbility)
 	 text->GetWidget<CText>()->SetTextColor(255, 249, 229);
 
 	 text->GetWidget<CText>()->SetText(givedAbility->GetExplain());
-text->GetWidget<CText>()->SetFont("NameFont");
+	 text->GetWidget<CText>()->SetFont("NameFont");
 
-m_Explains.push_back(text);
+	 m_Explains.push_back(text);
+}
+
+void CCard::ResetAblity()
+{
+	m_Explains.clear();
 }
 
 void CCard::SetEnable(bool Enable)
@@ -557,11 +548,16 @@ void CCard::CollisionBegin(CCollider* Src, CCollider* Dest)
 {
 	if (!(m_Scene->GetBlackSwitch()))
 	{
-		m_collisionInteraction = true;
+		m_collisionInteraction = true;			
+		
 	}
 	
-	
+	//데스트 취약여부 가져옴
+	//피해량 텍스트 변경
+	//
+
 	//MessageBox(nullptr, TEXT("확인dddddd."), TEXT("^모^"), MB_OK);
+	
 }
 
 void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)

@@ -25,7 +25,7 @@ public:
 protected:
     //계수
     TCHAR       m_Explain[256];
-    int                 m_Power; 
+    int                 m_Power;
 
     //어떤 작업을 수행핣지 -> Type
 

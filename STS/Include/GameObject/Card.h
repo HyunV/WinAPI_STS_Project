@@ -90,10 +90,12 @@ public:
     //void SetCardAttribute(const TCHAR* cardName, const TCHAR* cardType, const TCHAR* cardExplain, const TCHAR* cardCost); //이름, 타입, 설명, 코스트
     void SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost);
     //void Ch
-    virtual void SetAbility();//카드 능력 부여
+    
 
 public:
     void AddAbility(class CCardAbility* Ability);
+    void ResetAblity();
+    
     
 
 //카드 이미지 매니저,(일러스트, 카드, 테두리 원, 네임택, 코스트)

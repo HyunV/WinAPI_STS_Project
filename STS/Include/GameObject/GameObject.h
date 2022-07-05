@@ -146,10 +146,16 @@ public: /////////////////애니메이션 관련////////////////////////////
 	//전투 관련
 	void AddShield(int Shield)
 	{
-		m_Shield += Shield;
+		m_Shield = m_Shield+Shield+m_BuffArr[(int)Buff::Dex];
 	}
 	void ClearShield() {
 		m_Shield = 0;
+	}
+	int GetShield() {
+		return m_Shield;
+	}
+	void SetShield(int value) {
+		m_Shield = value;
 	}
 	void SetEnergy(int value) {
 		m_Energy = value;

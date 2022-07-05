@@ -76,7 +76,26 @@ void CTurnEffect::Update(float DeltaTime)
 				CCardManager::GetInst()->SetPlayerTurn(true);
 				CCardManager::GetInst()->DrawCard(CCardManager::GetInst()->GetDrawCard());
 				CCardManager::GetInst()->SetMonstersTurn(false);
-				m_Scene->GetPlayer()->ClearShield();
+
+				//버프 정보 받아옴
+				int *BuffArrTemp = m_Scene->GetPlayer()->GetBuffArr();
+
+				if (!(BuffArrTemp[(int)Buff::Barrigate] > 0)) { //바리케이드 버프
+					m_Scene->GetPlayer()->ClearShield();
+				}
+				if (BuffArrTemp[(int)Buff::DemonForm]) { //악마의 형상 버프
+					BuffArrTemp[(int)Buff::Atk] += BuffArrTemp[(int)Buff::DemonForm];
+				}
+				
+				//디버프 감소
+				if (BuffArrTemp[(int)Buff::Vulnerable])
+				{
+					BuffArrTemp[(int)Buff::Vulnerable] -= 1;
+				}
+				if (BuffArrTemp[(int)Buff::Weak])
+				{
+					BuffArrTemp[(int)Buff::Weak] -= 1;
+				}
 			}
 			if (m_Turn == EWhos_Turn::Monster) {
 				CCardManager::GetInst()->SetMonstersTurn(true);

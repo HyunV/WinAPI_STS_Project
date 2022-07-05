@@ -26,14 +26,14 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-	m_BuffArr[0] = 1;
-	m_BuffArr[1] = 8;
-	m_BuffArr[2] = 0;
-	m_BuffArr[3] = 0;
-	m_BuffArr[4] = 1;
-	m_BuffArr[5] = 0;
-	m_BuffArr[6] = 3;
-	m_BuffArr[7] = 0;
+	m_BuffArr[0] = 0; //공격력
+	m_BuffArr[1] = 0; //민첩함
+	m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
+	m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
+	m_BuffArr[4] = 0; //격노
+	m_BuffArr[5] = 0; //의식 턴 시작시 공격력 + n
+	m_BuffArr[6] = 0; //취약 50%추가 피해 *1.5 //턴 종료 시 
+	m_BuffArr[7] = 0; //약화 25% 적은 데미지 *0.75
 
 	CGameObject::Init();
 	CCharacter::Init();
@@ -137,8 +137,26 @@ float CMyPlayer::InflictDamage(float Damage)
 {
 	Damage = CCharacter::InflictDamage(Damage);
 	
+	int AtkBonus = m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Atk];
+	float VulDebuff = 1.f;
+	float WeakDebuff = 1.f;
+
+	//플레이어가 취약상태라면 가하는 피해 증가
+	if (m_BuffArr[(int)Buff::Vulnerable])
+	{
+		VulDebuff = 1.5f;
+	}
+	//몬스터가 약화상태라면 받는 피해 감소
+	if (m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Weak]) 
+	{
+		WeakDebuff = 0.75;
+	}
+
+	//최종 데미지
+	int FinalDamage = (Damage + AtkBonus) * WeakDebuff * VulDebuff;
+
 	if (m_Shield > 0) {
-		m_Shield -= (int)Damage;
+		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
 			m_HP += (m_Shield);
 			m_Shield = 0;
@@ -146,7 +164,7 @@ float CMyPlayer::InflictDamage(float Damage)
 	}
 	else
 	{
-		m_HP -= (int)Damage;
+		m_HP -= FinalDamage;
 	}
 	
 	m_HPBar->GetWidget<CProgressBar>()->SetValue(m_HP / (float)m_MaxHP);
@@ -155,7 +173,7 @@ float CMyPlayer::InflictDamage(float Damage)
 	CFloatingDamage* Damages = m_Scene->CreateObject<CFloatingDamage>("Damages");
 	Damages->SetPos(GetPos().x,GetPos().y-100.f);
 	char ch[256] = {};
-	sprintf_s(ch, "%d", (int)Damage);
+	sprintf_s(ch, "%d", FinalDamage);
 	TCHAR t[256] = {};
 	int Length = MultiByteToWideChar(CP_ACP, 0, ch, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);

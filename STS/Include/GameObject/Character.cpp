@@ -193,7 +193,7 @@ bool CCharacter::Init()
 	m_VulDeBuffText->GetWidget<CText>()->SetText(TEXT("7"));
 	m_VulDeBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_VulDeBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	m_VulDeBuffText->GetWidget<CText>()->SetTextColor(255, 255, 0);
+	m_VulDeBuffText->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_VulDeBuffText->GetWidget<CText>()->SetSize(20, 20);
 	//m_VulDeBuffText->SetPos(-25.f + 15.f + 20.f + 20.f, 115.f + 13.f);
 	m_VulDeBuffText->GetWidget<CText>()->SetEnable(true);
@@ -211,7 +211,7 @@ bool CCharacter::Init()
 	m_WeakDeBuffText->GetWidget<CText>()->SetText(TEXT("8"));
 	m_WeakDeBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_WeakDeBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	m_WeakDeBuffText->GetWidget<CText>()->SetTextColor(255, 255, 0);
+	m_WeakDeBuffText->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_WeakDeBuffText->GetWidget<CText>()->SetSize(20, 20);
 	//m_WeakDeBuffText->SetPos(-25.f + 15.f + 20.f + 20.f, 115.f + 13.f);
 	m_WeakDeBuffText->GetWidget<CText>()->SetEnable(true);
@@ -271,8 +271,20 @@ void CCharacter::Update(float DeltaTime)
 
 	//상태이상 배치
 	int count = 0;
+
+
+	//for (int i = 0; i < m_StatusList.size(); i++)
+	//{
+	//	if (m_StatusList[i]->GetWidget()->GetEnable())
+	//	{
+	//		count++;
+	//	}
+	//}
+
 	auto iter = m_StatusList.begin();
 	auto end = m_StatusList.end();
+
+
 	for (; iter != end;) 
 	{
 		if (!(*iter)->GetWidget()->GetEnable())
@@ -286,6 +298,14 @@ void CCharacter::Update(float DeltaTime)
 	}
 
 	count = 0;
+
+	//for (int i = 0; i < m_ValueList.size(); i++)
+	//{
+	//	if (m_ValueList[i]->GetWidget()->GetEnable())
+	//	{
+	//		count++;
+	//	}
+	//}
 
 	auto iter2 = m_ValueList.begin();
 	auto end2 = m_ValueList.end();
@@ -322,7 +342,10 @@ void CCharacter::UpdateStatus()
 		if (ArrTemp[i] <= 0) { //
 			m_StatusList[i]->GetWidget()->SetEnable(false);
 			m_ValueList[i]->GetWidget()->SetEnable(false);
-
+		}
+		else {
+			m_StatusList[i]->GetWidget()->SetEnable(true);
+			m_ValueList[i]->GetWidget()->SetEnable(true);
 		}
 	}
 }

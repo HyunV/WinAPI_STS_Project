@@ -28,14 +28,14 @@ bool CMyMonster::Init()
 {
 	CCharacter::Init();
 
-	m_BuffArr[0] = 1;
-	m_BuffArr[1] = 8;
-	m_BuffArr[2] = 0;
-	m_BuffArr[3] = 1;
-	m_BuffArr[4] = 1;
-	m_BuffArr[5] = 3;
-	m_BuffArr[6] = 3;
-	m_BuffArr[7] = 0;
+	m_BuffArr[0] = 0; //공격력
+	m_BuffArr[1] = 0; //민첩함
+	m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
+	m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
+	m_BuffArr[4] = 0; //격노
+	m_BuffArr[5] = 0; //의식 턴 시작시 공격력 + n
+	m_BuffArr[6] = 0; //취약 50%추가 피해 *1.5 //턴 종료 시 
+	m_BuffArr[7] = 0; //약화 25% 적은 데미지 *0.75
 
 	m_AttackDir = -1.f;
 	m_AttackSpeed = 1500.f;
@@ -147,24 +147,43 @@ void CMyMonster::Render(HDC hDC, float DeltaTime)
 float CMyMonster::InflictDamage(float Damage)
 {
 	Damage = CCharacter::InflictDamage(Damage);
-	//int FinalDamege = (int)Damage - m_Shield;
+
+	int AtkBonus = m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Atk];
+	float VulDebuff = 1.f;
+	float WeakDebuff = 1.f;
+
+	//자신이 취약상태라면 받는 피해 증가
+	if (m_BuffArr[(int)Buff::Vulnerable])
+	{
+		VulDebuff = 1.5f;
+	}
+	//플레이어가 약화 상태라면 받는 피해 감소
+	if (m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Weak])
+	{
+		WeakDebuff = 0.75f;
+	}
+
+	//최종데미지
+	int FinalDamage = (Damage + AtkBonus) * WeakDebuff * VulDebuff;
+
+	//실드 보유 시
 	if (m_Shield > 0) {
-		m_Shield -= (int)Damage;
+		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
 	}
-	else 
+	else //실드 미보유시
 	{
-		m_HP -= (int)Damage;
+		m_HP -= FinalDamage;
 	}
 
-	//데미지 출력
+	//최종 데미지 출력
 	CFloatingDamage* Damages = m_Scene->CreateObject<CFloatingDamage>("Damages");
 	Damages->SetPos(GetPos().x, GetPos().y-100.f);
 	char ch[256] = {};
-	sprintf_s(ch, "%d", (int)Damage);
+	sprintf_s(ch, "%d", FinalDamage);
 	TCHAR t[256] = {};
 	int Length = MultiByteToWideChar(CP_ACP, 0, ch, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, ch, -1, t, Length);

@@ -432,6 +432,7 @@ void CTopPanel::Render(HDC hDC, float DeltaTime)
 
 void CTopPanel::HideOnUI(bool Enable)
 {
+    
     m_DrawCardButton->SetEnable(Enable);
     m_LCountCircle->SetEnable(Enable);
     m_LCardCount->SetEnable(Enable);
@@ -453,7 +454,9 @@ void CTopPanel::TestCallback()
     
     CCardManager::GetInst()->DrawCard(2);
     CCardManager::GetInst()->HandSort();
-    m_Scene->SetBlackSwitch(true);
+    
+   //m_Scene->SetBlackSwitch(true);
+
     
  
     //if (m_Scene->GetPlayer()->GetEnable()) {
@@ -473,6 +476,11 @@ void CTopPanel::SettingButtonCallback()
     m_Scene->GetPlayer()->SetEnableDamaged(true);
     //m_Scene->GetMonster()->SetEnableAttack(true);
     m_Scene->GetMonster()->SetEnableDamaged(true);
+
+
+    //m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Vulnerable]++;
+    //m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Weak]++;
+    //m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Atk]++;
 }
 
 void CTopPanel::DeckButtonCallback()
