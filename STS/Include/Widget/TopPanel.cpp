@@ -33,8 +33,8 @@ bool CTopPanel::Init()
     //m_BackLayer->SetEnable(false);
 
     SetSize(1280, 800);
-    m_Scene->GetSceneResource()->LoadSound("UI", "ButtonClick", false,
-        "61.mp3");
+    //m_Scene->GetSceneResource()->LoadSound("UI", "ButtonClick", false,
+    //    "61.mp3");
     CImageWidget2* TopPanel = CreateWidget<CImageWidget2>("TopPanel");
 
     TopPanel->SetTexture("TopPanel", TEXT("TopPanel/bar.bmp"));
@@ -237,18 +237,84 @@ bool CTopPanel::Init()
     m_Energy->SetShadowOffset(3.f, 3.f);
 
     m_BackButton = CreateWidget<CButton>("BackButton");
-    m_BackButton->SetTexture("BackButton", TEXT("TopPanel/endTurnButton.bmp"));
-    m_BackButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(154.f, 154.f));
-    m_BackButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
-    m_BackButton->SetButtonStateData(EButton_State::Click, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
-    m_BackButton->SetPos(50.f, 600.f);
+    m_BackButton->SetTexture("BackButton", TEXT("TopPanel/cancelButton.bmp"));
+    m_BackButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(256.f, 128.f));
+    m_BackButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(256.f, 0.f), Vector2(512.f, 128.f));
+    m_BackButton->SetButtonStateData(EButton_State::Click, Vector2(256.f, 0.f), Vector2(512.f, 128.f));
+    m_BackButton->SetPos(0.f, 600.f);
     m_BackButton->SetColorKey(255, 0, 255);
     m_BackButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::BackCallBack);
     m_BackButton->SetEnable(false);
 
-    m_ConfirmButton = CreateWidget<CButton>("ConfirmButton");
+    m_BackButtonText = CreateWidget<CText>("BackButtonText");
+    m_BackButtonText->SetFont("UI");
+    m_BackButtonText->SetText(TEXT("돌아가기"));
+    m_BackButtonText->SetPos(50.f, 620.f);
+    m_BackButtonText->SetTextColor(255, 255, 219);
+    m_BackButtonText->EnableShadow(true);
+    m_BackButtonText->SetShadowOffset(1.f, 1.f);
+    m_BackButtonText->SetEnable(false);
 
+    m_ConfirmButton = CreateWidget<CButton>("ConfirmButton");
+    m_ConfirmButton->SetTexture("ConfirmButton", TEXT("TopPanel/confirmButton.bmp"));
+    m_ConfirmButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(256.f, 128.f));
+    m_ConfirmButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(256.f, 0.f), Vector2(512.f, 128.f));
+    m_ConfirmButton->SetButtonStateData(EButton_State::Click, Vector2(256.f, 0.f), Vector2(512.f, 128.f));
+    m_ConfirmButton->SetPos(1024.f, 600.f);
+    m_ConfirmButton->SetColorKey(255, 0, 255);
+    m_ConfirmButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
+        this, &CTopPanel::ConfirmCallBack);
+    m_ConfirmButton->SetEnable(false);
+
+    m_ConfirmButtonText = CreateWidget<CText>("ConfirmButtonText");
+    m_ConfirmButtonText->SetFont("UI");
+    m_ConfirmButtonText->SetText(TEXT("확인"));
+    m_ConfirmButtonText->SetPos(1224.f, 620.f);
+    m_ConfirmButtonText->SetTextColor(255, 255, 219);
+    m_ConfirmButtonText->EnableShadow(true);
+    m_ConfirmButtonText->SetShadowOffset(1.f, 1.f);
+    m_ConfirmButtonText->SetEnable(false);
+
+    m_ProceedButton = CreateWidget<CButton>("ProceedButton");
+    m_ProceedButton->SetTexture("ProceedButton", TEXT("TopPanel/proceedButton.bmp"));
+    m_ProceedButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(256.f, 256.f));
+    m_ProceedButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(256.f, 0.f), Vector2(512.f, 256.f));
+    m_ProceedButton->SetButtonStateData(EButton_State::Click, Vector2(256.f, 0.f), Vector2(512.f, 256.f));
+    m_ProceedButton->SetPos(1024.f, 450.f);
+    m_ProceedButton->SetColorKey(255, 0, 255);
+    m_ProceedButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
+        this, &CTopPanel::PreceedCallBack);
+    m_ProceedButton->SetEnable(false);
+
+    m_ProceedButtonText = CreateWidget<CText>("ProceedButtonText");
+    m_ProceedButtonText->SetFont("UI");
+    m_ProceedButtonText->SetText(TEXT("넘기기"));
+    m_ProceedButtonText->SetPos(1145.f, 565.f);
+    m_ProceedButtonText->SetTextColor(255, 255, 219);
+    m_ProceedButtonText->EnableShadow(true);
+    m_ProceedButtonText->SetShadowOffset(1.f, 1.f);
+    m_ProceedButtonText->SetEnable(false);
+
+    m_CenterButton = CreateWidget<CButton>("CenterButton");
+    m_CenterButton->SetTexture("m_CenterButton", TEXT("TopPanel/endTurnButton.bmp"));
+    m_CenterButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(154.f, 154.f));
+    m_CenterButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
+    m_CenterButton->SetButtonStateData(EButton_State::Click, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
+    m_CenterButton->SetPos(568.f, 500.f);
+    m_CenterButton->SetColorKey(255, 0, 255);
+    m_CenterButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
+        this, &CTopPanel::CenterButtonCallBack);
+    m_CenterButton->SetEnable(false);
+
+    m_CenterButtonText = CreateWidget<CText>("CenterButtonText");
+    m_CenterButtonText->SetFont("UI");
+    m_CenterButtonText->SetText(TEXT("확인"));
+    m_CenterButtonText->SetPos(644.f, 565.f);
+    m_CenterButtonText->SetTextColor(255, 255, 219);
+    m_CenterButtonText->EnableShadow(true);
+    m_CenterButtonText->SetShadowOffset(1.f, 1.f);
+    m_CenterButtonText->SetEnable(false);
 
 
     
@@ -384,10 +450,12 @@ void CTopPanel::HideOnUI(bool Enable)
 
 void CTopPanel::TestCallback()
 {
+    
     CCardManager::GetInst()->DrawCard(2);
     CCardManager::GetInst()->HandSort();
     m_Scene->SetBlackSwitch(true);
     
+ 
     //if (m_Scene->GetPlayer()->GetEnable()) {
     //    m_Scene->GetPlayer()->SetEnable(false);
     //}
@@ -401,7 +469,7 @@ void CTopPanel::TestCallback()
 void CTopPanel::SettingButtonCallback()
 {
     //m_Scene->GetPlayer()->AddShield(5);
-    //CCardManager::GetInst()->DrawCard(2);
+    CCardManager::GetInst()->DrawCard(2);
     m_Scene->GetPlayer()->SetEnableDamaged(true);
     //m_Scene->GetMonster()->SetEnableAttack(true);
     m_Scene->GetMonster()->SetEnableDamaged(true);
@@ -417,6 +485,7 @@ void CTopPanel::DeckButtonCallback()
         CCardManager::GetInst()->CardView(m_CardTemp);
         //MessageBox(nullptr, TEXT("2"), TEXT("a"), MB_OK);
         m_BackButton->SetEnable(true);
+        m_BackButtonText->SetEnable(true);
     }
 }
 
@@ -425,6 +494,7 @@ void CTopPanel::MapButtonCallback()
     HideOnUI(true);
     m_Scene->SetBlackSwitch(false);
     m_BackButton->SetEnable(true);
+    m_BackButtonText->SetEnable(true);
    // MessageBox(nullptr, TEXT("3"), TEXT("a"), MB_OK);
 }
 
@@ -442,6 +512,7 @@ void CTopPanel::DrawButtonCallBack()
         m_Scene->SetBlackSwitch(true);
         CCardManager::GetInst()->CardView(m_CardTemp);
         m_BackButton->SetEnable(true);
+        m_BackButtonText->SetEnable(true);
     }
 }
 
@@ -461,6 +532,7 @@ void CTopPanel::DiscardCallBack()
         CCardManager::GetInst()->CardView(m_CardTemp);
         //MessageBox(nullptr, TEXT("2"), TEXT("a"), MB_OK);
         m_BackButton->SetEnable(true);
+        m_BackButtonText->SetEnable(true);
     }
 }
 
@@ -488,12 +560,22 @@ void CTopPanel::BackCallBack()
     m_CardTemp.clear();
     m_Scene->SetBlackSwitch(false);
     m_BackButton->SetEnable(false);
-    
+    m_BackButtonText->SetEnable(false);
     HideOnUI(true);
     m_Scene->GetCameraObj()->SetPos(640, 400);  
     
 }
 
 void CTopPanel::ConfirmCallBack()
+{
+    //현재 구현만 해놈
+}
+
+void CTopPanel::PreceedCallBack()
+{
+
+}
+
+void CTopPanel::CenterButtonCallBack()
 {
 }

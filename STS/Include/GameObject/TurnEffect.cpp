@@ -57,7 +57,7 @@ void CTurnEffect::Update(float DeltaTime)
 		m_WhosTurnText->GetWidget<CText>()->SetText(TEXT("³» ÅÏ"));
 		MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
 		m_TurnCountText->GetWidget<CText>()->SetText(Unicode);		
-		m_Scene->GetPlayer()->ClearShield();
+		
 		m_Scene->GetPlayer()->SetEnergy(m_Scene->GetPlayer()->GetMaxEnergy());
 		break;
 
@@ -76,6 +76,7 @@ void CTurnEffect::Update(float DeltaTime)
 				CCardManager::GetInst()->SetPlayerTurn(true);
 				CCardManager::GetInst()->DrawCard(CCardManager::GetInst()->GetDrawCard());
 				CCardManager::GetInst()->SetMonstersTurn(false);
+				m_Scene->GetPlayer()->ClearShield();
 			}
 			if (m_Turn == EWhos_Turn::Monster) {
 				CCardManager::GetInst()->SetMonstersTurn(true);

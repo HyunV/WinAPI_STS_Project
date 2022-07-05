@@ -170,7 +170,7 @@ public:
 	void CardView(vector<CCard*> deck);
 	void ClearCard(vector<CCard*> deck);
 	void HandToDiscard(); //턴 종료 시 남은 핸드를 모두 버린다
-	
+	int Rand(int n);
 	bool Init();
 
 	DECLARE_SINGLE(CCardManager)

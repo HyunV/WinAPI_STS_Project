@@ -592,3 +592,5 @@ void CGameObject::SetCollisionEnable(bool Enable)
 		m_ColliderList.front()->SetCollisionEnable(Enable);
 	}	
 }
+
+

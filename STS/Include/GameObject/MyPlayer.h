@@ -16,7 +16,6 @@ public:
 	virtual void PostUpdate(float DeltaTime);
 	virtual void Render(HDC hDC, float DeltaTime);
 	virtual float InflictDamage(float Damage);
-
 private:
 	void CollisionBegin(CCollider* Src, CCollider* Dest);
 	void CollisionEnd(CCollider* Src, CCollider* Dest);

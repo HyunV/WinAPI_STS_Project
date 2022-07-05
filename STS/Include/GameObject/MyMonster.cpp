@@ -27,6 +27,16 @@ CMyMonster::~CMyMonster()
 bool CMyMonster::Init()
 {
 	CCharacter::Init();
+
+	m_BuffArr[0] = 1;
+	m_BuffArr[1] = 8;
+	m_BuffArr[2] = 0;
+	m_BuffArr[3] = 1;
+	m_BuffArr[4] = 1;
+	m_BuffArr[5] = 3;
+	m_BuffArr[6] = 3;
+	m_BuffArr[7] = 0;
+
 	m_AttackDir = -1.f;
 	m_AttackSpeed = 1500.f;
 	SetMoveObject(true);
@@ -61,13 +71,15 @@ bool CMyMonster::Init()
 	m_NameBar->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_NameBar->GetWidget<CText>()->SetFont("NameFont");
 	m_NameBar->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
-	m_NameBar->SetPos(0.f, 110.f);	
+	m_NameBar->SetPos(0.f, 135.f);	
 
 	return true;
 }
 
 void CMyMonster::Update(float DeltaTime)
 {
+	m_BuffFirstPos = (0.f, -60.f);
+	m_TextOffSet = (0.f, 13.f);
 	CCharacter::Update(DeltaTime);
 
 	//임시코드

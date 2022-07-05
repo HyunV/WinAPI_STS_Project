@@ -2,6 +2,8 @@
 #include "../Ref.h"
 #include "../Animation/Animation.h"
 #include "../Widget/WidgetComponent.h"
+#include "../CardFlag.h"
+
 
 class CGameObject :
 	public CRef //스마트 포인터 상속받기
@@ -64,6 +66,23 @@ protected:
 	//카드 오브젝트 관련
 	bool m_SelectedCard;
 
+
+	//상태 이상
+		//버프
+	int m_Atk; //공격, 감소안함
+	int m_Dex; //민첩, 감소 안함
+	int m_Demon; //악형, 감소 안함
+	int m_Gate; //바리게이트, 감소 않마
+
+	int m_Rage; //몬스터 버프(감소안함)
+	int m_Ritual; //의식(감소 안함)
+
+	//디버프
+	int m_Vulnerable; //취약(감소함)
+	int	m_Weak;//약화(감소함)
+
+	int m_BuffArr[(int)Buff::Max];
+
 	//중력 관련
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
 	bool		m_Ground;	// 땅을 밟고 있는 상태인지 아닌지
@@ -72,6 +91,8 @@ protected:
 	float		m_FallStartY; //어느 지점에서 y축으 로 떨어지고 있냐
 	bool		m_Jump;
 	float		m_JumpVelocity; //점프 속도
+
+
 
 public:
 	class CCollider* FindCollider(const std::string& Name);
@@ -108,6 +129,9 @@ public: /////////////////애니메이션 관련////////////////////////////
 		m_MoveObject = Move;
 	}
 
+	int* GetBuffArr() {
+		return m_BuffArr;
+	}
 
 	//전투 관련 이게 true이면 애니메이션 작동
 	void SetEnableAttack(bool Enable)
@@ -182,7 +206,40 @@ public: /////////////////애니메이션 관련////////////////////////////
 	{
 		m_MaxHP = Value;
 	}
+	int GetAtk() {
+		return m_Atk; //공격
+	}
+	
+	int GetDex() {
+		return m_Dex;
+	}
+	int GetRage() {
+		return m_Rage;
+	}
+	int GetRitual() {
+		return m_Ritual;
+	}
+	int GetVulnerable() {
+		return m_Vulnerable;
+	}
+	int GetWeak() {
+		return m_Weak;
+	}
+	int GetDemon() {
+		return m_Demon;
+	}
 
+	int GetGate() {
+		return m_Gate;
+	}
+	void SetAtk(int Value);
+	void SetDex(int Value);
+	void SetRage(int Value);
+	void SetRitual(int Value);
+	void SetVulnerable(int Value);
+	void SetWeak(int Value);
+	void SetGate(int Value);
+	void SetDemon(int Value);
 	//중력관련
 public:
 	void SetPhysicsSimulate(bool Physics)

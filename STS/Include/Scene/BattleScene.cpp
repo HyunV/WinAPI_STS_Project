@@ -91,8 +91,8 @@ bool CBattleScene::Init()
 
 	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
 	SetMonster(Monster);
-	//CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
-	//Monster2->SetPos(1050, 250);
+	CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
+	Monster2->SetPos(1050, 250);
 	//
 	CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
 	

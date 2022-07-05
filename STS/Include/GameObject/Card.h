@@ -39,7 +39,7 @@ protected:
     bool m_cardMove; //카드 이동 세팅
     
    
-    
+    bool m_isAnimated;
 
     //카드에 입힐 텍스트 설명을 담을 위젯
     CSharedPtr<class CWidgetComponent> m_MycardName;
@@ -132,6 +132,13 @@ public:
 
     virtual void useCard(CGameObject* Owner, CGameObject* Target);
 
+
+    bool GetIsAnimated() {
+        return m_isAnimated;
+    }
+    void SetIsAnimated(bool Enable) {
+        m_isAnimated = Enable;
+    }
     
 
 private:

@@ -47,9 +47,24 @@ private:
     CSharedPtr<class CButton> m_TurnOffButton;
     CSharedPtr<class CText> m_TurnOffText;
     
+    //숨겨진 버튼
+    CSharedPtr<class CButton> m_BackButton; //뒤로가기
+    CSharedPtr<class CText> m_BackButtonText;
 
-    CSharedPtr<class CButton> m_BackButton;
-    CSharedPtr<class CButton> m_ConfirmButton;
+    CSharedPtr<class CButton> m_ConfirmButton; //컨펌 버튼
+    CSharedPtr<class CText> m_ConfirmButtonText;
+
+    CSharedPtr<class CButton> m_ProceedButton; //넘기기 버튼
+    CSharedPtr<class CText> m_ProceedButtonText;
+   
+    CSharedPtr<class CButton> m_CenterButton; //가운데 확인 버튼
+    CSharedPtr<class CText> m_CenterButtonText;
+
+    // 보상 UI 패널
+    // 카드 버튼
+    // 골드 보상 버튼 (게임매니저에서 얻어옴)
+    //카드 매니저에서 랜드카드
+
     vector<CCard*> m_CardTemp;
     //에너지, 뽑을 카드 더미(숫자), 버릴카드 더미(숫자) 턴 종료(버튼) ,픽버튼(버튼) 보이기 여부
     
@@ -71,5 +86,7 @@ public:
     void TurnOffCallBack();
     void BackCallBack();
     void ConfirmCallBack();
+    void PreceedCallBack();
+    void CenterButtonCallBack();
 };
 

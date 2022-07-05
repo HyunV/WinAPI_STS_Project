@@ -11,6 +11,8 @@
 CMyPlayer::CMyPlayer()
 {
 	SetTypeID<CMyPlayer>();
+	//m_BuffFirstPos = (-60.f, 120.f); //플레이어 오프셋
+//m_TextOffSet = (15.f, 13.f);
 }
 
 CMyPlayer::CMyPlayer(const CMyPlayer& Obj) :
@@ -24,9 +26,17 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
+	m_BuffArr[0] = 1;
+	m_BuffArr[1] = 8;
+	m_BuffArr[2] = 0;
+	m_BuffArr[3] = 0;
+	m_BuffArr[4] = 1;
+	m_BuffArr[5] = 0;
+	m_BuffArr[6] = 3;
+	m_BuffArr[7] = 0;
+
 	CGameObject::Init();
 	CCharacter::Init();
-	
 	
 	SetMaxEnergy(5);
 	m_Energy = 999;
@@ -75,6 +85,8 @@ bool CMyPlayer::Init()
 
 void CMyPlayer::Update(float DeltaTime)
 {	
+	m_BuffFirstPos = (0.f, -20.f);
+	m_TextOffSet = (0.f, 13.f);
 	CCharacter::Update(DeltaTime);
 	//공격모션
 	if (m_EnableAttack) 
@@ -108,6 +120,7 @@ void CMyPlayer::Update(float DeltaTime)
 			m_EnableDamaged = false;
 		}
 	}
+	
 }
 
 void CMyPlayer::PostUpdate(float DeltaTime)

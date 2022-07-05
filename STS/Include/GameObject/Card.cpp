@@ -217,7 +217,8 @@ void CCard::Render(HDC hDC, float DeltaTime)
 void CCard::Update(float DeltaTime)
 {
 	//마우스 드래그
-	if (m_mouseHovered) {
+	if (m_mouseHovered) 
+	{
 		if (CInput::GetInst()->GetMouseLDown())
 		{		
 			if (m_cardOriginPos.x == 0.f && m_cardOriginPos.y == 0.f) 
@@ -237,8 +238,7 @@ void CCard::Update(float DeltaTime)
 		{			
 				SetPos(m_cardOriginPos);
 			
-		}
-		
+		}	
 	}
 }
 
@@ -489,8 +489,11 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	//
 	//카드 타입 알아내기
 	if (owner->GetAttackCard() && target->GetName() == "Player") {
+		//공격카드를 플레이어에게 못씀
 		return;
 	}
+
+	//에너지 부족할 시
 	int cost = owner->GetEnergy();
 	int PlayerEnergy = m_Scene->GetPlayer()->GetEnergy();
 	if (PlayerEnergy - cost < 0) {
@@ -509,6 +512,9 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	{
 		(*iter)->ActivateAbility(owner, target);
 	}
+
+	//몬스터가 격노 버프 받고있으면
+	//공격력 증가
 
 	owner->SetUsedCard(true);
 	m_Scene->SetUseCard(true);

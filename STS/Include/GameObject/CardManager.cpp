@@ -8,6 +8,7 @@
 #include "../Scene/SceneResource.h"
 #include "GameObject.h"
 #include "BubbleMessage.h"
+#include <time.h>
 
 DEFINITION_SINGLE(CCardManager);
 
@@ -22,6 +23,7 @@ CCardManager::CCardManager()
 	m_UsedCard = false;
 	m_Scene = nullptr;
 	m_DrawCard = 5;
+	srand((unsigned int)time(0));
 }
 
 CCardManager::~CCardManager()
@@ -81,10 +83,9 @@ void CCardManager::ClearCard(vector<CCard*> deck)
 	
 	for (int i = 0; i < deck.size(); i++)
 	{		
-		deck[i]->SetPos(0.f, 0.f);
-		deck[i]->SetEnable(false);
+		deck[i]->SetPos(-1000.f, 0.f);
+		//deck[i]->SetEnable(false);
 	}
-
 	HandSort();
 }
 void CCardManager::HandToDiscard()
@@ -92,6 +93,7 @@ void CCardManager::HandToDiscard()
 	if (!m_Hand.size() == 0) {
 		EnableHand(false);
 	}
+	//역순으로 버리게 
 	for (int i = 0; i < m_Hand.size(); i++)
 	{
 		if (m_Hand[i] == nullptr) {
@@ -105,6 +107,10 @@ void CCardManager::HandToDiscard()
 	}
 	m_Hand.clear();
 	int a = (int)m_Hand.size();
+}
+int CCardManager::Rand(int n)
+{
+	return rand()%n;
 }
 bool CCardManager::Init()
 {
@@ -199,6 +205,7 @@ void CCardManager::SetBringDeck()
 
 void CCardManager::DrawCard(int value)
 {
+	HandSort();
 	for (int i = 0; i < value; i++) {
 		//뽑을 카드 
 		if (m_Hand.size() > 10)
@@ -215,10 +222,14 @@ void CCardManager::DrawCard(int value)
 			m_bringCardDummy = m_disCardDummy;
 			m_disCardDummy.clear();
 		}
-		//섞어주는 코드
+		
+		//섞어주는 코드(수정)
 		vector<CCard*> Temp = m_bringCardDummy;
 		std::random_shuffle(Temp.begin(), Temp.end());
 
+		if (!m_Hand.size() == 0) {
+			Vector2(m_Hand.back()->GetPos());
+		}
 		m_Hand.push_back(Temp.back());
 		for (int i = 0; i < m_bringCardDummy.size(); i++)
 		{
@@ -226,7 +237,8 @@ void CCardManager::DrawCard(int value)
 			{
 				m_bringCardDummy.erase(m_bringCardDummy.begin()+i);
 			}
-		}		
+		}
+		//m_Hand.back()->SetIsAnimated(true);
 		//m_bringCardDummy.pop_back();
 	}
 	HandSort();

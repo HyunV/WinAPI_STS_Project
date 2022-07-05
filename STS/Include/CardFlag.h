@@ -37,3 +37,16 @@ enum class Card_Preview
 	Preview,
 	Hand
 };
+
+enum class Buff
+{
+	Atk,
+	Dex,
+	DemonForm,
+	Barrigate,
+	Rage,
+	Ritual,
+	Vulnerable,
+	Weak,
+	Max
+};
