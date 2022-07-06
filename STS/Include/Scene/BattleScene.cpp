@@ -100,9 +100,12 @@ bool CBattleScene::Init()
 	CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
 
 
-
+	GetSceneResource()->LoadTexture("bash", TEXT("Cards/CardImage/testing.bmp"));
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
+	
+	GetSceneResource()->LoadTexture("DemonForm", TEXT("Cards/CardImage/test2.bmp"));
+	GetSceneResource()->LoadTexture("LimitBreak", TEXT("Cards/CardImage/test3.bmp"));
 	//카드 키워드 생성 //////////////////////////
 
 	///////////////////카드 생성//////////////////////////

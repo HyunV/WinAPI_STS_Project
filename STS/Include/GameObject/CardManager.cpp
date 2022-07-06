@@ -248,7 +248,7 @@ void CCardManager::InitMyDeck()
 
 	//강타
 	CCard* Bash = m_Scene->CreateObject<CCard>("Bash");
-	Bash->SetCardInfo("Bash", Card_Type::Attack, Card_Value::Common, false, false);
+	Bash->SetCardInfo("bash", Card_Type::Attack, Card_Value::Common, false, false);
 	Bash->SetCardAttribute(TEXT("강타"), Card_Type::Attack, 2);
 	Bash->AddAbility(BashDamage);
 	Bash->AddAbility(Vulnerable2);
@@ -298,8 +298,8 @@ void CCardManager::InitMyDeck()
 
 
 	//만든 카드 삽입
-	//m_mainDeck.push_back(Strike1);
-	//m_mainDeck.push_back(Strike2);
+	m_mainDeck.push_back(Strike1);
+	m_mainDeck.push_back(Strike2);
 	//m_mainDeck.push_back(Strike3);
 	//m_mainDeck.push_back(Strike4);
 	//m_mainDeck.push_back(Strike5);
