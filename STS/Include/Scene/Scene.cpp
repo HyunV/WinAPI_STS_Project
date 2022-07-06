@@ -46,6 +46,11 @@ void CScene::SetMonster(CGameObject* Monster)
 	m_Monster = Monster;
 }
 
+void CScene::SetMap(CGameObject* Map)
+{
+	m_Map = Map;
+}
+
 bool CScene::Init()
 {
 	return true;

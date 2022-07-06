@@ -43,9 +43,14 @@ void CBubbleMessage::Update(float DeltaTime)
 		SetColorKey(255, 0, 255);
 		//SetPos(0, 0);
 		break;
+	case EMessageBox_Type::Monster:
+		SetTexture("Text3", TEXT("speechBubble1.bmp"));
+		SetColorKey(255, 0, 255);
+		break;
 	}
 
 	CGameObject::Update(DeltaTime);
+
 	if (GetActive()) {
 		m_Time += DeltaTime;
 		if (m_Time >= 2.5f) {

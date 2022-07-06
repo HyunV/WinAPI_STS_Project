@@ -26,14 +26,14 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-	m_BuffArr[0] = 0; //공격력
-	m_BuffArr[1] = 0; //민첩함
-	m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
-	m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
-	m_BuffArr[4] = 0; //격노
-	m_BuffArr[5] = 0; //의식 턴 시작시 공격력 + n
-	m_BuffArr[6] = 0; //취약 50%추가 피해 *1.5 //턴 종료 시 
-	m_BuffArr[7] = 0; //약화 25% 적은 데미지 *0.75
+	//m_BuffArr[0] = 0; //공격력
+	//m_BuffArr[1] = 0; //민첩함
+	//m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
+	//m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
+	//m_BuffArr[4] = 0; //격노
+	//m_BuffArr[5] = 0; //의식 턴 시작시 공격력 + n
+	//m_BuffArr[6] = 0; //취약 50%추가 피해 *1.5 //턴 종료 시 
+	//m_BuffArr[7] = 0; //약화 25% 적은 데미지 *0.75
 
 	CGameObject::Init();
 	CCharacter::Init();

@@ -171,6 +171,8 @@
     <ClCompile Include="GameObject\FloatingDamage.cpp" />
     <ClCompile Include="GameObject\FrontObj.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
+    <ClCompile Include="GameObject\Map.cpp" />
+    <ClCompile Include="GameObject\MapIconObject.cpp" />
     <ClCompile Include="GameObject\MyMonster.cpp" />
     <ClCompile Include="GameObject\MyPlayer.cpp" />
     <ClCompile Include="GameObject\Tile.cpp" />
@@ -196,12 +198,14 @@
     <ClCompile Include="Scene\SceneCollision.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneResource.cpp" />
+    <ClCompile Include="Scene\StartScene.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Widget\Button.cpp" />
     <ClCompile Include="Widget\ImageWidget2.cpp" />
     <ClCompile Include="Widget\Number.cpp" />
     <ClCompile Include="Widget\ProgressBar.cpp" />
     <ClCompile Include="Widget\Text.cpp" />
+    <ClCompile Include="Widget\TitleWindow.cpp" />
     <ClCompile Include="Widget\TopPanel.cpp" />
     <ClCompile Include="Widget\Widget.cpp" />
     <ClCompile Include="Widget\WidgetComponent.cpp" />
@@ -240,6 +244,8 @@
     <ClInclude Include="GameObject\FloatingDamage.h" />
     <ClInclude Include="GameObject\FrontObj.h" />
     <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="GameObject\Map.h" />
+    <ClInclude Include="GameObject\MapIconObject.h" />
     <ClInclude Include="GameObject\MyMonster.h" />
     <ClInclude Include="GameObject\MyPlayer.h" />
     <ClInclude Include="GameObject\Tile.h" />
@@ -265,6 +271,7 @@
     <ClInclude Include="Scene\SceneCollision.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneResource.h" />
+    <ClInclude Include="Scene\StartScene.h" />
     <ClInclude Include="SharedPtr.h" />
     <ClInclude Include="Singletone.h" />
     <ClInclude Include="Timer.h" />
@@ -274,6 +281,7 @@
     <ClInclude Include="Widget\Number.h" />
     <ClInclude Include="Widget\ProgressBar.h" />
     <ClInclude Include="Widget\Text.h" />
+    <ClInclude Include="Widget\TitleWindow.h" />
     <ClInclude Include="Widget\TopPanel.h" />
     <ClInclude Include="Widget\Widget.h" />
     <ClInclude Include="Widget\WidgetComponent.h" />

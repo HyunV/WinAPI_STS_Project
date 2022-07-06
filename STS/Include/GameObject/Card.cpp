@@ -63,8 +63,11 @@ bool CCard::Init()
 	SetSize(148, 209);
 
 	//카드 이미지
+	//m_cardImageSize = Vector2(123, 93);
+
+
 	m_cardImageSize = Vector2(123, 93);
-	m_cardImageOffset = Vector2(13, 20);
+	m_cardImageOffset = Vector2(14, 20);
 
 	//카드 테두리
 	//카드타입에따라 edge텍스처와 nameTag와 이미지
@@ -137,7 +140,7 @@ void CCard::Render(HDC hDC, float DeltaTime)
 	CTexture* CardCostTexture = CResourceManager::GetInst()->FindTexture("CostImage");
 
 	CTexture* CardImageTexture = CResourceManager::GetInst()->FindTexture(m_CardImage);
-
+	//CardImageTexture->SetColorKey(255, 0, 255);
 
 	if (CardPanelTexture)
 	{

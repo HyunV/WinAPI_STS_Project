@@ -20,7 +20,7 @@ public:
 
 public:
     class CFrontObj* m_BlackLayer;
-    class CFrontObj* m_MapLayer;
+    class CMap* m_MapLayer;
     vector<CCard*> m_MyHand;
 private:
     void CreateAnimationSequence();

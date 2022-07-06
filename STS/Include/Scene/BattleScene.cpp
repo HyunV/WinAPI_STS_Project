@@ -17,7 +17,6 @@
 
 #include "../Collision/ColliderBox.h"
 
-
 #include "../GameObject/Cards/GiveAttribute.h"
 
 #include "../GameObject/Card.h"
@@ -27,6 +26,7 @@
 
 #include "../GameObject/TurnEffect.h"
 #include "../GameObject/Effects/BattleStartImage.h"
+#include "../GameObject/Map.h"
 
 CBattleScene::CBattleScene()
 {
@@ -50,11 +50,13 @@ bool CBattleScene::Init()
 	GetCamera()->SetTargetPivot(0.5f, 0.5f);
 
 	//GetCamera()->SetTarget(CInput::GetInst()->GetMouseObj());
+	
 	GetCamera()->SetTarget(Camera);
 	SetCameraObj(Camera);
 
 	CreateObject<CBackObj>("BackObj");
-	
+
+	//맵 생성
 	m_BlackLayer = CreateObject<CFrontObj>("FrontObj");
 	m_BlackLayer->SetEnable(m_BlackLayerSwitch);
 
@@ -83,36 +85,50 @@ bool CBattleScene::Init()
 	BackImageC->SetColorKey(255, 0, 255);
 
 	CCardManager::GetInst()->InitMyDeck();
-	
 	CCardManager::GetInst()->SetBringDeck();
-	CCardManager::GetInst()->DrawCard(5);
+	//CCardManager::GetInst()->DrawCard(5);
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
+	//Player->SetEnable(true);
+	SetPlayer(Player);
+	SetGameStart(true);
 
-	CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
-	SetMonster(Monster);
-	CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
-	Monster2->SetPos(1050, 250);
+	//CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
+	//SetMonster(Monster);
+	//CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
+	//Monster2->SetPos(1050, 250);
 	//
-	CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
+	//CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
 	
+	//CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
 
-	CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
-
-
-	GetSceneResource()->LoadTexture("bash", TEXT("Cards/CardImage/testing.bmp"));
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
-	
-	GetSceneResource()->LoadTexture("DemonForm", TEXT("Cards/CardImage/test2.bmp"));
-	GetSceneResource()->LoadTexture("LimitBreak", TEXT("Cards/CardImage/test3.bmp"));
+	GetSceneResource()->LoadTexture("Bash", TEXT("Cards/CardImage/bash.bmp"));
+
+	GetSceneResource()->LoadTexture("Barricades", TEXT("Cards/CardImage/barricade.bmp"));
+	GetSceneResource()->LoadTexture("BodySlam", TEXT("Cards/CardImage/body_slam.bmp"));
+	GetSceneResource()->LoadTexture("DemonForms", TEXT("Cards/CardImage/demon_form.bmp"));
+	GetSceneResource()->LoadTexture("Entrench", TEXT("Cards/CardImage/entrench.bmp"));
+	GetSceneResource()->LoadTexture("Inflame", TEXT("Cards/CardImage/inflame.bmp"));
+	GetSceneResource()->LoadTexture("LimitBreak", TEXT("Cards/CardImage/limit_Break.bmp"));
+
+
+
 	//카드 키워드 생성 //////////////////////////
 
 	///////////////////카드 생성//////////////////////////
 
-	SetPlayer(Player);
+
 
 	CreateWidgetWindow<CTopPanel>("TopPanel");
+
+	m_MapLayer = CreateObject<CMap>("MapObj");
+	SetMap(m_MapLayer);
+	SetMapSwitch(true);
+
+	m_MapLayer->SetEnable(true);
+
 	//
 	return true;
 }
@@ -122,7 +138,8 @@ void CBattleScene::Update(float DeltaTime)
 	CScene::Update(DeltaTime);
 	//사용한 카드 재정렬
 	m_BlackLayer->SetEnable(m_BlackLayerSwitch);
-	if (!m_BlackLayerSwitch)
+	m_Map->SetEnable(m_MapLayerSwitch);
+	if (!m_BlackLayerSwitch || !m_MapLayerSwitch)
 	{
 		m_MyHand = CCardManager::GetInst()->GetHand();
 	}

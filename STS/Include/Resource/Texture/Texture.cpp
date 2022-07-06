@@ -29,7 +29,6 @@ bool CTexture::LoadTexture(const TCHAR* FileName,
 		lstrcpy(FullPath, Path->Path);
 
 	lstrcat(FullPath, FileName);
-
 	return LoadTextureFullPath(FullPath);
 }
 

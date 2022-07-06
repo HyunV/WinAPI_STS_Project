@@ -82,7 +82,6 @@ bool CSceneResource::LoadTexture(const std::string& Name, const TCHAR* FileName,
 	CTexture* Texture = CResourceManager::GetInst()->FindTexture(Name);
 
 	m_mapTexture.insert(std::make_pair(Name, Texture));
-
 	return true;
 }
 
@@ -114,9 +113,8 @@ bool CSceneResource::LoadTexture(const std::string& Name,
 		return false;
 
 	CTexture* Texture = CResourceManager::GetInst()->FindTexture(Name);
-
+	Texture->SetColorKey(255, 0, 255);
 	m_mapTexture.insert(std::make_pair(Name, Texture));
-
 	return true;
 }
 

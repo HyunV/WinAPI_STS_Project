@@ -103,6 +103,9 @@
     <Filter Include="02.GameObject\08.Card\01.Cards\00.CardAbility">
       <UniqueIdentifier>{5d91984f-1dd6-40ea-9004-f06bcc705401}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\04.Map">
+      <UniqueIdentifier>{cebe4a48-8114-4c5d-8eda-09dd33b787e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -275,6 +278,18 @@
     </ClCompile>
     <ClCompile Include="GameObject\Effects\BattleStartImage.cpp">
       <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Map.cpp">
+      <Filter>02.GameObject\04.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\TitleWindow.cpp">
+      <Filter>07.UI\02.Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\StartScene.cpp">
+      <Filter>03.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\MapIconObject.cpp">
+      <Filter>02.GameObject\04.Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +502,18 @@
     </ClInclude>
     <ClInclude Include="GameObject\Effects\BattleStartImage.h">
       <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Map.h">
+      <Filter>02.GameObject\04.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\TitleWindow.h">
+      <Filter>07.UI\02.Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\StartScene.h">
+      <Filter>03.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\MapIconObject.h">
+      <Filter>02.GameObject\04.Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_ int		nCmdShow)
 
 {
+	_CrtDumpMemoryLeaks();
+
 	if (!CGameManager::GetInst()->Init(hInstance)) //싱글톤 초기화 실패시
 	{
 		CGameManager::DestroyInst(); //없애주고 종료

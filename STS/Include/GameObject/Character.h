@@ -64,5 +64,9 @@ protected:
 	virtual void UpdateStatus();
 	void ConvertText(int Value, CSharedPtr<class CWidgetComponent> TextWiz);
 	
+
+	vector<CSharedPtr<class CWidgetComponent>> m_TestButton;
+	void TestCallback();
+
 };
 

@@ -23,17 +23,26 @@ protected:
 	CSharedPtr<class CGameObject> m_Player;
 	CSharedPtr<class CGameObject> m_CameraObj;
 	CSharedPtr<class CGameObject> m_Monster;
+	CSharedPtr<class CGameObject> m_Map;
 	CSharedPtr<class CTileMap>		m_TileMap;
 
 	std::vector<CSharedPtr<CWidgetWindow>>	m_vecWidgetWindow;
-	
+	bool m_StartGame;
 public:
 	std::list<CSharedPtr<class CGameObject>>	 m_CardList;
 	bool m_SceneUsedCard;
+
 	bool m_BlackLayerSwitch;
+	bool m_MapLayerSwitch;
+	bool m_ShopLayerSwitch;
 
 public:
-
+	bool GetGameStart() {
+		return m_StartGame;
+	}
+	void SetGameStart(bool Enable) {
+		m_StartGame = Enable;
+	}
 	class CSceneCollision* GetCollision() const
 	{
 		return m_Collision;
@@ -57,6 +66,10 @@ public:
 	{
 		return m_Monster;
 	}
+	class CGameObject* GetMap() const
+	{
+		return m_Map;
+	}
 
 	class CTileMap* GetTileMap()	const
 	{
@@ -71,6 +84,7 @@ public:
 	void SetPlayer(class CGameObject* Player);
 	void SetCameraObj(class CGameObject* Camera);
 	void SetMonster(class CGameObject* Monster);
+	void SetMap(class CGameObject* Map);
 
 	void AddWidgetComponent(CWidgetComponent* Widget)
 	{
@@ -94,7 +108,22 @@ public:
 	{
 		return m_BlackLayerSwitch;
 	}
-
+	void SetMapSwitch(bool Enable)
+	{
+		m_MapLayerSwitch = Enable;
+	}
+	bool GetMapSwitch()
+	{
+		return m_MapLayerSwitch;
+	}
+	void SetShopSwitch(bool Enable)
+	{
+		m_ShopLayerSwitch = Enable;
+	}
+	bool GetShopSwitch()
+	{
+		return m_ShopLayerSwitch;
+	}
 public:
 	template <typename T>
 	T* CreateObject(const std::string& Name = "GameObject") //Name = 디폴트인자로 해놓음 이름 안지으면 저걸로 해둠

@@ -47,8 +47,9 @@ bool CMyMonster::Init()
 	m_OriginPos = GetPos();
 	SetSize(180.f, 180.f);
 	SetPivot(0.5f, 0.5f);
-
+	
 	SetTexture("MyMonster", TEXT("Monster/enemy1.bmp"));
+	
 	SetColorKey(255, 0, 255);
 
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");

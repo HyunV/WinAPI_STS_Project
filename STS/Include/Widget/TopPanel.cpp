@@ -165,8 +165,7 @@ bool CTopPanel::Init()
     m_DrawCardButton->SetPos(10.f, 630.f);
     m_DrawCardButton->SetColorKey(255, 0, 255);
     m_DrawCardButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
-        this, &CTopPanel::DrawButtonCallBack);
-    
+        this, &CTopPanel::DrawButtonCallBack);   
     
     m_DiscardButton = CreateWidget<CButton>("DiscardButton");
     m_DiscardButton->SetTexture("DiscardButton", TEXT("TopPanel/base2.bmp"));
@@ -316,16 +315,30 @@ bool CTopPanel::Init()
     m_CenterButtonText->SetShadowOffset(1.f, 1.f);
     m_CenterButtonText->SetEnable(false);
 
+    //겜시작 유아이 초기화
+    m_DrawCardButton->SetEnable(false);
+    m_LCountCircle->SetEnable(false);
+    m_LCardCount->SetEnable(false);
 
+    m_DiscardButton->SetEnable(false);
+    m_RCountCircle->SetEnable(false);
+    m_RCardCount->SetEnable(false);
+
+
+    m_EnergyUI->SetEnable(false);
+    m_Energy->SetEnable(false);
+
+    m_TurnOffButton->SetEnable(false);
+    m_TurnOffText->SetEnable(false);
     
 #ifdef _DEBUG
-    m_FPSText = CreateWidget<CText>("FPS");
-    m_FPSText->SetText(TEXT("FPS"));
-    m_FPSText->SetPos(900.f, 50.f);
-    m_FPSText->SetTextColor(255, 0, 0);
+    //m_FPSText = CreateWidget<CText>("FPS");
+    //m_FPSText->SetText(TEXT("FPS"));
+    //m_FPSText->SetPos(900.f, 50.f);
+    //m_FPSText->SetTextColor(255, 0, 0);
 
-    m_FPSText->EnableShadow(true);
-    m_FPSText->SetShadowOffset(2.f, 2.f);
+    //m_FPSText->EnableShadow(true);
+    //m_FPSText->SetShadowOffset(2.f, 2.f);
 #endif // DEBUG
 
     return true;
@@ -386,29 +399,29 @@ void CTopPanel::Update(float DeltaTime)
     
     m_LifeUI ->SetText(Unicode5);
 
-#ifdef _DEBUG
-    float FPS = CGameManager::GetInst()->GetFPS();
-
-    char	Text4[256] = {};
-    sprintf_s(Text4, "FPS : %.5f", FPS);
-
-    TCHAR	Unicode4[256] = {};
-    int Length4 = MultiByteToWideChar(CP_ACP, 0, Text4, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text4, -1, Unicode4, Length4);
-
-    m_FPSText->SetText(Unicode4);
-
-
-    //static float CurrentTime = 0.f;
-
-    //CurrentTime += DeltaTime;
-
-    //char    TimeText[64] = {};
-
-    //sprintf_s(TimeText, "Time : %.5f", CurrentTime);
-   
-
-#endif // DEBUG
+//#ifdef _DEBUG
+//    float FPS = CGameManager::GetInst()->GetFPS();
+//
+//    char	Text4[256] = {};
+//    sprintf_s(Text4, "FPS : %.5f", FPS);
+//
+//    TCHAR	Unicode4[256] = {};
+//    int Length4 = MultiByteToWideChar(CP_ACP, 0, Text4, -1, 0, 0);
+//    MultiByteToWideChar(CP_ACP, 0, Text4, -1, Unicode4, Length4);
+//
+//    m_FPSText->SetText(Unicode4);
+//
+//
+//    //static float CurrentTime = 0.f;
+//
+//    //CurrentTime += DeltaTime;
+//
+//    //char    TimeText[64] = {};
+//
+//    //sprintf_s(TimeText, "Time : %.5f", CurrentTime);
+//   
+//
+//#endif // DEBUG
 
 
 }
@@ -417,16 +430,16 @@ void CTopPanel::Render(HDC hDC, float DeltaTime)
 {
     CWidgetWindow::Render(hDC, DeltaTime);
 #ifdef _DEBUG
-    static float CurrentTime = 0.f;
-    static int Min = 0;
-    CurrentTime += DeltaTime;
-    if (CurrentTime >= 60.f) {
-        CurrentTime = 0;
-        Min++;
-    }
-    char TimeText[64] = {};
-    sprintf_s(TimeText, "Time : %d:%.5f", Min, CurrentTime);
-    TextOutA(hDC, 1000, 100, TimeText, strlen(TimeText));
+    //static float CurrentTime = 0.f;
+    //static int Min = 0;
+    //CurrentTime += DeltaTime;
+    //if (CurrentTime >= 60.f) {
+    //    CurrentTime = 0;
+    //    Min++;
+    //}
+    //char TimeText[64] = {};
+    //sprintf_s(TimeText, "Time : %d:%.5f", Min, CurrentTime);
+    //TextOutA(hDC, 1000, 100, TimeText, strlen(TimeText));
 #endif // _DEBUG
 }
 
@@ -473,9 +486,9 @@ void CTopPanel::SettingButtonCallback()
 {
     //m_Scene->GetPlayer()->AddShield(5);
     CCardManager::GetInst()->DrawCard(2);
-    m_Scene->GetPlayer()->SetEnableDamaged(true);
+    //m_Scene->GetPlayer()->SetEnableDamaged(true);
     //m_Scene->GetMonster()->SetEnableAttack(true);
-    m_Scene->GetMonster()->SetEnableDamaged(true);
+   // m_Scene->GetMonster()->SetEnableDamaged(true);
 
 
     //m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Vulnerable]++;
@@ -500,7 +513,8 @@ void CTopPanel::DeckButtonCallback()
 void CTopPanel::MapButtonCallback()
 {
     HideOnUI(true);
-    m_Scene->SetBlackSwitch(false);
+    //m_Scene->SetBlackSwitch(false);
+    m_Scene->SetMapSwitch(true);
     m_BackButton->SetEnable(true);
     m_BackButtonText->SetEnable(true);
    // MessageBox(nullptr, TEXT("3"), TEXT("a"), MB_OK);
@@ -566,7 +580,10 @@ void CTopPanel::BackCallBack()
 {
     CCardManager::GetInst()->ClearCard(m_CardTemp);
     m_CardTemp.clear();
+
     m_Scene->SetBlackSwitch(false);
+    m_Scene->SetMapSwitch(false);
+
     m_BackButton->SetEnable(false);
     m_BackButtonText->SetEnable(false);
     HideOnUI(true);

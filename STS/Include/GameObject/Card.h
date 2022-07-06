@@ -49,8 +49,8 @@ protected:
     CSharedPtr<class CWidgetComponent> m_MycardCost;
 
     vector<wstring> cardPanelFiles; //카드 패널 배열
-
     vector<wstring> cardEdgeFiles; //카드 테두리
+
     Vector2 m_cardEdgeSize;
     Vector2 m_cardEdgeOffset;
 

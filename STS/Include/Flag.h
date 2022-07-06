@@ -13,7 +13,8 @@ enum class ERender_Layer //출력 레이어 순서 m_ObjList 에 이 속성을 부여해서 순서
 	Default,
 	Effect,
 	Black,
-	Hand,	
+	Hand,
+	MapIcon,
 	Max
 };
 
@@ -93,7 +94,8 @@ enum class ETile_Option //일반 발판, 아이스 발판 이런것들
 enum class EMessageBox_Type
 {
 	Default,
-	Shop
+	Shop,
+	Monster
 };
 
 enum class EWhos_Turn
@@ -101,4 +103,15 @@ enum class EWhos_Turn
 	None,
 	Player,
 	Monster
+};
+
+enum class EMapIcon_Type
+{
+	none,
+	monster,
+	rest,
+	shop,
+	chest,
+	elite,
+	boss
 };

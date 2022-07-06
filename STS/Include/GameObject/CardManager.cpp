@@ -129,6 +129,7 @@ void CCardManager::SetPlayerTurn(bool Enable)
 
 void CCardManager::InitMyDeck()
 {
+
 	//카드 능력치 세팅
 
 	//공격 
@@ -248,50 +249,51 @@ void CCardManager::InitMyDeck()
 
 	//강타
 	CCard* Bash = m_Scene->CreateObject<CCard>("Bash");
-	Bash->SetCardInfo("bash", Card_Type::Attack, Card_Value::Common, false, false);
+	Bash->SetCardInfo("Bash", Card_Type::Attack, Card_Value::Common, false, false);
 	Bash->SetCardAttribute(TEXT("강타"), Card_Type::Attack, 2);
 	Bash->AddAbility(BashDamage);
 	Bash->AddAbility(Vulnerable2);
 
 	//발화
-	CCard* Inflame = m_Scene->CreateObject<CCard>("Inflame");
+	CCard* Inflame = m_Scene->CreateObject<CCard>("Inflame1");
 	Inflame->SetCardInfo("Inflame", Card_Type::Power, Card_Value::Special, false, false);
-	Inflame->SetCardAttribute(TEXT("발화"), Card_Type::Power, 2);
+	Inflame->SetCardAttribute(TEXT("발화"), Card_Type::Power, 1);
 	Inflame->AddAbility(Inflame2);
 	
 	//바리케이드
-	CCard* Barricade = m_Scene->CreateObject<CCard>("Barricade");
-	Barricade->SetCardInfo("Barricade", Card_Type::Power, Card_Value::Rare, false, false);
+	CCard* Barricade = m_Scene->CreateObject<CCard>("Barricade1");
+	Barricade->SetCardInfo("Barricades", Card_Type::Power, Card_Value::Rare, false, false);
 	Barricade->SetCardAttribute(TEXT("바리케이드"), Card_Type::Power, 3);
 	Barricade->AddAbility(Text1);
 	Barricade->AddAbility(BarricadeAtt);
 
 	//한계돌파
-	CCard* LimitBreak = m_Scene->CreateObject<CCard>("LimitBreak");
+	CCard* LimitBreak = m_Scene->CreateObject<CCard>("LimitBreak1");
 	LimitBreak->SetCardInfo("LimitBreak", Card_Type::Skill, Card_Value::Rare, false, false);
 	LimitBreak->SetCardAttribute(TEXT("한계돌파"), Card_Type::Skill, 1);	
 	LimitBreak->AddAbility(LimitBreakAtt);
 	LimitBreak->AddAbility(Exhaust);
 
 	//악마의형상
-	CCard* DemonForm = m_Scene->CreateObject<CCard>("DemonForm");
-	DemonForm->SetCardInfo("DemonForm", Card_Type::Power, Card_Value::Rare, false, false);
+	CCard* DemonForm = m_Scene->CreateObject<CCard>("DemonForm1");
+	DemonForm->SetCardInfo("DemonForms", Card_Type::Power, Card_Value::Rare, false, false);
 	DemonForm->SetCardAttribute(TEXT("악마의 형상"), Card_Type::Power, 3);
+	DemonForm->AddAbility(Text1);
 	DemonForm->AddAbility(DemonAtt);
 
 	//몸통박치기
-	CCard* BodySlam = m_Scene->CreateObject<CCard>("BodySlam");
+	CCard* BodySlam = m_Scene->CreateObject<CCard>("BodySlam1");
 	BodySlam->SetCardInfo("BodySlam", Card_Type::Attack, Card_Value::Common, false, false);
 	BodySlam->SetCardAttribute(TEXT("몸통박치기"), Card_Type::Attack, 0);
 	BodySlam->AddAbility(BodySlamAtt);
 	
 	//참호
-	CCard* Entrench = m_Scene->CreateObject<CCard>("Entrench");
+	CCard* Entrench = m_Scene->CreateObject<CCard>("Entrench1");
 	Entrench->SetCardInfo("Entrench", Card_Type::Skill, Card_Value::Special, false, false);
 	Entrench->SetCardAttribute(TEXT("참호"), Card_Type::Skill, 1);
 	Entrench->AddAbility(EntrenchAtt);
 	//발놀림
-	CCard* FootWork = m_Scene->CreateObject<CCard>("FootWork");
+	CCard* FootWork = m_Scene->CreateObject<CCard>("FootWork1");
 	FootWork->SetCardInfo("FootWork", Card_Type::Power, Card_Value::Special, false, false);
 	FootWork->SetCardAttribute(TEXT("발놀림"), Card_Type::Power, 1);
 	FootWork->AddAbility(FootWork2);
@@ -316,7 +318,8 @@ void CCardManager::InitMyDeck()
 	m_mainDeck.push_back(DemonForm);
 	m_mainDeck.push_back(BodySlam);
 	m_mainDeck.push_back(Entrench);
-	m_mainDeck.push_back(FootWork);
+	m_mainDeck.push_back(Inflame);
+	//m_mainDeck.push_back(FootWork);
 }
 
 void CCardManager::SetBringDeck()

@@ -33,9 +33,16 @@ bool CCameraObject::Init()
 void CCameraObject::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	if (m_Pos.y + (1.f - m_Pivot.y) * m_Size.y >= 2880.f)
+	if (m_Scene->GetGameStart()) 
 	{
-		m_Pos.y = 2880.f - (1.f - m_Pivot.y) * m_Size.y;
+		m_Pos.y++;
+		//m_Pos.y = 2080.f;
+	}
+
+
+	if (m_Pos.y + (1.f - m_Pivot.y) * m_Size.y >= 2080.f)
+	{
+		m_Pos.y = 2080.f - (1.f - m_Pivot.y) * m_Size.y;
 	}
 
 	else if (m_Pos.y - m_Pivot.y * m_Size.y <= 0.f)
@@ -52,13 +59,13 @@ void CCameraObject::Render(HDC hDC, float DeltaTime)
 
 void CCameraObject::CameraMoveUp()
 {
-	if (m_Scene->GetBlackSwitch())	
+	if (m_Scene->GetBlackSwitch() || m_Scene->GetMapSwitch())	
 	MoveDir(Vector2(0.f, -1.f));
 }
 
 void CCameraObject::CameraMoveDown()
 {
-	if (m_Scene->GetBlackSwitch())
+	if (m_Scene->GetBlackSwitch() || m_Scene->GetMapSwitch())
 	MoveDir(Vector2(0.f, 1.f));
 }
 

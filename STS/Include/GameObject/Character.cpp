@@ -235,6 +235,19 @@ bool CCharacter::Init()
 	m_ValueList.push_back(m_VulDeBuffText);
 	m_ValueList.push_back(m_WeakDeBuffText);
 	
+	//######################여기 버튼##########################33
+	//CWidgetComponent* TestButton = CreateWidgetComponent<CButton>("TestButtonss");
+	//TestButton->GetWidget<CButton>()->SetTexture("TestButtonss", TEXT("TopPanel/endTurnButton.bmp"));
+	//TestButton->GetWidget<CButton>()->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(154.f, 154.f));
+	//TestButton->GetWidget<CButton>()->SetButtonStateData(EButton_State::MouseHovered, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
+	//TestButton->GetWidget<CButton>()->SetButtonStateData(EButton_State::Click, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
+	//TestButton->SetPos(200.f, 100.f);
+	//TestButton->GetWidget<CButton>()->SetColorKey(255, 0, 255);
+	//TestButton->GetWidget<CButton>()->SetZOrder(1);
+	//TestButton->GetWidget<CButton>()->SetCallback<CCharacter>(EButton_Sound_State::Click,
+	//	this, &CCharacter::TestCallback);
+	//############################################################
+	
 	return true;
 }
 
@@ -359,4 +372,9 @@ void CCharacter::ConvertText(int Value, CSharedPtr<class CWidgetComponent> TextW
 	int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
 	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
 	TextWiz->GetWidget<CText>()->SetText(Unicode);
+}
+
+void CCharacter::TestCallback()
+{
+	MessageBox(nullptr, TEXT("2"), TEXT("a"), MB_OK);
 }

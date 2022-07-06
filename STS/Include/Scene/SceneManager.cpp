@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "BattleScene.h"
+#include "StartScene.h"
 #include "../Input.h"
 
 DEFINITION_SINGLE(CSceneManager)
