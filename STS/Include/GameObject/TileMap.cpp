@@ -18,11 +18,6 @@ CTileMap::CTileMap()    :
     m_RenderLayer = ERender_Layer::Back;
 }
 
-CTileMap::CTileMap(const CTileMap& Obj) : 
-    CGameObject(Obj)
-{
-}
-
 CTileMap::~CTileMap()
 {
     size_t	Size = m_vecTile.size();

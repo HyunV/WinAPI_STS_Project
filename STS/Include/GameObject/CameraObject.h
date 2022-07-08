@@ -17,6 +17,12 @@ public:
 private:
     void CameraMoveUp();
     void CameraMoveDown();
+public:
     void CameraReset();
+    void SetCameraPos(Vector2 v)
+    {
+        m_Pos = v;
+    };
+    void SetAutoCamera();
 };
 

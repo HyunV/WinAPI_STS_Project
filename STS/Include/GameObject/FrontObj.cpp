@@ -8,17 +8,13 @@ CFrontObj::CFrontObj()
 	m_RenderLayer = ERender_Layer::Black;
 }
 
-CFrontObj::CFrontObj(const CFrontObj& Obj):
-	CGameObject(Obj)
-{
-}
-
 CFrontObj::~CFrontObj()
 {
 }
 
 bool CFrontObj::Init()
 {
+	CGameObject::Init();
 	SetPos(0.f, 0.f);
 	SetSize(1280.f, 2880.f);
 	SetPivot(0.f, 0.f);

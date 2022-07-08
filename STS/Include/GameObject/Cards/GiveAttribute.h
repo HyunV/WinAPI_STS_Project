@@ -7,6 +7,8 @@ class CGiveAttribute :
 {
     friend class CScene;
 public:
+    CGiveAttribute();
+
     virtual void ActivateAbility(CGameObject* owner, CGameObject* target);
 
 

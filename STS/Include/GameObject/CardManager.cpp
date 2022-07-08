@@ -23,13 +23,240 @@ CCardManager::CCardManager()
 	m_UsedCard = false;
 	m_Scene = nullptr;
 	m_DrawCard = 5;
-	srand((unsigned int)time(0));
+	m_AtkCount = 0;
+	m_StageLevel = 0;
+	m_Temp = 0;
+	//srand((unsigned int)time(0));
 }
 
 CCardManager::~CCardManager()
 {
 	
 }
+
+void CCardManager::InitMyDeck()
+{
+
+	//카드 능력치 세팅
+
+	//공격 
+	CGiveAttribute* StrikeDamage = m_Scene->CreateObject<CGiveAttribute>("StrikeDamage");
+	StrikeDamage->SetType(Card_Attribute::Damage, 6);
+
+	//강타딜
+	CGiveAttribute* BashDamage = m_Scene->CreateObject<CGiveAttribute>("BashDamage");
+	BashDamage->SetType(Card_Attribute::Damage, 8);
+
+	CGiveAttribute* HyperDamage = m_Scene->CreateObject<CGiveAttribute>("HyperDamage");
+	HyperDamage->SetType(Card_Attribute::Damage, 99999);
+
+	//수비
+	CGiveAttribute* Shield5 = m_Scene->CreateObject<CGiveAttribute>("Shield");
+	Shield5->SetType(Card_Attribute::Shield, 5);
+
+	//드로우카드
+	CGiveAttribute* DrawCard1 = m_Scene->CreateObject<CGiveAttribute>("DrawCard1");
+	DrawCard1->SetType(Card_Attribute::DrawCard, 1);
+
+	//소멸
+	CGiveAttribute* Exhaust = m_Scene->CreateObject<CGiveAttribute>("Exhaust");
+	Exhaust->SetType(Card_Attribute::Exhaust, 0);
+
+	//취약
+	CGiveAttribute* Vulnerable2 = m_Scene->CreateObject<CGiveAttribute>("Vulnerable");
+	Vulnerable2->SetType(Card_Attribute::Vulnerable, 2);
+
+	//약화
+	CGiveAttribute* Weak2 = m_Scene->CreateObject<CGiveAttribute>("Vulnerable");
+	Weak2->SetType(Card_Attribute::Weak, 2);
+
+	//공격력
+	CGiveAttribute* Inflame2 = m_Scene->CreateObject<CGiveAttribute>("Inflame2");
+	Inflame2->SetType(Card_Attribute::Inflame, 2);
+
+	CGiveAttribute* Inflame3 = m_Scene->CreateObject<CGiveAttribute>("Inflame3");
+	Inflame3->SetType(Card_Attribute::Inflame, 3);
+
+	//민첩함
+	CGiveAttribute* FootWork2 = m_Scene->CreateObject<CGiveAttribute>("FootWork2");
+	FootWork2->SetType(Card_Attribute::FootWork, 2);
+
+	//바리케이드
+	CGiveAttribute* BarricadeAtt = m_Scene->CreateObject<CGiveAttribute>("BarricadeAtt");
+	BarricadeAtt->SetType(Card_Attribute::Barricade, 1);
+
+	//한계돌파
+	CGiveAttribute* LimitBreakAtt = m_Scene->CreateObject<CGiveAttribute>("LimitBreakAtt");
+	LimitBreakAtt->SetType(Card_Attribute::LimitBreak, 0);
+
+	//악마의형상
+	CGiveAttribute* DemonAtt = m_Scene->CreateObject<CGiveAttribute>("DemonAtt");
+	DemonAtt->SetType(Card_Attribute::DemonForm, 3);
+
+	//몸통박치기
+	CGiveAttribute* BodySlamAtt = m_Scene->CreateObject<CGiveAttribute>("BodySlamAtt");
+	BodySlamAtt->SetType(Card_Attribute::BodySlam, 0);
+
+	//참호
+	CGiveAttribute* EntrenchAtt = m_Scene->CreateObject<CGiveAttribute>("EntrenchAtt");
+	EntrenchAtt->SetType(Card_Attribute::Entrench, 0);
+
+	//내 턴 시작 시
+	CGiveAttribute* Text1 = m_Scene->CreateObject<CGiveAttribute>("Text1");
+	Text1->SetType(Card_Attribute::Text1, 0);
+
+
+	//##############################################메인덱 카드 세팅###################################################################################
+	CCard* Strike1 = m_Scene->CreateObject<CCard>("Strike1");
+	Strike1->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	Strike1->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
+	Strike1->AddAbility(StrikeDamage);
+
+	CCard* Strike2 = m_Scene->CreateObject<CCard>("Strike2");
+	Strike2->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	Strike2->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
+	Strike2->AddAbility(StrikeDamage);
+
+	CCard* Strike3 = m_Scene->CreateObject<CCard>("Strike3");
+	Strike3->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	Strike3->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
+	Strike3->AddAbility(StrikeDamage);
+
+	CCard* Strike4 = m_Scene->CreateObject<CCard>("Strike4");
+	Strike4->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
+	Strike4->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
+	Strike4->AddAbility(StrikeDamage);
+
+	CCard* Strike5 = m_Scene->CreateObject<CCard>("Strike5");
+	Strike5->SetCardInfo("strike", Card_Type::Attack, Card_Value::Rare, true, true);
+	Strike5->SetCardAttribute(TEXT("전설의 타격"), Card_Type::Attack, 0);
+	Strike5->AddAbility(HyperDamage);
+
+
+	//수비
+	CCard* Defend1 = m_Scene->CreateObject<CCard>("Defend1");
+	Defend1->SetCardInfo("shield", Card_Type::Power, Card_Value::Common, false, false);
+	Defend1->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
+	Defend1->AddAbility(Shield5);
+
+	CCard* Defend2 = m_Scene->CreateObject<CCard>("Defend2");
+	Defend2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
+	Defend2->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
+	Defend2->AddAbility(Shield5);
+
+	CCard* Defend3 = m_Scene->CreateObject<CCard>("Defend3");
+	Defend3->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
+	Defend3->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
+	Defend3->AddAbility(Shield5);
+
+	CCard* Defend4 = m_Scene->CreateObject<CCard>("Defend4");
+	Defend4->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
+	Defend4->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
+	Defend4->AddAbility(Shield5);
+
+	//강타
+	CCard* Bash = m_Scene->CreateObject<CCard>("Bash");
+	Bash->SetCardInfo("Bash", Card_Type::Attack, Card_Value::Common, false, false);
+	Bash->SetCardAttribute(TEXT("강타"), Card_Type::Attack, 2);
+	Bash->AddAbility(BashDamage);
+	Bash->AddAbility(Vulnerable2);
+
+	//발화
+	CCard* Inflame = m_Scene->CreateObject<CCard>("Inflame1");
+	Inflame->SetCardInfo("Inflame", Card_Type::Power, Card_Value::Special, false, false);
+	Inflame->SetCardAttribute(TEXT("발화"), Card_Type::Power, 1);
+	Inflame->AddAbility(Inflame2);
+	Inflame->SetIsExtinctCard(true);
+
+	//바리케이드
+	CCard* Barricade = m_Scene->CreateObject<CCard>("Barricade1");
+	Barricade->SetCardInfo("Barricades", Card_Type::Power, Card_Value::Rare, false, false);
+	Barricade->SetCardAttribute(TEXT("바리케이드"), Card_Type::Power, 3);
+	Barricade->AddAbility(Text1);
+	Barricade->AddAbility(BarricadeAtt);
+	Barricade->SetIsExtinctCard(true);
+
+	//한계돌파
+	CCard* LimitBreak = m_Scene->CreateObject<CCard>("LimitBreak1");
+	LimitBreak->SetCardInfo("LimitBreak", Card_Type::Skill, Card_Value::Rare, false, false);
+	LimitBreak->SetCardAttribute(TEXT("한계돌파"), Card_Type::Skill, 1);
+	LimitBreak->AddAbility(LimitBreakAtt);
+	LimitBreak->AddAbility(Exhaust);
+	LimitBreak->SetIsExtinctCard(true);
+
+	//악마의형상
+	CCard* DemonForm = m_Scene->CreateObject<CCard>("DemonForm1");
+	DemonForm->SetCardInfo("DemonForms", Card_Type::Power, Card_Value::Rare, false, false);
+	DemonForm->SetCardAttribute(TEXT("악마의 형상"), Card_Type::Power, 3);
+	DemonForm->AddAbility(Text1);
+	DemonForm->AddAbility(DemonAtt);
+	DemonForm->SetIsExtinctCard(true);
+
+	//몸통박치기
+	CCard* BodySlam = m_Scene->CreateObject<CCard>("BodySlam1");
+	BodySlam->SetCardInfo("BodySlam", Card_Type::Attack, Card_Value::Common, false, false);
+	BodySlam->SetCardAttribute(TEXT("몸통박치기"), Card_Type::Attack, 0);
+	BodySlam->AddAbility(BodySlamAtt);
+	time_t time(time_t * timeptr);
+	
+	//참호
+	CCard* Entrench = m_Scene->CreateObject<CCard>("Entrench1");
+	Entrench->SetCardInfo("Entrench", Card_Type::Skill, Card_Value::Special, false, false);
+	Entrench->SetCardAttribute(TEXT("참호"), Card_Type::Skill, 1);
+	Entrench->AddAbility(EntrenchAtt);
+	
+	//발놀림
+	CCard* FootWork = m_Scene->CreateObject<CCard>("FootWork1");
+	FootWork->SetCardInfo("FootWork", Card_Type::Power, Card_Value::Special, false, false);
+	FootWork->SetCardAttribute(TEXT("발놀림"), Card_Type::Power, 1);
+	FootWork->AddAbility(FootWork2);
+	FootWork->SetIsExtinctCard(true);
+
+
+	//만든 카드 삽입
+	//m_mainDeck.push_back(Strike1);
+	//m_mainDeck.push_back(Strike2);
+	//m_mainDeck.push_back(Strike3);
+	//m_mainDeck.push_back(Strike4);
+	//m_mainDeck.push_back(Strike5);
+
+	//m_mainDeck.push_back(Defend1);
+	//m_mainDeck.push_back(Defend2);
+	//m_mainDeck.push_back(Defend3);
+	//m_mainDeck.push_back(Defend4);
+	//m_mainDeck.push_back(Bash);
+	//테스트 추가
+
+
+	m_allCard.push_back(Strike1);
+	m_allCard.push_back(Strike2);
+	m_allCard.push_back(Strike3);
+	m_allCard.push_back(Strike4);
+	//m_allCard.push_back(Strike5);
+	m_allCard.push_back(Defend1);
+	m_allCard.push_back(Defend2);
+	m_allCard.push_back(Defend3);
+	m_allCard.push_back(Defend4);
+	m_allCard.push_back(Bash);
+	m_allCard.push_back(Barricade);
+	m_allCard.push_back(LimitBreak);
+	m_allCard.push_back(DemonForm);
+	m_allCard.push_back(BodySlam);
+	m_allCard.push_back(Entrench);
+	m_allCard.push_back(Inflame);
+	m_allCard.push_back(FootWork);
+
+
+}
+
+bool CCardManager::Init()
+{
+	m_PlayerTurn = false;
+	m_MonstersTurn = false;
+	m_TurnCount = 1;
+	return true;
+}
+
 void CCardManager::EnableHand(bool Enable)
 {
 	for (int i = 0; i < m_Hand.size(); i++)
@@ -80,11 +307,10 @@ void CCardManager::CardView(vector<CCard*> deck)
 }
 void CCardManager::ClearCard(vector<CCard*> deck)
 {
-	
 	for (int i = 0; i < deck.size(); i++)
-	{		
-		deck[i]->SetPos(-1000.f, 0.f);
-		//deck[i]->SetEnable(false);
+	{	
+		deck[i]->SetEnable(true);
+		deck[i]->SetPos(0.f, 0.f);		
 	}
 	HandSort();
 }
@@ -108,219 +334,81 @@ void CCardManager::HandToDiscard()
 	m_Hand.clear();
 	int a = (int)m_Hand.size();
 }
-int CCardManager::Rand(int n)
+void CCardManager::RemoveHand()
 {
-	return rand()%n;
+	for (int i = 0; i < m_Hand.size(); i++)
+	{
+		if (m_Hand[i]->GetUsedCard()) 
+		{
+			m_Hand[i]->SetUsedCard(false);
+			m_Hand[i]->SetEnable(false);
+			m_Hand[i]->SetPos(0, 0);
+			m_Hand[i] = nullptr;
+		}
+	}
+	HandSort();
 }
-bool CCardManager::Init()
+void CCardManager::RemoveHandAll()
 {
-	m_PlayerTurn = false;
-	m_MonstersTurn = false;
-	m_TurnCount = 1;
-	return true;
+
+	for (int i = 0; i < m_Hand.size(); i++) 
+	{
+		m_Hand[i]->SetUsedCard(false);
+		m_Hand[i]->SetEnable(false);
+		m_Hand[i]->SetPos(0, 0);
+		m_Hand[i] = nullptr;	
+	}
+	vector<CCard*> v;
+	m_Hand  = v;
+	HandSort();
+
+	for (int i = 0; i < m_mainDeck.size(); i++)
+	{
+		m_mainDeck[i]->SetUsedCard(false);	
+		m_mainDeck[i]->SetPos(0, 0);
+		m_mainDeck[i]->SetEnable(false);
+	}
+}
+void CCardManager::SetRandomDeck(int value)
+{
+	int n = (int)m_allCard.size();
+	vector<CCard*> Temp = m_allCard;
+	std::random_shuffle(Temp.begin(), Temp.end());
+
+	for (int i = 0; i < value; i++) 
+	{
+		m_mainDeck.push_back(Temp.back());
+		Temp.pop_back();
+	}
+}
+int CCardManager::Rand(int End)
+{
+	//Start 부터 End까지의 범위 rand() % End + Start
+	//0부터 End까지 범위
+	//rand
+	//srand(((unsigned int)time(0)));
+	return rand()%End;
 }
 
+int CCardManager::RangeRand(int Min, int Max)
+{
+	//srand(((unsigned int)time(0)));
+	return rand()%(Max-Min+1)+Min;
+}
 
+bool CCardManager::PercentRand(int Percent)
+{
+	if (rand() % 100 < Percent) //난수 값이 n퍼센트보다 작게 나오면 확률 적용
+		return true;
+	else
+	return false;
+}
 
 void CCardManager::SetPlayerTurn(bool Enable)
 {
 		m_PlayerTurn = Enable;
 }
 
-void CCardManager::InitMyDeck()
-{
-
-	//카드 능력치 세팅
-
-	//공격 
-	CGiveAttribute* StrikeDamage = m_Scene->CreateObject<CGiveAttribute>("StrikeDamage");
-	StrikeDamage->SetType(Card_Attribute::Damage, 6);
-
-	//강타딜
-	CGiveAttribute* BashDamage = m_Scene->CreateObject<CGiveAttribute>("BashDamage");
-	BashDamage->SetType(Card_Attribute::Damage, 8);
-	
-	CGiveAttribute* HyperDamage = m_Scene->CreateObject<CGiveAttribute>("HyperDamage");
-	HyperDamage->SetType(Card_Attribute::Damage, 99999);
-
-	//수비
-	CGiveAttribute* Shield5 = m_Scene->CreateObject<CGiveAttribute>("Shield");
-	Shield5->SetType(Card_Attribute::Shield, 5);
-	
-	//드로우카드
-	CGiveAttribute* DrawCard1 = m_Scene->CreateObject<CGiveAttribute>("DrawCard1");
-	DrawCard1->SetType(Card_Attribute::DrawCard, 1);
-
-	//소멸
-	CGiveAttribute* Exhaust = m_Scene->CreateObject<CGiveAttribute>("Exhaust");
-	Exhaust->SetType(Card_Attribute::Exhaust, 0);
-
-	//취약
-	CGiveAttribute* Vulnerable2 = m_Scene->CreateObject<CGiveAttribute>("Vulnerable");
-	Vulnerable2->SetType(Card_Attribute::Vulnerable, 2);
-
-	//약화
-	CGiveAttribute* Weak2 = m_Scene->CreateObject<CGiveAttribute>("Vulnerable");
-	Weak2->SetType(Card_Attribute::Weak, 2);
-
-	//공격력
-	CGiveAttribute* Inflame2 = m_Scene->CreateObject<CGiveAttribute>("Inflame2");
-	Inflame2->SetType(Card_Attribute::Inflame, 2);
-
-	CGiveAttribute* Inflame3 = m_Scene->CreateObject<CGiveAttribute>("Inflame3");
-	Inflame3->SetType(Card_Attribute::Inflame, 3);
-
-	//민첩함
-	CGiveAttribute* FootWork2 = m_Scene->CreateObject<CGiveAttribute>("FootWork2");
-	FootWork2->SetType(Card_Attribute::FootWork, 2);
-
-	//바리케이드
-	CGiveAttribute* BarricadeAtt = m_Scene->CreateObject<CGiveAttribute>("BarricadeAtt");
-	BarricadeAtt->SetType(Card_Attribute::Barricade, 1);
-
-	//한계돌파
-	CGiveAttribute* LimitBreakAtt = m_Scene->CreateObject<CGiveAttribute>("LimitBreakAtt");
-	LimitBreakAtt->SetType(Card_Attribute::LimitBreak, 0);
-	
-	//악마의형상
-	CGiveAttribute* DemonAtt = m_Scene->CreateObject<CGiveAttribute>("DemonAtt");
-	DemonAtt->SetType(Card_Attribute::DemonForm, 3);
-
-	//몸통박치기
-	CGiveAttribute* BodySlamAtt = m_Scene->CreateObject<CGiveAttribute>("BodySlamAtt");
-	BodySlamAtt->SetType(Card_Attribute::BodySlam, 0);
-
-	//참호
-	CGiveAttribute* EntrenchAtt = m_Scene->CreateObject<CGiveAttribute>("EntrenchAtt");
-	EntrenchAtt->SetType(Card_Attribute::Entrench, 0);
-
-	//내 턴 시작 시
-	CGiveAttribute* Text1 = m_Scene->CreateObject<CGiveAttribute>("Text1");
-	Text1->SetType(Card_Attribute::Text1, 0);
-
-
-	//##############################################메인덱 카드 세팅###################################################################################
-	CCard* Strike1 = m_Scene->CreateObject<CCard>("Strike1");
-	Strike1->SetCardInfo("strike", Card_Type::Attack, Card_Value::Special, false, false);
-	Strike1->SetCardAttribute(TEXT("테스트타격"), Card_Type::Attack, 1);
-	Strike1->AddAbility(StrikeDamage);
-
-	CCard* Strike2 = m_Scene->CreateObject<CCard>("Strike2");
-	Strike2->SetCardInfo("strike", Card_Type::Attack, Card_Value::Rare, false, false);
-	Strike2->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
-	Strike2->AddAbility(StrikeDamage);
-
-	CCard* Strike3 = m_Scene->CreateObject<CCard>("Strike3");
-	Strike3->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
-	Strike3->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
-	Strike3->AddAbility(StrikeDamage);
-
-	CCard* Strike4 = m_Scene->CreateObject<CCard>("Strike4");
-	Strike4->SetCardInfo("strike", Card_Type::Attack, Card_Value::Common, false, false);
-	Strike4->SetCardAttribute(TEXT("타격"), Card_Type::Attack, 1);
-	Strike4->AddAbility(StrikeDamage);
-
-	CCard* Strike5 = m_Scene->CreateObject<CCard>("Strike5");
-	Strike5->SetCardInfo("strike", Card_Type::Attack, Card_Value::Rare, true, true);
-	Strike5->SetCardAttribute(TEXT("전설의 타격"), Card_Type::Attack, 0);
-	Strike5->AddAbility(HyperDamage);
-
-
-	//수비
-	CCard* Defend1 = m_Scene->CreateObject<CCard>("Defend1");
-	Defend1->SetCardInfo("shield", Card_Type::Power, Card_Value::Common, false, false);
-	Defend1->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
-	Defend1->AddAbility(Shield5);
-
-	CCard* Defend2 = m_Scene->CreateObject<CCard>("Defend2");
-	Defend2->SetCardInfo("shield", Card_Type::Skill, Card_Value::Common, false, false);
-	Defend2->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
-	Defend2->AddAbility(Shield5);
-
-	CCard* Defend3 = m_Scene->CreateObject<CCard>("Defend3");
-	Defend3->SetCardInfo("shield", Card_Type::Skill, Card_Value::Rare, false, false);
-	Defend3->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
-	Defend3->AddAbility(Shield5);
-
-	CCard* Defend4 = m_Scene->CreateObject<CCard>("Defend4");
-	Defend4->SetCardInfo("shield", Card_Type::Skill, Card_Value::Special, true, false);
-	Defend4->SetCardAttribute(TEXT("수비"), Card_Type::Skill, 1);
-	Defend4->AddAbility(Shield5);
-
-	//강타
-	CCard* Bash = m_Scene->CreateObject<CCard>("Bash");
-	Bash->SetCardInfo("Bash", Card_Type::Attack, Card_Value::Common, false, false);
-	Bash->SetCardAttribute(TEXT("강타"), Card_Type::Attack, 2);
-	Bash->AddAbility(BashDamage);
-	Bash->AddAbility(Vulnerable2);
-
-	//발화
-	CCard* Inflame = m_Scene->CreateObject<CCard>("Inflame1");
-	Inflame->SetCardInfo("Inflame", Card_Type::Power, Card_Value::Special, false, false);
-	Inflame->SetCardAttribute(TEXT("발화"), Card_Type::Power, 1);
-	Inflame->AddAbility(Inflame2);
-	
-	//바리케이드
-	CCard* Barricade = m_Scene->CreateObject<CCard>("Barricade1");
-	Barricade->SetCardInfo("Barricades", Card_Type::Power, Card_Value::Rare, false, false);
-	Barricade->SetCardAttribute(TEXT("바리케이드"), Card_Type::Power, 3);
-	Barricade->AddAbility(Text1);
-	Barricade->AddAbility(BarricadeAtt);
-
-	//한계돌파
-	CCard* LimitBreak = m_Scene->CreateObject<CCard>("LimitBreak1");
-	LimitBreak->SetCardInfo("LimitBreak", Card_Type::Skill, Card_Value::Rare, false, false);
-	LimitBreak->SetCardAttribute(TEXT("한계돌파"), Card_Type::Skill, 1);	
-	LimitBreak->AddAbility(LimitBreakAtt);
-	LimitBreak->AddAbility(Exhaust);
-
-	//악마의형상
-	CCard* DemonForm = m_Scene->CreateObject<CCard>("DemonForm1");
-	DemonForm->SetCardInfo("DemonForms", Card_Type::Power, Card_Value::Rare, false, false);
-	DemonForm->SetCardAttribute(TEXT("악마의 형상"), Card_Type::Power, 3);
-	DemonForm->AddAbility(Text1);
-	DemonForm->AddAbility(DemonAtt);
-
-	//몸통박치기
-	CCard* BodySlam = m_Scene->CreateObject<CCard>("BodySlam1");
-	BodySlam->SetCardInfo("BodySlam", Card_Type::Attack, Card_Value::Common, false, false);
-	BodySlam->SetCardAttribute(TEXT("몸통박치기"), Card_Type::Attack, 0);
-	BodySlam->AddAbility(BodySlamAtt);
-	
-	//참호
-	CCard* Entrench = m_Scene->CreateObject<CCard>("Entrench1");
-	Entrench->SetCardInfo("Entrench", Card_Type::Skill, Card_Value::Special, false, false);
-	Entrench->SetCardAttribute(TEXT("참호"), Card_Type::Skill, 1);
-	Entrench->AddAbility(EntrenchAtt);
-	//발놀림
-	CCard* FootWork = m_Scene->CreateObject<CCard>("FootWork1");
-	FootWork->SetCardInfo("FootWork", Card_Type::Power, Card_Value::Special, false, false);
-	FootWork->SetCardAttribute(TEXT("발놀림"), Card_Type::Power, 1);
-	FootWork->AddAbility(FootWork2);
-
-
-	//만든 카드 삽입
-	m_mainDeck.push_back(Strike1);
-	m_mainDeck.push_back(Strike2);
-	//m_mainDeck.push_back(Strike3);
-	//m_mainDeck.push_back(Strike4);
-	//m_mainDeck.push_back(Strike5);
-
-	//m_mainDeck.push_back(Defend1);
-	//m_mainDeck.push_back(Defend2);
-	//m_mainDeck.push_back(Defend3);
-	m_mainDeck.push_back(Defend4);
-	m_mainDeck.push_back(Bash);
-	//테스트 추가
-	
-	m_mainDeck.push_back(Barricade);
-	m_mainDeck.push_back(LimitBreak);
-	m_mainDeck.push_back(DemonForm);
-	m_mainDeck.push_back(BodySlam);
-	m_mainDeck.push_back(Entrench);
-	m_mainDeck.push_back(Inflame);
-	//m_mainDeck.push_back(FootWork);
-}
 
 void CCardManager::SetBringDeck()
 {
@@ -377,12 +465,32 @@ void CCardManager::AddDiscard(CGameObject* Discard)
 	m_disCardDummy.push_back((CCard*)Discard);
 }
 
+void CCardManager::AddExhaustcard(CGameObject* Deletecard)
+{
+	m_delCardDummy.push_back((CCard*)Deletecard);
+}
+
 void CCardManager::BattleStart()
 {
 	m_bringCardDummy = m_mainDeck; //메인 덱 가져올 카드로 가져온다
 	//가져올 덱 을 섞는다.
 	//카드를 n장 뽑는다
 	//핸드에 n장을 가져온다.
+}
+
+void CCardManager::ClearHand()
+{
+
+}
+
+void CCardManager::BattleReset()
+{	
+	vector<CCard*> a;
+	m_disCardDummy = a;
+	m_bringCardDummy = a;
+	m_delCardDummy = a;
+	RemoveHandAll(); //손에 핸드 비움
+	CCardManager::GetInst()->SetTurnCount(1);
 }
 
 CGameObject* CCardManager::CardCheck()

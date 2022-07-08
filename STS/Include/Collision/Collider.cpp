@@ -126,7 +126,12 @@ void CCollider::CallMouseCollisionBegin(const Vector2& MousePos)
 
 void CCollider::CallMouseCollisionEnd(const Vector2& MousePos)
 {
+    if (this == nullptr)
+    {
+        return;
+    }
     if (m_MouseCollisionEnd) {
+
         m_MouseCollisionEnd(this, MousePos);
     }
 }

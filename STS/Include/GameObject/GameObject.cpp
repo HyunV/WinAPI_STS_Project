@@ -8,6 +8,7 @@
 #include "../GameManager.h"
 #include "../Scene/Camera.h"
 #include "../Collision/Collider.h"
+#include "Effects/ShieldEffect.h"
 
 CGameObject::CGameObject() :
 	m_Scene(nullptr),
@@ -31,35 +32,51 @@ CGameObject::CGameObject() :
 	m_CardControl(false),
 	m_HP(1),
 	m_MaxHP(1),
-	m_Time(0.f)
+	m_Time(0.f),
+	m_Shield(0),
+	m_Atk(0),
+	m_AttackCard(0),
+	m_Dex(0),
+	m_Demon(0),
+	m_Gate(0),
+	m_Rage(0),
+	m_Ritual(0),
+	m_Vulnerable(0),
+	m_Weak(0),
+	m_MaxEnergy(0),
+	m_isDeath(false),
+	m_ExtinctCard(0),
+	m_Energy(0),
+	m_EnableDamaged(0)
 {
 	SetTypeID<CGameObject>();
+	m_BuffArr[0] = 0;
 }
 
-CGameObject::CGameObject(const CGameObject& Obj) :
-	CRef(Obj),
-	m_Scene(nullptr),
-	m_Pos(Obj.m_Pos),
-	m_Size(Obj.m_Size),
-
-	m_Pivot(Obj.m_Pivot),
-	m_TimeScale(Obj.m_TimeScale),
-	m_PhysicsSimulate(Obj.m_PhysicsSimulate),
-	m_Ground(false),
-	m_GravityAccel(Obj.m_GravityAccel),
-	m_FallTime(0.f),
-	m_FallStartY(0.f),
-	m_Jump(false),
-	m_JumpVelocity(Obj.m_JumpVelocity),
-	m_Shield(0),
-	m_MaxEnergy(0),
-	m_Energy(Obj.m_MaxEnergy),
-	m_AttackCard(false),
-	m_HP(1),
-	m_MaxHP(1),
-	m_Time(0.f)
-{
-}
+//CGameObject::CGameObject(const CGameObject& Obj) :
+//	CRef(Obj),
+//	m_Scene(nullptr),
+//	m_Pos(Obj.m_Pos),
+//	m_Size(Obj.m_Size),
+//
+//	m_Pivot(Obj.m_Pivot),
+//	m_TimeScale(Obj.m_TimeScale),
+//	m_PhysicsSimulate(Obj.m_PhysicsSimulate),
+//	m_Ground(false),
+//	m_GravityAccel(Obj.m_GravityAccel),
+//	m_FallTime(0.f),
+//	m_FallStartY(0.f),
+//	m_Jump(false),
+//	m_JumpVelocity(Obj.m_JumpVelocity),
+//	m_Shield(0),
+//	m_MaxEnergy(0),
+//	m_Energy(Obj.m_MaxEnergy),
+//	m_AttackCard(false),
+//	m_HP(1),
+//	m_MaxHP(1),
+//	m_Time(0.f)
+//{
+//}
 
 CGameObject::~CGameObject()
 {
@@ -99,6 +116,20 @@ CCollider* CGameObject::FindCollider(const std::string& Name)
 	}
 
 	return nullptr;
+}
+
+void CGameObject::AddShield(int Shield)
+{	
+	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];	
+	CShieldEffect* ShieldEf = m_Scene->CreateObject<CShieldEffect>("ShieldEf");
+}
+
+void CGameObject::ClearBuffArr()
+{
+	for (int i = 0; i < (int)Buff::Max; i++)
+	{
+		m_BuffArr[i] = 0;
+	}
 }
 
 void CGameObject::SetTexture(const std::string& Name)
@@ -245,6 +276,7 @@ void CGameObject::Move(float Angle)
 
 bool CGameObject::Init()
 {
+	//srand((unsigned int)0);
 	return true;
 }
 
@@ -592,5 +624,3 @@ void CGameObject::SetCollisionEnable(bool Enable)
 		m_ColliderList.front()->SetCollisionEnable(Enable);
 	}	
 }
-
-

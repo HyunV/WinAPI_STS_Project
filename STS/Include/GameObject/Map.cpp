@@ -9,12 +9,6 @@ CMap::CMap()
 	m_RenderLayer = ERender_Layer::Black;
 }
 
-CMap::CMap(const CMap& Obj)	:
-	CGameObject(Obj)
-{
-
-}
-
 CMap::~CMap()
 {
 }
@@ -33,17 +27,28 @@ bool CMap::Init()
 	m_Scroll->GetWidget<CImageWidget2>()->SetColorKey(255, 0, 255);
 
 	//CMapIconObject* Icon = m_Scene->CreateObject<CMapIconObject>("icon1");
-	for (int i = 0; i < 10; i++)
-	{
-		CMapIconObject* Icon = m_Scene->CreateObject<CMapIconObject>("icon1");
-		Icon->SetPos(640, 2300 + (i * (-200)));
-	}
+	//m_Test = m_Scene->CreateObject<CMapIconObject>("icon1");
+	//m_Stage.push_back(Icon);
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	CMapIconObject* Icon = m_Scene->CreateObject<CMapIconObject>("icon1");
+	//	Icon->SetPos(640, 2300 + (i * (-200)));
+	//	m_Stage.push_back(Icon);
+	//}
 	return true;
 }
 
 void CMap::Update(float DeltaTime)
-{
+{	
 	CGameObject::Update(DeltaTime);
+	//if (m_Scene->GetMapSwitch()) 
+	//{
+	//	
+	//	for (int i = 0; i < m_Stage.size(); i++)
+	//	{
+	//		//m_Stage[i]->SetEnable(false);
+	//	}
+	//}
 	Vector2 v = m_Scene->GetCameraObj()->GetPos();
 	m_Scroll->SetPos(v.x+390.f, v.y-100.f);
 }

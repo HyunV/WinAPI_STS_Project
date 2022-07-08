@@ -15,9 +15,12 @@
 #include "../GameObject/BubbleMessage.h"
 #include "../GameObject/TurnEffect.h"
 #include "../GameObject/MyPlayer.h"
+#include "../GameObject/Effects/DelayObject.h"
+
+#include "../Scene/StartScene.h"
 CTopPanel::CTopPanel()
 {
-    
+    m_UseRest = false;
 }
 
 CTopPanel::~CTopPanel()
@@ -79,7 +82,7 @@ bool CTopPanel::Init()
 
     m_GoldUI = CreateWidget<CText>("Gold");
     m_GoldUI->SetFont("UI");
-    m_GoldUI->SetText(TEXT("999"));
+    m_GoldUI->SetText(TEXT("0"));
     m_GoldUI->SetPos(340, 10.f);
     m_GoldUI->SetTextColor(239, 200, 81);
     m_GoldUI->EnableShadow(true);
@@ -188,6 +191,7 @@ bool CTopPanel::Init()
     m_RCountCircle->SetSize(77.f, 77.f);
     m_RCountCircle->SetPos(1163.f, 647.f);
     m_RCountCircle->SetColorKey(255, 0, 255);
+    
 
     m_LCardCount = CreateWidget<CText>("LCardCount");
     m_LCardCount->SetText(TEXT("5"));
@@ -195,6 +199,7 @@ bool CTopPanel::Init()
     m_LCardCount->SetTextColor(255, 255, 255);
     m_LCardCount->EnableShadow(true);
     m_LCardCount->SetShadowOffset(1.f, 1.f);
+    m_LCardCount->SetZOrder(1);
 
     m_RCardCount = CreateWidget<CText>("RCardCount");
     m_RCardCount->SetText(TEXT("5"));
@@ -202,6 +207,7 @@ bool CTopPanel::Init()
     m_RCardCount->SetTextColor(255, 255, 255);
     m_RCardCount->EnableShadow(true);
     m_RCardCount->SetShadowOffset(1.f, 1.f);
+    m_RCardCount->SetZOrder(1);
 
     m_TurnOffButton = CreateWidget<CButton>("TurnOffButton");
     m_TurnOffButton->SetTexture("TurnOffButton", TEXT("TopPanel/endTurnButton.bmp"));
@@ -274,9 +280,12 @@ bool CTopPanel::Init()
     m_ConfirmButtonText->EnableShadow(true);
     m_ConfirmButtonText->SetShadowOffset(1.f, 1.f);
     m_ConfirmButtonText->SetEnable(false);
-
-    m_ProceedButton = CreateWidget<CButton>("ProceedButton");
-    m_ProceedButton->SetTexture("ProceedButton", TEXT("TopPanel/proceedButton.bmp"));
+    
+    
+    //####################################################################################
+    //진행 버튼
+    m_ProceedButton = CreateWidget<CButton>("PassButton");
+    m_ProceedButton->SetTexture("PassButton", TEXT("TopPanel/proceedButton.bmp"));
     m_ProceedButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(256.f, 256.f));
     m_ProceedButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(256.f, 0.f), Vector2(512.f, 256.f));
     m_ProceedButton->SetButtonStateData(EButton_State::Click, Vector2(256.f, 0.f), Vector2(512.f, 256.f));
@@ -288,15 +297,16 @@ bool CTopPanel::Init()
 
     m_ProceedButtonText = CreateWidget<CText>("ProceedButtonText");
     m_ProceedButtonText->SetFont("UI");
-    m_ProceedButtonText->SetText(TEXT("넘기기"));
+    m_ProceedButtonText->SetText(TEXT("진행"));
     m_ProceedButtonText->SetPos(1145.f, 565.f);
     m_ProceedButtonText->SetTextColor(255, 255, 219);
     m_ProceedButtonText->EnableShadow(true);
     m_ProceedButtonText->SetShadowOffset(1.f, 1.f);
     m_ProceedButtonText->SetEnable(false);
 
+    //확인 버튼
     m_CenterButton = CreateWidget<CButton>("CenterButton");
-    m_CenterButton->SetTexture("m_CenterButton", TEXT("TopPanel/endTurnButton.bmp"));
+    m_CenterButton->SetTexture("CenterButton", TEXT("TopPanel/endTurnButton.bmp"));
     m_CenterButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(154.f, 154.f));
     m_CenterButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
     m_CenterButton->SetButtonStateData(EButton_State::Click, Vector2(154.f, 0.f), Vector2(308.f, 154.f));
@@ -305,7 +315,6 @@ bool CTopPanel::Init()
     m_CenterButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::CenterButtonCallBack);
     m_CenterButton->SetEnable(false);
-
     m_CenterButtonText = CreateWidget<CText>("CenterButtonText");
     m_CenterButtonText->SetFont("UI");
     m_CenterButtonText->SetText(TEXT("확인"));
@@ -315,7 +324,73 @@ bool CTopPanel::Init()
     m_CenterButtonText->SetShadowOffset(1.f, 1.f);
     m_CenterButtonText->SetEnable(false);
 
-    //겜시작 유아이 초기화
+    //캠프 관련/////////////////////////////
+
+    m_RestButton = CreateWidget<CButton>("RestButton");
+    m_RestButton->SetTexture("RestButton", TEXT("CampFire/sleep.bmp"));
+    m_RestButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(128.f, 128.f));
+    m_RestButton->SetButtonStateData(EButton_State::MouseHovered, Vector2(0.f, 0.f), Vector2(128.f, 128.f));
+    m_RestButton->SetButtonStateData(EButton_State::Click, Vector2(0.f, 0.f), Vector2(128.f, 128.f));
+    m_RestButton->SetPos(576.f, 200.f);
+    m_RestButton->SetColorKey(255, 0, 255);
+    m_RestButton->SetCallback<CTopPanel>(EButton_Sound_State::MouseHovered,
+        this, &CTopPanel::RestButtonCallBack);
+    m_RestButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
+        this, &CTopPanel::RestButtonCallBack2);
+    m_RestButton->SetEnable(false);
+
+    m_CampText = CreateWidget<CText>("CampText");
+    m_CampText->SetFont("UI");
+    m_CampText->SetText(TEXT("최대 체력의 30%를 회복합니다."));
+    m_CampText->SetPos(640.f, 330.f);
+    m_CampText->SetTextColor(255, 255, 219);
+    m_CampText->EnableShadow(true);
+    m_CampText->SetShadowOffset(1.f, 1.f);
+    m_CampText->SetEnable(false);
+
+
+    //m_CampChar = CreateWidget<CImageWidget2>("RestChar");
+    //m_CampChar->SetTexture("RestChar", TEXT("Player/shoulder2.bmp"));
+    //m_CampChar->SetPos(0.f, 150.f);
+    //m_CampChar->SetSize(960, 568);
+    //m_CampChar->SetColorKey(255, 0, 255);
+    //m_CampChar->SetEnable(false);
+
+    //패배//////////////////////////////////////////
+    m_Banner = CreateWidget<CImageWidget2>("SelectBanner");
+    m_Banner->SetTexture("SelectBanner", TEXT("Reward/selectBanner.bmp"));
+    m_Banner->SetSize(556, 119);
+    m_Banner->SetPos(362, 170);
+    m_Banner->SetColorKey(255, 0, 255);
+    m_Banner->SetEnable(false);
+
+    m_DefeatText = CreateWidget<CText>("BannerText");
+    m_DefeatText->SetText(TEXT("패배.."));
+    m_DefeatText->SetFont("CostFont");
+    m_DefeatText->SetPos(640, 200);
+    m_DefeatText->SetTextColor(229, 229, 229);
+    m_DefeatText->EnableShadow(true);
+    m_DefeatText->SetShadowOffset(2.f, 2.f);
+    m_DefeatText->SetEnable(false);
+
+    //승리///
+    m_LeftEye = CreateWidget<CImageWidget2>("LeftEyes");
+    m_LeftEye->SetTexture("LeftEyes", TEXT("Effects/CorruptedL.bmp"));
+    m_LeftEye->SetPos(485.f, 300.f);
+    m_LeftEye->SetSize(130, 96);
+    m_LeftEye->SetColorKey(255, 0, 255);
+    m_LeftEye->SetEnable(false);
+    
+
+    m_RightEye = CreateWidget<CImageWidget2>("RightEyes");
+    m_RightEye->SetTexture("RightEyes", TEXT("Effects/Corrupted.bmp"));
+    m_RightEye->SetPos(645.f, 300.f);
+    m_RightEye->SetSize(130, 96);
+    m_RightEye->SetColorKey(255, 0, 255);
+    m_RightEye->SetEnable(false);
+
+
+    //###################겜시작 유아이 초기화############################################
     m_DrawCardButton->SetEnable(false);
     m_LCountCircle->SetEnable(false);
     m_LCardCount->SetEnable(false);
@@ -332,13 +407,13 @@ bool CTopPanel::Init()
     m_TurnOffText->SetEnable(false);
     
 #ifdef _DEBUG
-    //m_FPSText = CreateWidget<CText>("FPS");
-    //m_FPSText->SetText(TEXT("FPS"));
-    //m_FPSText->SetPos(900.f, 50.f);
-    //m_FPSText->SetTextColor(255, 0, 0);
+    m_FPSText = CreateWidget<CText>("FPS");
+    m_FPSText->SetText(TEXT("FPS"));
+    m_FPSText->SetPos(900.f, 50.f);
+    m_FPSText->SetTextColor(255, 0, 0);
 
-    //m_FPSText->EnableShadow(true);
-    //m_FPSText->SetShadowOffset(2.f, 2.f);
+    m_FPSText->EnableShadow(true);
+    m_FPSText->SetShadowOffset(2.f, 2.f);
 #endif // DEBUG
 
     return true;
@@ -346,82 +421,102 @@ bool CTopPanel::Init()
 
 void CTopPanel::Update(float DeltaTime)
 {
-    CWidgetWindow::Update(DeltaTime);
+    if (m_Scene->GetClearSwitch()) {
+        HideOnUI(false);
+        CCardManager::GetInst()->EnableHand(false);
+        m_Scene->SetBlackSwitch(true);
+        m_LeftEye->SetEnable(true);
+        m_RightEye->SetEnable(true);
+        m_Banner->SetEnable(true);
+        m_DefeatText->SetEnable(true);
+        m_DefeatText->SetText(TEXT("승리!"));
+        m_CenterButtonText->SetEnable(true);
+        m_CenterButton->SetEnable(true);
+    }
+    if (m_Scene->GetDefeatSwitch())
+    {
+        HideOnUI(false);
+        m_Banner->SetEnable(true);
+        m_DefeatText->SetEnable(true);
+        m_CenterButtonText->SetEnable(true);
+        m_CenterButton->SetEnable(true);
+        CCardManager::GetInst()->EnableHand(false);
 
+    }
+    if (m_Scene->GetIsBattle())
+    {
+        HideOnUI(true);
+    }
+    if (m_Scene->GetMapSwitch())
+    {
+        HideOnUI(false);
+        CCardManager::GetInst()->EnableHand(false);
+    }
+
+    if (m_Scene->GetRestSwitch()) //휴식모드 일때
+    {
+        if (!m_UseRest) {
+            m_RestButton->SetEnable(true);
+            m_CampText->SetEnable(true);
+        }
+        if (m_UseRest || m_Scene->GetMapSwitch() || m_Scene->GetBlackSwitch())
+        {
+            m_RestButton->SetEnable(false);
+            m_CampText->SetEnable(false);
+        }
+      
+        //사용되면 
+        HideOnUI(false);
+        m_UseRest = false;
+    }
+    if (m_Scene->GetDefeatSwitch())
+    {
+        HideOnUI(false);
+    }
+    if (m_Scene->GetClearSwitch())
+    {
+        HideOnUI(false);
+    }
+
+    CWidgetWindow::Update(DeltaTime);    
+
+    if (!m_RestButton->GetEnable())
+    {
+        m_CampText->SetEnable(false);
+    }
     int DeckCount = CCardManager::GetInst()->getMaindeckCount();
-
-    char	Text[256] = {};
-    sprintf_s(Text, "%d", DeckCount);
-
-    TCHAR	Unicode[256] = {};
-    int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
-
-    m_DeckCount->SetText(Unicode);
+    ConvertText(DeckCount, m_DeckCount);
 
     int BringCount = CCardManager::GetInst()->getBringCardCount();
-    char	Text1[256] = {};
-    sprintf_s(Text1, "%d", BringCount);
-    TCHAR	Unicode1[256] = {};
-    int Length1 = MultiByteToWideChar(CP_ACP, 0, Text1, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text1, -1, Unicode1, Length1);
+    ConvertText(BringCount, m_LCardCount);
 
-    m_LCardCount->SetText(Unicode1);
 
     int DiscardCount = CCardManager::GetInst()->getDiscardCount();
-    char	Text2[256] = {};
-    sprintf_s(Text2, "%d", DiscardCount);
-    TCHAR	Unicode2[256] = {};
-    int Length2 = MultiByteToWideChar(CP_ACP, 0, Text2, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text2, -1, Unicode2, Length2);
-
-    m_RCardCount->SetText(Unicode2);
+    ConvertText(DiscardCount, m_RCardCount);
 
     int MaxEnergy = m_Scene->GetPlayer()->GetMaxEnergy();
     int Energy = m_Scene->GetPlayer()->GetEnergy();
+    ConvertText(Energy, MaxEnergy, m_Energy);
 
-    char    Text3[256] = {}; 
-    sprintf_s(Text3, "%d/%d", Energy, MaxEnergy);
-    TCHAR	Unicode3[256] = {};
-    int Length3 = MultiByteToWideChar(CP_ACP, 0, Text3, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text3, -1, Unicode3, Length3);
-
-    m_Energy->SetText(Unicode3);
-   
     int PlayerHP = m_Scene->GetPlayer()->GetHP();
     int PlayerMaxHP = m_Scene->GetPlayer()->GetMaxHP();
+    ConvertText(PlayerHP, PlayerMaxHP, m_LifeUI);
 
-    char    Text5[256] = {};
-    sprintf_s(Text5, "%d/%d", PlayerHP, PlayerMaxHP);
-    TCHAR	Unicode5[256] = {};
-    int Length5 = MultiByteToWideChar(CP_ACP, 0, Text5, -1, 0, 0);
-    MultiByteToWideChar(CP_ACP, 0, Text5, -1, Unicode5, Length5);
-    
-    m_LifeUI ->SetText(Unicode5);
+    int Stair = CCardManager::GetInst()->GetStageLevel();
+    ConvertText(Stair, m_FloorUI);
+#ifdef _DEBUG
+    float FPS = CGameManager::GetInst()->GetFPS();
+    char	Text4[256] = {};
+    sprintf_s(Text4, "FPS : %.5f", FPS);
 
-//#ifdef _DEBUG
-//    float FPS = CGameManager::GetInst()->GetFPS();
-//
-//    char	Text4[256] = {};
-//    sprintf_s(Text4, "FPS : %.5f", FPS);
-//
-//    TCHAR	Unicode4[256] = {};
-//    int Length4 = MultiByteToWideChar(CP_ACP, 0, Text4, -1, 0, 0);
-//    MultiByteToWideChar(CP_ACP, 0, Text4, -1, Unicode4, Length4);
-//
-//    m_FPSText->SetText(Unicode4);
-//
-//
-//    //static float CurrentTime = 0.f;
-//
-//    //CurrentTime += DeltaTime;
-//
-//    //char    TimeText[64] = {};
-//
-//    //sprintf_s(TimeText, "Time : %.5f", CurrentTime);
-//   
-//
-//#endif // DEBUG
+    TCHAR	Unicode4[256] = {};
+    int Length4 = MultiByteToWideChar(CP_ACP, 0, Text4, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text4, -1, Unicode4, Length4);
+
+    m_FPSText->SetText(Unicode4);
+   
+
+#endif // DEBUG
 
 
 }
@@ -462,12 +557,21 @@ void CTopPanel::HideOnUI(bool Enable)
     m_TurnOffText->SetEnable(Enable);
 }
 
+void CTopPanel::HideOnRestUI(bool Enable)
+{
+    m_RestButton->SetEnable(Enable);
+    m_CampText->SetEnable(Enable);
+    //m_ProceedButton->SetEnable(Enable);
+    //m_ProceedButtonText->SetEnable(Enable);
+}
+
 void CTopPanel::TestCallback()
 {
     
     CCardManager::GetInst()->DrawCard(2);
     CCardManager::GetInst()->HandSort();
     
+
    //m_Scene->SetBlackSwitch(true);
 
     
@@ -484,8 +588,11 @@ void CTopPanel::TestCallback()
 
 void CTopPanel::SettingButtonCallback()
 {
-    //m_Scene->GetPlayer()->AddShield(5);
+    m_Scene->GetPlayer()->AddShield(5);
     CCardManager::GetInst()->DrawCard(2);
+    m_Scene->GetPlayer()->GetBuffArr()[0] = 999;
+    //m_Scene->GetMonsters()[0]->AddShield(1);
+    //m_Scene->GetMonsters()[2]->AddShield(3);
     //m_Scene->GetPlayer()->SetEnableDamaged(true);
     //m_Scene->GetMonster()->SetEnableAttack(true);
    // m_Scene->GetMonster()->SetEnableDamaged(true);
@@ -498,7 +605,14 @@ void CTopPanel::SettingButtonCallback()
 
 void CTopPanel::DeckButtonCallback()
 {
-    if (!m_Scene->GetBlackSwitch())
+    if (m_Scene->GetRestSwitch())
+    {
+        HideOnRestUI(false);
+        m_RestButton->SetEnable(false);
+        m_CampText->SetEnable(false);
+    }
+
+    if (!m_Scene->GetDefeatSwitch() && !m_Scene->GetMapSwitch())
     {
         m_CardTemp = CCardManager::GetInst()->GetMainDeck();
         HideOnUI(false);
@@ -511,13 +625,28 @@ void CTopPanel::DeckButtonCallback()
 }
 
 void CTopPanel::MapButtonCallback()
-{
-    HideOnUI(true);
+{    
     //m_Scene->SetBlackSwitch(false);
-    m_Scene->SetMapSwitch(true);
-    m_BackButton->SetEnable(true);
-    m_BackButtonText->SetEnable(true);
-   // MessageBox(nullptr, TEXT("3"), TEXT("a"), MB_OK);
+    if (m_Scene->GetRestSwitch())
+    {
+        m_RestButton->SetEnable(false);
+        m_CampText->SetEnable(false);
+        HideOnRestUI(false);
+    }
+
+    if (!m_Scene->GetDefeatSwitch() && !m_Scene->GetBlackSwitch())
+    {
+        m_Scene->SetMapSwitch(true);
+        m_Scene->SetStageIcon(true);
+        m_BackButton->SetEnable(true);
+        m_BackButtonText->SetEnable(true);
+        HideOnUI(false);
+        m_Scene->GetCameraObj()->SetAutoCamera();
+        
+    }
+    else {
+        return;
+    }
 }
 
 void CTopPanel::DrawButtonCallBack()
@@ -560,6 +689,13 @@ void CTopPanel::DiscardCallBack()
 
 void CTopPanel::TurnOffCallBack()
 {  
+    int a = (int)m_Scene->GetMonsters().size();
+    if (m_Scene->GetMonsters().size() == 0)
+    {
+       // int b = m_Scene->GetMonsters().size();
+        return;
+    }
+    int c = (int)m_Scene->GetMonsters().size();
     if (!CCardManager::GetInst()->GetMonstersTurn() 
         && CCardManager::GetInst()->GetPlayerTurn())
     {
@@ -568,9 +704,12 @@ void CTopPanel::TurnOffCallBack()
             //MessageBox(nullptr, TEXT("작동안함"), TEXT("a"), MB_OK);
             CCardManager::GetInst()->SetPlayerTurn(false);
             CCardManager::GetInst()->HandToDiscard();
+
+            //여기 코드 수정
             CTurnEffect* TurnMessage = m_Scene->CreateObject<CTurnEffect>("TurnMessage");
             TurnMessage->SetTurnMessage(EWhos_Turn::Monster);
-            m_Scene->GetMonster()->SetEnableAttack(true);
+
+            MonstersActivity();
         }
     }
     
@@ -580,27 +719,103 @@ void CTopPanel::BackCallBack()
 {
     CCardManager::GetInst()->ClearCard(m_CardTemp);
     m_CardTemp.clear();
-
+    if (m_Scene->GetRestSwitch()) 
+    {
+        HideOnRestUI(true);
+    }
     m_Scene->SetBlackSwitch(false);
     m_Scene->SetMapSwitch(false);
+    m_Scene->SetStageIcon(false);
 
     m_BackButton->SetEnable(false);
     m_BackButtonText->SetEnable(false);
     HideOnUI(true);
-    m_Scene->GetCameraObj()->SetPos(640, 400);  
-    
+    m_Scene->GetCameraObj()->CameraReset();
+    m_Scene->GetMap()->SetEnable(false);
 }
 
 void CTopPanel::ConfirmCallBack()
 {
     //현재 구현만 해놈
+    
 }
 
 void CTopPanel::PreceedCallBack()
 {
 
+    m_ProceedButton->SetEnable(false);
+    m_ProceedButtonText->SetEnable(false);
+    
+    //m_CampChar->SetEnable(false);
 }
 
 void CTopPanel::CenterButtonCallBack()
 {
+    CSceneManager::GetInst()->CreateScene<CStartScene>();
+    //타이틀로 넘어감
+}
+
+void CTopPanel::RestButtonCallBack()
+{
+    m_CampText->SetEnable(true);
+}
+
+void CTopPanel::RestButtonCallBack2()
+{
+    CDelayObject* delay = m_Scene->CreateObject<CDelayObject>("Delay");
+    delay->SetTexture("Resting", TEXT("Scene/resting.bmp"));
+    delay->SetSize(1280, 760);
+    
+    //체력회복
+    int a = m_Scene->GetPlayer()->GetMaxHP();
+    int b = (int)(a * 0.3f);
+    int c = m_Scene->GetPlayer()->GetHP();
+    int d = b + c;
+    if (d > a) {
+        d = a;
+    }
+    m_Scene->GetPlayer()->SetHP(d);
+
+
+    m_Scene->SetRestSwitch(false);
+    //m_RestButton->SetEnable(false);
+    //m_CampText->SetEnable(false);
+
+    m_RestButton->SetEnable(false);
+    m_CampText->SetEnable(false);
+    //m_ProceedButton->SetEnable(true);
+    //m_ProceedButtonText->SetEnable(true);
+    m_UseRest = true;
+
+    //맵버튼 띄우자
+}
+
+void CTopPanel::ConvertText(int Value, CSharedPtr<class CText> TextWiz)
+{
+    char Text[256] = {};
+    sprintf_s(Text, "%d", Value);
+
+    TCHAR Unicode[256] = {};
+    int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
+    TextWiz->SetText(Unicode);
+}
+
+void CTopPanel::ConvertText(int Value, int Value2, CSharedPtr<class CText> TextWiz)
+{
+    char Text[256] = {};
+    sprintf_s(Text, "%d/%d", Value, Value2);
+
+    TCHAR Unicode[256] = {};
+    int Length = MultiByteToWideChar(CP_ACP, 0, Text, -1, 0, 0);
+    MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length);
+    TextWiz->SetText(Unicode);
+}
+
+void CTopPanel::MonstersActivity()
+{
+    if (!m_Scene->GetMonsters().size() == 0)
+    {
+        m_Scene->GetMonsters().front()->SetEnableAttack(true); //턴종료 누를 시 리스트 맨 앞에 있는 몬스터부터 공격 시작
+    }
 }

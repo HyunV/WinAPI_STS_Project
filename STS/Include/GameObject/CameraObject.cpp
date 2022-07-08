@@ -3,6 +3,7 @@
 #include "../Input.h"
 #include "../Scene/Camera.h"
 #include "../Scene/Scene.h"
+#include "CardManager.h"
 CCameraObject::CCameraObject()
 {
 }
@@ -35,14 +36,13 @@ void CCameraObject::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 	if (m_Scene->GetGameStart()) 
 	{
-		m_Pos.y++;
-		//m_Pos.y = 2080.f;
+		m_Pos.y++;		
 	}
-
 
 	if (m_Pos.y + (1.f - m_Pivot.y) * m_Size.y >= 2080.f)
 	{
 		m_Pos.y = 2080.f - (1.f - m_Pivot.y) * m_Size.y;
+		m_Scene->SetGameStart(false);
 	}
 
 	else if (m_Pos.y - m_Pivot.y * m_Size.y <= 0.f)
@@ -72,4 +72,11 @@ void CCameraObject::CameraMoveDown()
 void CCameraObject::CameraReset()
 {
 	SetPos(640, 400);
+}
+
+void CCameraObject::SetAutoCamera()
+{
+	//+1?
+	int num = CCardManager::GetInst()->GetStageLevel();
+	SetPos(640.f, 2300 + (num * (-200.f)));
 }

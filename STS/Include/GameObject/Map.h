@@ -7,7 +7,6 @@ class CMap :
 
 protected:
     CMap();
-    CMap(const CMap& Obj);
     virtual ~CMap();
 
 public:
@@ -17,7 +16,8 @@ public:
 
 private:
     CSharedPtr<class CWidgetComponent> m_Scroll;
+    //class CMapIconObject* m_Test;
 public:
-    vector<class CMapIconObject*> m_Stage;
+   
 };
 

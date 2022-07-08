@@ -14,6 +14,22 @@ bool CGameManager::m_Loop = true;
 CGameManager::CGameManager()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	m_Brush[0] = 0;
+	m_DeltaTime = 0.f;
+	m_EditMode = 0;
+	m_FrameLimitTime = 0;
+	m_hBackBmp = 0;
+	m_hBackDC = 0;
+	m_hBackPrevBmp = 0;
+	m_hDC = 0;
+	m_hInst = 0;
+	m_hWnd = 0;
+	m_Pen[0] = 0;
+	m_Timer = 0;
+	m_TimeScale = 0;
+	m_RS.Width = 1280;
+	m_RS.Height = 720;
+
 }
 CGameManager::~CGameManager()
 {
@@ -28,7 +44,7 @@ CGameManager::~CGameManager()
 
 	CResourceManager::DestroyInst();
 
-	CCardManager::DestroyInst();
+	//CCardManager::DestroyInst();
 
 	SAFE_DELETE(m_Timer);
 
@@ -61,6 +77,8 @@ void CGameManager::Exit()
 
 bool CGameManager::Init(HINSTANCE hInst)
 {
+	srand((unsigned int)time(0));
+
 	m_hInst = hInst; //윈도우가 구분할 수 있는 창의 고유한 식별번호인 인스턴스를 받아옴
 
 	m_RS.Width = 1280;

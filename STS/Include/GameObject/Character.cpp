@@ -17,11 +17,6 @@ CCharacter::CCharacter()
 	ArrTemp = nullptr;
 }
 
-CCharacter::CCharacter(const CCharacter& Obj) :
-	CGameObject(Obj)
-{
-}
-
 CCharacter::~CCharacter()
 {
 }

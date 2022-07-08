@@ -7,7 +7,6 @@ class CFrontObj :
 
 protected:
     CFrontObj();
-    CFrontObj(const CFrontObj& Obj);
     virtual ~CFrontObj();
 
 public:

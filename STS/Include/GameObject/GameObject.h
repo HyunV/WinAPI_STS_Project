@@ -13,7 +13,7 @@ class CGameObject :
 
 protected:
 	CGameObject();
-	CGameObject(const CGameObject& Obj);
+	//CGameObject(const CGameObject& Obj);
 	virtual ~CGameObject();
 
 protected:
@@ -60,12 +60,12 @@ protected:
 	bool m_AttackCard;
 	int m_Shield; //방어도
 	
-	//데미지 여부
+	//몬스터 데미지 여부
 	bool m_EnableDamaged;
 
 	//카드 오브젝트 관련
 	bool m_SelectedCard;
-
+	bool m_ExtinctCard;
 
 	//상태 이상
 		//버프
@@ -81,7 +81,9 @@ protected:
 	int m_Vulnerable; //취약(감소함)
 	int	m_Weak;//약화(감소함)
 
-	int m_BuffArr[(int)Buff::Max];
+	int m_BuffArr[(int)Buff::Max]; //버프 관련 배열
+
+	bool m_isDeath;
 
 	//중력 관련
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
@@ -144,10 +146,8 @@ public: /////////////////애니메이션 관련////////////////////////////
 	}
 
 	//전투 관련
-	void AddShield(int Shield)
-	{
-		m_Shield = m_Shield+Shield+m_BuffArr[(int)Buff::Dex];
-	}
+	virtual void AddShield(int Shield);
+
 	void ClearShield() {
 		m_Shield = 0;
 	}
@@ -212,40 +212,21 @@ public: /////////////////애니메이션 관련////////////////////////////
 	{
 		m_MaxHP = Value;
 	}
-	int GetAtk() {
-		return m_Atk; //공격
+	bool GetIsDeath() {
+		return m_isDeath;
 	}
-	
-	int GetDex() {
-		return m_Dex;
+	void SetIsDeath(bool Enable) 
+	{
+		m_isDeath = Enable;
 	}
-	int GetRage() {
-		return m_Rage;
+	bool GetIsExtinctCard() {
+		return m_ExtinctCard;
 	}
-	int GetRitual() {
-		return m_Ritual;
+	void SetIsExtinctCard(bool Enable) {
+		m_ExtinctCard = Enable;
 	}
-	int GetVulnerable() {
-		return m_Vulnerable;
-	}
-	int GetWeak() {
-		return m_Weak;
-	}
-	int GetDemon() {
-		return m_Demon;
-	}
-
-	int GetGate() {
-		return m_Gate;
-	}
-	void SetAtk(int Value);
-	void SetDex(int Value);
-	void SetRage(int Value);
-	void SetRitual(int Value);
-	void SetVulnerable(int Value);
-	void SetWeak(int Value);
-	void SetGate(int Value);
-	void SetDemon(int Value);
+		
+	void ClearBuffArr();
 	//중력관련
 public:
 	void SetPhysicsSimulate(bool Physics)
@@ -286,6 +267,8 @@ public:
 	{
 		m_Pos.x = x;
 		m_Pos.y = y;
+		m_OriginPos.x = x;
+		m_OriginPos.y = y;
 	}
 	void SetPrevPos(float x, float y)
 	{
@@ -295,6 +278,7 @@ public:
 	void SetPos(const Vector2& Pos)
 	{
 		m_Pos = Pos;
+		m_OriginPos = Pos;
 	}
 	void SetSize(float x, float y)
 	{

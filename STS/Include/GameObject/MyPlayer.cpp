@@ -4,6 +4,8 @@
 #include "../Widget/ProgressBar.h"
 #include "../Widget/Text.h"
 #include "../GameObject/FloatingDamage.h"
+#include "../GameObject/Effect.h"
+#include "../GameObject/Effects/GameOver.h"
 //idle 애니메이션
 //공격애니메이션: 살짝 앞으로 갔다가 뒤로 슬슬 빠짐
 //수비 애니메이션: 히트박스 레이어가 뜨고 가운데 실드 애니메이션 실드 HUI 애니메이션
@@ -11,13 +13,12 @@
 CMyPlayer::CMyPlayer()
 {
 	SetTypeID<CMyPlayer>();
-	//m_BuffFirstPos = (-60.f, 120.f); //플레이어 오프셋
-//m_TextOffSet = (15.f, 13.f);
-}
+	m_AttackCard = 0;
+	m_AttackDir = 0;
+	m_AttackSpeed = 0;
 
-CMyPlayer::CMyPlayer(const CMyPlayer& Obj) :
-	CCharacter(Obj)
-{
+	//m_BuffFirstPos = (-60.f, 120.f); //플레이어 오프셋
+	//m_TextOffSet = (15.f, 13.f);
 }
 
 CMyPlayer::~CMyPlayer()
@@ -26,7 +27,7 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-	//m_BuffArr[0] = 0; //공격력
+	m_BuffArr[0] = 999; //공격력
 	//m_BuffArr[1] = 0; //민첩함
 	//m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
 	//m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
@@ -49,6 +50,9 @@ bool CMyPlayer::Init()
 
 	m_MaxHP = 80;
 	m_HP = m_MaxHP;
+
+	m_HP = 999;
+
 	m_Shield = 0;
 
 	SetPos(240.f, 470.f);
@@ -137,7 +141,11 @@ float CMyPlayer::InflictDamage(float Damage)
 {
 	Damage = CCharacter::InflictDamage(Damage);
 	
-	int AtkBonus = m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Atk];
+	//## 코드 수정####################################################################
+	//int AtkBonus = m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Atk];
+	int AtkBonus = 0;
+	//###############################################################################
+
 	float VulDebuff = 1.f;
 	float WeakDebuff = 1.f;
 
@@ -147,13 +155,13 @@ float CMyPlayer::InflictDamage(float Damage)
 		VulDebuff = 1.5f;
 	}
 	//몬스터가 약화상태라면 받는 피해 감소
-	if (m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Weak]) 
-	{
-		WeakDebuff = 0.75;
-	}
+	//if (m_Scene->GetMonster()->GetBuffArr()[(int)Buff::Weak]) 
+	//{
+	//	WeakDebuff = 0.75;
+	//}
 
 	//최종 데미지
-	int FinalDamage = (Damage + AtkBonus) * WeakDebuff * VulDebuff;
+	int FinalDamage = (int)((Damage + AtkBonus) * WeakDebuff * VulDebuff);
 
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
@@ -184,6 +192,20 @@ float CMyPlayer::InflictDamage(float Damage)
 	if (m_HP <= 0)
 	{
 		//사망
+		m_HP = 0;
+		
+		CGameOver* Gameover = m_Scene->CreateObject<CGameOver>("DefeatBack");
+		Gameover->SetTexture("DefeatBack", TEXT("Scene/Defeat.bmp"));
+		Gameover->SetColorKey(255, 0, 255);
+		Gameover->SetSize(1280.f, 720.f);
+		
+		CGameOver* PlayerDefeat = m_Scene->CreateObject<CGameOver>("PlayerDefeat");
+		PlayerDefeat->SetTexture("PlayerDefeat", TEXT("Player/corpse.bmp"));
+		PlayerDefeat->SetPos(150, 300);
+		PlayerDefeat->SetSize(256.f, 256.f);
+		PlayerDefeat->SetColorKey(255, 0, 255);
+		m_Scene->SetDefeatSwitch(true);
+		
 		SetEnable(false);
 	}
 	return Damage;
@@ -194,8 +216,6 @@ float CMyPlayer::InflictDamage(float Damage)
 void CMyPlayer::CollisionBegin(CCollider* Src, CCollider* Dest)
 {
 	//AttackMotion(m_AttackDir, m_AttackSpeed);
-	
-
 }
 
 void CMyPlayer::CollisionEnd(CCollider* Src, CCollider* Dest)

@@ -5,11 +5,19 @@
 
 DEFINITION_SINGLE(CInput)
 
-CInput::CInput()	:
+CInput::CInput() :
 	m_MouseLDown(false),
 	m_MouseLPush(false),
 	m_MouseLUp(false),
-	m_MouseObj(nullptr)
+	m_MouseObj(nullptr),
+	m_ShowCursor(false),
+	m_Shift(false),
+	m_MouseProfile(0),
+	m_MouseData(0),
+	m_hWnd(0),
+	m_Ctrl(0),
+	m_Alt(0)
+
 {
 }
 

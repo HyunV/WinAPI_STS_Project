@@ -30,6 +30,8 @@ bool CCollisionManager::Init()
 	CreateProfile("MonsterAttack", ECollision_Channel::MonsterAttack, true, ECollision_Interaction::Ignore);
 	CreateProfile("Mouse", ECollision_Channel::Mouse, true, ECollision_Interaction::Collision);
 	
+	CreateProfile("MapIcon", ECollision_Channel::MapIcon, true, ECollision_Interaction::Ignore);
+	
 
 	CreateProfile("Card", ECollision_Channel::Card, true, ECollision_Interaction::Ignore);
 	CreateProfile("MyPlayer", ECollision_Channel::MyPlayer, true, ECollision_Interaction::Ignore);
@@ -66,6 +68,9 @@ bool CCollisionManager::Init()
 
 	SetCollisionInteraction("MyPlayer", ECollision_Channel::Default, ECollision_Interaction::Collision);
 	SetCollisionInteraction("MyPlayer", ECollision_Channel::Card, ECollision_Interaction::Collision);
+
+	SetCollisionInteraction("MapIcon", ECollision_Channel::Default, ECollision_Interaction::Collision);
+	SetCollisionInteraction("MapIcon", ECollision_Channel::Mouse, ECollision_Interaction::Collision);
 
 	return true;
 }

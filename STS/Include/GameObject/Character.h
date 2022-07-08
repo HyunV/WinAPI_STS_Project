@@ -7,7 +7,6 @@ class CCharacter :
 
 protected:
 	CCharacter();
-	CCharacter(const CCharacter& Obj);
 	virtual ~CCharacter();
 
 public:
@@ -63,6 +62,7 @@ protected:
 	int* ArrTemp;
 	virtual void UpdateStatus();
 	void ConvertText(int Value, CSharedPtr<class CWidgetComponent> TextWiz);
+
 	
 
 	vector<CSharedPtr<class CWidgetComponent>> m_TestButton;

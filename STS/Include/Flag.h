@@ -27,6 +27,7 @@ enum class ECollision_Channel //충돌 채널 키? 피아식별용 열거체
 	MonsterAttack,
 	Card,
 	MyPlayer,
+	MapIcon,
 	Mouse,
 	Max
 };
@@ -114,4 +115,24 @@ enum class EMapIcon_Type
 	chest,
 	elite,
 	boss
+};
+
+enum class EMonster 
+{
+	Cultist,
+	JawWorm,
+	AcidSlimeM,
+	SpikeSmimeM
+};
+
+enum class EMonsterStatus
+{
+	attack,
+	attackBuff, //안쓸거같음
+	attackDebuff, //빨간맛, 슬라임이 쓸듯
+	attackDefend, //턱벌레가 씀
+	buff,//광신자, 빨간맛
+	debuff, //슬라임이 씀
+	defend,
+	defendBuff
 };

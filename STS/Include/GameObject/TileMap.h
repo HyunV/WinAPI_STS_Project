@@ -7,7 +7,6 @@ class CTileMap :
 
 protected:
     CTileMap();
-    CTileMap(const CTileMap& Obj);
     virtual ~CTileMap();
 
 private:

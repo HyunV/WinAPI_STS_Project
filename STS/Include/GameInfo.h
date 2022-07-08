@@ -18,6 +18,7 @@
 #include<functional> //전역함수, 멤버함수 상관없이 함수포인터 등록하고 콜해주는 기능을 제공
 #include <algorithm> //sort 기능 제공
 #include <stack>
+#include <time.h>
 
 using namespace std;
 

@@ -5,6 +5,7 @@
 #include "SceneCollision.h"
 #include "../GameObject/TileMap.h"
 #include "../GameObject/CardManager.h"
+#include "../GameObject/MapIconObject.h"
 
 CScene::CScene()
 {
@@ -13,6 +14,15 @@ CScene::CScene()
 	m_Collision = new CSceneCollision;
 	m_SceneUsedCard = false;
 	m_BlackLayerSwitch = false;
+	m_StartGame = false;
+	m_ShopLayerSwitch = false;
+	m_RewardSwitch = false;
+	m_MapLayerSwitch = false;
+	m_IsBattle = false;
+	m_DefeatSwitch = false;
+	m_ClearSwitch = false;
+	m_RestSwitch = false;
+
 }
 
 CScene::~CScene()
@@ -36,14 +46,9 @@ void CScene::SetPlayer(CGameObject* Player)
 	m_Player = Player;
 }
 
-void CScene::SetCameraObj(CGameObject* Camera)
+void CScene::SetCameraObj(CCameraObject* Camera)
 {
 	m_CameraObj = Camera;
-}
-
-void CScene::SetMonster(CGameObject* Monster)
-{
-	m_Monster = Monster;
 }
 
 void CScene::SetMap(CGameObject* Map)
@@ -51,8 +56,77 @@ void CScene::SetMap(CGameObject* Map)
 	m_Map = Map;
 }
 
+void CScene::SetStageIcon(bool Enable)
+{
+	for (int i = 0; i < m_Stage.size(); i++)
+	{
+		m_Stage[i]->SetEnable(Enable);
+	}
+}
+
+void CScene::StageSort()
+{
+	for(int i = 0; i< m_Stage.size(); i++)
+	{
+		m_Stage[i]->SetPos(640.f, 2300.f + (i * (-200.f)));
+		m_Stage[i]->SetColorKey(255, 0, 255);
+		m_Stage[i]->SetStageLevel(i + 1);
+	}
+}
+
+bool CScene::CheckMonsters()
+{
+	std::vector<CSharedPtr<class CGameObject>>::iterator iterr;
+	std::vector<CSharedPtr<class CGameObject>>::iterator iterrEnd;
+
+	iterr = m_MonstersList.begin();
+	iterrEnd = m_MonstersList.end();
+
+	for (; iterr != iterrEnd;)
+	{
+		if (!(*iterr)->GetActive())
+		{
+			iterr = m_MonstersList.erase(iterr);
+			iterrEnd = m_MonstersList.end();
+			m_MonstersList;
+			continue;
+		}
+		iterr++;
+	}
+
+	if (m_MonstersList.size() == 0)
+		return true;
+	return false;
+}
+
+void CScene::MonstersBuffControl()
+{
+	std::vector<CSharedPtr<class CGameObject>>::iterator iter;
+	std::vector<CSharedPtr<class CGameObject>>::iterator iterEnd;
+
+	iter = m_MonstersList.begin();
+	iterEnd = m_MonstersList.end();
+
+	for (; iter != iterEnd;)
+	{
+		int* BuffArrTemp = (*iter)->GetBuffArr();
+		if (BuffArrTemp[(int)Buff::Vulnerable] > 0)
+			BuffArrTemp[(int)Buff::Vulnerable] -= 1;
+		if (BuffArrTemp[(int)Buff::Weak] > 0) {
+			BuffArrTemp[(int)Buff::Weak] -= 1;
+		}
+		if (BuffArrTemp[(int)Buff::Ritual] > 0) {
+			BuffArrTemp[(int)Buff::Atk] += BuffArrTemp[(int)Buff::Ritual];
+		}
+		iter++;
+	}
+
+
+}
+
 bool CScene::Init()
 {
+
 	return true;
 }
 
@@ -313,6 +387,19 @@ void CScene::Render(HDC hDC, float DeltaTime)
 	// UI를 출력한 이후에 마우스를 출력한다.
 }
 
+void CScene::GameSet()
+{
+	//플레이어 버프 초기화, 쉴드 초기화
+	GetPlayer()->ClearBuffArr();
+	GetPlayer()->ClearShield();
+
+	//카드 초기화
+	CCardManager::GetInst()->BattleReset();
+	
+	//CCardManager::GetInst()->RemoveHandAll();
+
+}
+
 bool CScene::SortY(const CSharedPtr<class CGameObject>& Src, const CSharedPtr<class CGameObject>& Dest)
 {
 	//오브젝트 출력을 레이어 기준으로 구현할 예정 백그라운드 -> 오브젝트 -> 이펙트
@@ -322,7 +409,7 @@ bool CScene::SortY(const CSharedPtr<class CGameObject>& Src, const CSharedPtr<cl
 	// GetPos(0.7) + (0.3)
 	float	DestY = Dest->GetPos().y + (1.f - Dest->GetPivot().y) * Dest->GetSize().y;
 	
-	return SrcY < DestY;
+	return SrcY > DestY;
 }
 
 bool CScene::SortYWidgetComponent(const CSharedPtr<class CWidgetComponent>& Src, const CSharedPtr<class CWidgetComponent>& Dest)

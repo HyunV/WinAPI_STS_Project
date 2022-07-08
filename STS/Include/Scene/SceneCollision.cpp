@@ -64,12 +64,10 @@ void CSceneCollision::CollisionMouse(float DeltaTime) //마우스 충돌이 우선
 				m_MouseCollisionWidget = result;
 
 				MouseCollision = true;
-
 				break;
 			}
 		}
 	}
-
 
 	if(!MouseCollision) //마우스가 ui랑 충돌된게 없을경우
 	{

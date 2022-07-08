@@ -8,7 +8,6 @@ class CEffect :
 
 protected:
     CEffect();
-    CEffect(const CEffect& Obj);
     virtual ~CEffect();
 
 private:

@@ -7,7 +7,6 @@ class CMyPlayer :
 
 protected:
     CMyPlayer();
-    CMyPlayer(const CMyPlayer& Obj);
     virtual ~CMyPlayer();
 
 public:

@@ -5,16 +5,7 @@ CEffect::CEffect() :
     m_Duration(0.f),
     m_Time(0.f)
 {
-
-}
-
-CEffect::CEffect(const CEffect& Obj) :
-    CGameObject(Obj),
-    m_EffectType(EEffect_Type::Once),
-    m_Duration(0.f),
-    m_Time(0.f)
-{
-
+    m_RenderLayer = ERender_Layer::MapIcon;
 }
 
 CEffect::~CEffect()
@@ -23,6 +14,7 @@ CEffect::~CEffect()
 
 bool CEffect::Init()
 {
+    SetPivot(0.5f, 0.5f);
     CreateAnimation();
     SetCurrentAnimationEndFunction<CEffect>(this, &CEffect::AnimationEnd);
     return true;

@@ -12,7 +12,7 @@ protected:
     virtual ~CTopPanel();
 
 private:
-    HWND m_hWnd;
+   // HWND m_hWnd;
 
     CSharedPtr<class CText> m_PlayerName; //이름
     CSharedPtr<class CText> m_Job; //직업
@@ -65,6 +65,20 @@ private:
     // 골드 보상 버튼 (게임매니저에서 얻어옴)
     //카드 매니저에서 랜드카드
 
+    CSharedPtr<class CButton> m_RestButton;
+    //CSharedPtr<class CImageWidget2> m_CampChar;
+    CSharedPtr<class CText> m_CampText;
+    bool m_UseRest;
+
+    //패배
+    CSharedPtr<class CImageWidget2> m_Banner;
+    CSharedPtr<class CText> m_DefeatText;
+
+    //승리
+    CSharedPtr<class CImageWidget2> m_LeftEye;
+    CSharedPtr<class CImageWidget2> m_RightEye;
+    
+
     vector<CCard*> m_CardTemp;
     //에너지, 뽑을 카드 더미(숫자), 버릴카드 더미(숫자) 턴 종료(버튼) ,픽버튼(버튼) 보이기 여부
     
@@ -76,6 +90,7 @@ public:
     virtual void Render(HDC hDC, float DeltaTime);
 public:
     void HideOnUI(bool Enable);
+    void HideOnRestUI(bool Enable);
 
     void TestCallback();
     void SettingButtonCallback();
@@ -88,5 +103,13 @@ public:
     void ConfirmCallBack();
     void PreceedCallBack();
     void CenterButtonCallBack();
+
+    void RestButtonCallBack();
+    void RestButtonCallBack2();
+
+    void ConvertText(int Value, CSharedPtr<class CText> TextWiz);
+    void ConvertText(int Value, int Value2, CSharedPtr<class CText> TextWiz);
+
+    void MonstersActivity();
 };
 

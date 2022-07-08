@@ -106,6 +106,9 @@
     <Filter Include="02.GameObject\04.Map">
       <UniqueIdentifier>{cebe4a48-8114-4c5d-8eda-09dd33b787e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\01.Character\Monsters">
+      <UniqueIdentifier>{bd92b7d3-0039-4b8a-bc7c-ee11a17fea9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -290,6 +293,39 @@
     </ClCompile>
     <ClCompile Include="GameObject\MapIconObject.cpp">
       <Filter>02.GameObject\04.Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\ShieldEffect.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\CPlayerHitEffect.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Monster\BossSlime.cpp">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Monster\Jaw.cpp">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Monster\Red.cpp">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Monster\Slime.cpp">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget\Reward.cpp">
+      <Filter>07.UI\02.Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\DelayObject.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\RestObject.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\DelayScene.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Effects\GameOver.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +550,39 @@
     </ClInclude>
     <ClInclude Include="GameObject\MapIconObject.h">
       <Filter>02.GameObject\04.Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\ShieldEffect.h">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\CPlayerHitEffect.h">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Monster\Jaw.h">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Monster\Red.h">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Monster\Slime.h">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Monster\BossSlime.h">
+      <Filter>02.GameObject\01.Character\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget\Reward.h">
+      <Filter>07.UI\02.Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\DelayObject.h">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\RestObject.h">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\DelayScene.h">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\GameOver.h">
+      <Filter>02.GameObject\06.Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

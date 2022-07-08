@@ -15,7 +15,6 @@ class CMyMonster :
 
 protected:
     CMyMonster();
-    CMyMonster(const CMyMonster& Obj);
     virtual ~CMyMonster();
     
    
@@ -25,7 +24,10 @@ public:
     virtual void PostUpdate(float DeltaTime);
     virtual void Render(HDC hDC, float DeltaTime);
     virtual float InflictDamage(float Damage);
-
+    virtual void MonstersAI();
+    virtual bool ActivateMonster(EMonsterStatus m_NextStatus);
+    void CheckNextMonster();
+    void EndCallbackMonster();
     
 private:
     void CollisionMouseBegin(CCollider* Src, const Vector2& MousePos);
@@ -35,5 +37,15 @@ private:
 
     float m_AttackDir;
     float m_AttackSpeed;
+
+    int m_MonAttackDamage;
+    bool m_UseTurn; //행동을 취했는지
+    int m_Count;
+
+    CWidgetComponent* m_IntantIcon;
+    CWidgetComponent* m_IntantDamage;
+    EMonsterStatus m_NextStatus;
+    virtual void AddShield(int Shield);
+    void UseBuff();
 };
 

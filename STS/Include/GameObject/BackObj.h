@@ -8,7 +8,6 @@ class CBackObj :
 
 protected:
 	CBackObj();
-	CBackObj(const CBackObj& Obj);
 	virtual ~CBackObj();
 
 public:

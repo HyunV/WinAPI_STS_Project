@@ -6,6 +6,7 @@
 #include "../Widget/Text.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+
 //카드의 옵션을 다루는 클래스
 //추상클래스
 class CCard :
@@ -149,6 +150,7 @@ private:
     void CollisionBegin(CCollider* Src, CCollider* Dest);
     void CollisionEnd(CCollider* Src, CCollider* Dest);
 
+    void RandomHit();
    std::string m_CardImage;
 
 };

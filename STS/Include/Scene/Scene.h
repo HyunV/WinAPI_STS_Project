@@ -2,6 +2,8 @@
 #include "../GameInfo.h"
 #include "../Widget/WidgetWindow.h"
 #include "../Widget/WidgetComponent.h"
+#include "../GameObject/MapIconObject.h"
+#include "../GameObject/CameraObject.h"
 
 class CScene
 {
@@ -21,21 +23,32 @@ protected:
 	//이 오브젝트 목록을 이용해 씬을 그려내고 있다. 매 프레임마다 y소팅, 혹은 정렬을 해주어야 한다.
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 	CSharedPtr<class CGameObject> m_Player;
-	CSharedPtr<class CGameObject> m_CameraObj;
-	CSharedPtr<class CGameObject> m_Monster;
+	CSharedPtr<class CCameraObject> m_CameraObj;
+	
 	CSharedPtr<class CGameObject> m_Map;
-	CSharedPtr<class CTileMap>		m_TileMap;
+	CSharedPtr<class CTileMap>	  m_TileMap;
+	vector<CSharedPtr<CGameObject>> m_MonstersList;
+	vector<CSharedPtr<CMapIconObject>> m_Stage;
+
+	//CSharedPtr<CReward> m_CReward;
+	CSharedPtr<class CWidgetWindow> m_Reward;
 
 	std::vector<CSharedPtr<CWidgetWindow>>	m_vecWidgetWindow;
 	bool m_StartGame;
+	bool m_IsBattle;
 public:
 	std::list<CSharedPtr<class CGameObject>>	 m_CardList;
 	bool m_SceneUsedCard;
 
 	bool m_BlackLayerSwitch;
 	bool m_MapLayerSwitch;
-	bool m_ShopLayerSwitch;
 
+	bool m_ShopLayerSwitch;
+	bool m_RewardSwitch;
+
+	bool m_RestSwitch;
+	bool m_DefeatSwitch;
+	bool m_ClearSwitch;
 public:
 	bool GetGameStart() {
 		return m_StartGame;
@@ -62,10 +75,11 @@ public:
 	{
 		return m_Player;
 	}
-	class CGameObject* GetMonster() const
-	{
-		return m_Monster;
-	}
+	//class CGameObject* GetMonster() const
+	//{
+	//	return m_vecMonsters;
+	//}
+
 	class CGameObject* GetMap() const
 	{
 		return m_Map;
@@ -75,21 +89,45 @@ public:
 	{
 		return m_TileMap;
 	}
-	class CGameObject* GetCameraObj() const
+	class CCameraObject* GetCameraObj() const
 	{
 		return m_CameraObj;
 	}
-
 	void SetTileMap(class CTileMap* TileMap);
 	void SetPlayer(class CGameObject* Player);
-	void SetCameraObj(class CGameObject* Camera);
-	void SetMonster(class CGameObject* Monster);
+	void SetCameraObj(class CCameraObject* Camera);
 	void SetMap(class CGameObject* Map);
 
 	void AddWidgetComponent(CWidgetComponent* Widget)
 	{
 		m_WidgetComponentList.push_back(Widget);
 	}
+	void AddStage(CMapIconObject* stage)
+	{
+		m_Stage.push_back(stage);
+	}
+	void SetStageIcon(bool Enable);
+	void StageSort();
+
+	vector<CSharedPtr<CGameObject>> GetMonsters() const
+	{
+		return m_MonstersList;
+	}
+	void AddMonsters(CGameObject* Mon) 
+	{
+		m_MonstersList.push_back(Mon);
+	}
+	bool CheckMonsters();
+	void MonstersBuffControl ();
+
+	void SetIsBattle(bool Enable) {
+		m_IsBattle = Enable;
+	}
+	bool GetIsBattle()
+	{
+		return m_IsBattle;
+	}
+
 
 public:
 	virtual bool Init();
@@ -123,6 +161,43 @@ public:
 	bool GetShopSwitch()
 	{
 		return m_ShopLayerSwitch;
+	}
+	void SetRewardSwitch(bool Enable)
+	{
+		m_RewardSwitch = Enable;
+	}
+	bool GetRewardSwitch()
+	{
+		return m_RewardSwitch;
+	}
+	void SetRestSwitch(bool Enable)
+	{
+		m_RestSwitch = Enable;
+	}
+	bool GetRestSwitch()
+	{
+		return m_RestSwitch;
+	}
+	void SetDefeatSwitch(bool Enable)
+	{
+		m_DefeatSwitch = Enable;
+	}
+	bool GetDefeatSwitch()
+	{
+		return m_DefeatSwitch;
+	}
+	void SetClearSwitch(bool Enable)
+	{
+		m_ClearSwitch = Enable;
+	}
+	bool GetClearSwitch()
+	{
+		return m_ClearSwitch;
+	}
+	void GameSet();
+
+	CSharedPtr<class CWidgetWindow> GetReward(){
+		return m_Reward;
 	}
 public:
 	template <typename T>

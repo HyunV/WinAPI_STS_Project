@@ -31,6 +31,7 @@ enum class Card_Attribute
 	DemonForm, //악마의 형상
 	BodySlam, //몸통 박치기
 	Entrench, //참호
+	
 	Text1, //내 턴 시작 시
 };
 

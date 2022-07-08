@@ -27,6 +27,10 @@
 #include "../GameObject/TurnEffect.h"
 #include "../GameObject/Effects/BattleStartImage.h"
 #include "../GameObject/Map.h"
+#include "../GameObject/MapIconObject.h"
+#include "../Widget/Reward.h"
+
+#include "SceneResource.h"
 
 CBattleScene::CBattleScene()
 {
@@ -35,12 +39,20 @@ CBattleScene::CBattleScene()
 
 CBattleScene::~CBattleScene()
 {
-
+	CCardManager::DestroyInst();
 }
 
 bool CBattleScene::Init()
 {
 	CCardManager::GetInst()->Init();
+	GetSceneResource()->CreateAnimationSequence("circle", "circle", TEXT("Map/circle.bmp"), TEXTURE_PATH);
+
+	for (int i = 0; i < 5; i++)
+	{
+		GetSceneResource()->AddAnimationFrame("circle", 96.f * i, 0.f, 96.f, 96.f);
+	}
+
+	GetSceneResource()->SetColorKey("circle", 255, 0, 255);
 	//CreateWidgetWindow<CStartWindow>("StartWindow");
 	
 	CCameraObject* Camera = CreateObject<CCameraObject>("Camera");
@@ -56,9 +68,62 @@ bool CBattleScene::Init()
 
 	CreateObject<CBackObj>("BackObj");
 
-	//맵 생성
+	//뒷배경 맵 생성
 	m_BlackLayer = CreateObject<CFrontObj>("FrontObj");
 	m_BlackLayer->SetEnable(m_BlackLayerSwitch);
+
+	CMapIconObject* Stage1 = CreateObject<CMapIconObject>("Stage1");
+	Stage1->SetTexture("monster", TEXT("Map/monster.bmp"));
+
+	CMapIconObject* Stage2 = CreateObject<CMapIconObject>("Stage2");
+	Stage2->SetTexture("monster", TEXT("Map/monster.bmp"));
+
+	CMapIconObject* Stage3 = CreateObject<CMapIconObject>("Stage3");
+	Stage3->SetTexture("rest", TEXT("Map/rest.bmp"));
+
+	CMapIconObject* Stage4 = CreateObject<CMapIconObject>("Stage4");
+	Stage4->SetTexture("elite", TEXT("Map/elite.bmp"));
+
+	CMapIconObject* Stage5 = CreateObject<CMapIconObject>("Stage5");
+	//Stage5->SetTexture("chest", TEXT("Map/chest.bmp"));
+	Stage5->SetTexture("rest", TEXT("Map/rest.bmp"));
+
+	CMapIconObject* Stage6 = CreateObject<CMapIconObject>("Stage6");
+	Stage6->SetTexture("monster", TEXT("Map/monster.bmp"));
+
+	CMapIconObject* Stage7 = CreateObject<CMapIconObject>("Stage7");
+	//Stage7->SetTexture("shop", TEXT("Map/shop.bmp"));
+	Stage7->SetTexture("monster", TEXT("Map/monster.bmp"));
+
+	CMapIconObject* Stage8 = CreateObject<CMapIconObject>("Stage8");
+	Stage8->SetTexture("monster", TEXT("Map/monster.bmp"));
+
+	CMapIconObject* Stage9 = CreateObject<CMapIconObject>("Stage9");
+	Stage9->SetTexture("rest", TEXT("Map/rest.bmp"));
+
+	CMapIconObject* Stage10 = CreateObject<CMapIconObject>("Stage10");
+	Stage10->SetTexture("boss", TEXT("Map/slime.bmp"));
+	Stage10->SetSize(256.f, 256.f);
+
+
+	Stage1->SetType(EMapIcon_Type::monster);
+	Stage2->SetType(EMapIcon_Type::monster);
+	Stage3->SetType(EMapIcon_Type::rest);
+	Stage4->SetType(EMapIcon_Type::elite);
+	//Stage5->SetType(EMapIcon_Type::chest);
+	Stage5->SetType(EMapIcon_Type::rest);
+	Stage6->SetType(EMapIcon_Type::monster);
+	//Stage7->SetType(EMapIcon_Type::shop);
+	Stage7->SetType(EMapIcon_Type::monster);
+	Stage8->SetType(EMapIcon_Type::monster);
+	Stage9->SetType(EMapIcon_Type::rest);
+	Stage10->SetType(EMapIcon_Type::boss);
+	
+	AddStage(Stage1); AddStage(Stage2); AddStage(Stage3); AddStage(Stage4); 
+	AddStage(Stage5); AddStage(Stage6); AddStage(Stage7); AddStage(Stage8);
+	AddStage(Stage9); AddStage(Stage10);
+
+	StageSort();
 
 	CDeco* BackImageA = CreateObject<CDeco>("BackImageA");
 	BackImageA->SetPos(0, 0);
@@ -84,23 +149,28 @@ bool CBattleScene::Init()
 	BackImageC->SetSize(254, 280);
 	BackImageC->SetColorKey(255, 0, 255);
 
+	//몬스터 패턴
+	GetSceneResource()->LoadTexture("attackInt", TEXT("Intent/attack.bmp"));
+	GetSceneResource()->LoadTexture("attackBuffInt", TEXT("Intent/attackBuff.bmp"));
+	GetSceneResource()->LoadTexture("attackDebuffInt", TEXT("Intent/attackDebuff.bmp"));
+	GetSceneResource()->LoadTexture("attackDefendInt", TEXT("Intent/attackDefend.bmp"));
+	GetSceneResource()->LoadTexture("buffInt", TEXT("Intent/buff1.bmp"));
+	GetSceneResource()->LoadTexture("debuffInt", TEXT("Intent/debuff1.bmp"));
+	GetSceneResource()->LoadTexture("defendInt", TEXT("Intent/defend.bmp"));
+	GetSceneResource()->LoadTexture("defendBuffInt", TEXT("Intent/defendBuff.bmp"));
+
+
 	CCardManager::GetInst()->InitMyDeck();
-	CCardManager::GetInst()->SetBringDeck();
+	CCardManager::GetInst()->SetRandomDeck(16);
+
+	//CCardManager::GetInst()->SetBringDeck(); 배틀스타트 이미지에 있음
 	//CCardManager::GetInst()->DrawCard(5);
 
 	CMyPlayer* Player = CreateObject<CMyPlayer>("Player");
-	//Player->SetEnable(true);
+
 	SetPlayer(Player);
 	SetGameStart(true);
 
-	//CMyMonster* Monster = CreateObject<CMyMonster>("Monster");
-	//SetMonster(Monster);
-	//CMyMonster* Monster2 = CreateObject<CMyMonster>("Monster2");
-	//Monster2->SetPos(1050, 250);
-	//
-	//CTurnEffect* test = CreateObject<CTurnEffect>("Testtt");
-	
-	//CBattleStartImage* image = CreateObject<CBattleStartImage>("Testtttttt");
 
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
 	GetSceneResource()->LoadTexture("shield", TEXT("Cards/CardImage/defend.bmp"));
@@ -118,18 +188,14 @@ bool CBattleScene::Init()
 	//카드 키워드 생성 //////////////////////////
 
 	///////////////////카드 생성//////////////////////////
-
-
-
 	CreateWidgetWindow<CTopPanel>("TopPanel");
 
 	m_MapLayer = CreateObject<CMap>("MapObj");
 	SetMap(m_MapLayer);
 	SetMapSwitch(true);
-
+	
 	m_MapLayer->SetEnable(true);
 
-	//
 	return true;
 }
 
@@ -139,30 +205,49 @@ void CBattleScene::Update(float DeltaTime)
 	//사용한 카드 재정렬
 	m_BlackLayer->SetEnable(m_BlackLayerSwitch);
 	m_Map->SetEnable(m_MapLayerSwitch);
+
+	if (!m_IsBattle) 
+	{
+		
+		//for (int i = 0; i < m_MyHand.size(); i++)
+		//{
+		//	m_MyHand[i]->SetEnable(false);
+		//	m_MyHand[i]->SetPos(0, 0);
+		//	m_MyHand[i]->SetUsedCard(false);
+		//	m_MyHand[i] = nullptr;
+		//	CCardManager::GetInst()->SetHand(m_MyHand);
+		//	CCardManager::GetInst()->HandSort();
+		//	m_MyHand = CCardManager::GetInst()->GetHand();
+		//	SetUseCard(false);
+		//}
+	}
+	//
 	if (!m_BlackLayerSwitch || !m_MapLayerSwitch)
 	{
 		m_MyHand = CCardManager::GetInst()->GetHand();
 	}
-	if (m_SceneUsedCard) 
-	{
-		m_MyHand = CCardManager::GetInst()->GetHand();
-		for (int i = 0; i < m_MyHand.size(); i++) 
-		{
-			if (m_MyHand[i] != nullptr && m_MyHand[i]->GetUsedCard()) { //카드가 사용되면
-	
-				m_MyHand[i]->SetEnable(false);
-				m_MyHand[i]->SetPos(0, 0);
-				m_MyHand[i]->SetUsedCard(false);
-				//m_MyHand[i]->SetCardControl(false);
-				CCardManager::GetInst()->AddDiscard(m_MyHand[i]);
-				m_MyHand[i] = nullptr;
-				CCardManager::GetInst()->SetHand(m_MyHand);
-				CCardManager::GetInst()->HandSort();
-				m_MyHand = CCardManager::GetInst()->GetHand();	
-				SetUseCard(false);
-			}
-		}		
-	}	
+	//if (m_SceneUsedCard) 
+	//{
+	//	m_MyHand = CCardManager::GetInst()->GetHand();
+	//	for (int i = 0; i < m_MyHand.size(); i++) 
+	//	{
+	//		if (m_MyHand[i] != nullptr && m_MyHand[i]->GetUsedCard()) { //카드가 사용되면
+	//
+	//			m_MyHand[i]->SetEnable(false);
+	//			m_MyHand[i]->SetPos(0, 0);
+	//			m_MyHand[i]->SetUsedCard(false);
+	//			CCardManager::GetInst()->AddDiscard(m_MyHand[i]);
+	//			m_MyHand[i] = nullptr;
+	//			CCardManager::GetInst()->SetHand(m_MyHand);
+	//			CCardManager::GetInst()->HandSort();
+	//			m_MyHand = CCardManager::GetInst()->GetHand();	
+	//			SetUseCard(false);
+	//		}
+	//	}		
+	//}
+
+
+
 }
 
 void CBattleScene::CreateAnimationSequence()

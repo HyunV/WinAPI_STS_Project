@@ -9,11 +9,6 @@ CBackObj::CBackObj()
 	m_RenderLayer = ERender_Layer::Back;
 }
 
-CBackObj::CBackObj(const CBackObj& Obj):
-	CGameObject(Obj)
-{
-}
-
 CBackObj::~CBackObj()
 {
 }

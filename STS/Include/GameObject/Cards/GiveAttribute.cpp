@@ -4,6 +4,11 @@
 #include <sstream>
 #include "../CardManager.h"
 
+CGiveAttribute::CGiveAttribute()
+{
+	m_Type = Card_Attribute::None;
+}
+
 //어빌리티 활성화 구간
 void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 {
@@ -22,7 +27,6 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 		CCardManager::GetInst()->DrawCard(m_Power);
 		break;
 	case Card_Attribute::Exhaust:
-		//소멸
 		break;
 	case Card_Attribute::Vulnerable:
 		target->GetBuffArr()[(int)Buff::Vulnerable] += m_Power;
@@ -46,7 +50,7 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::DemonForm] += m_Power;
 		break;
 	case Card_Attribute::BodySlam:
-		target->InflictDamage(m_Scene->GetPlayer()->GetShield());
+		target->InflictDamage((float)m_Scene->GetPlayer()->GetShield());
 		break;
 	case Card_Attribute::Entrench:		
 		m_Scene->GetPlayer()->SetShield(m_Scene->GetPlayer()->GetShield() * 2);

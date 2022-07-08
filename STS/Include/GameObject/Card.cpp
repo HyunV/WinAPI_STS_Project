@@ -10,6 +10,7 @@
 #include "../GameObject/Cards/CardAbility.h"
 #include "../GameObject/CardManager.h"
 #include "../GameObject/BubbleMessage.h"
+#include "../GameObject/Effects/CPlayerHitEffect.h"
 #include <sstream>
 
 CCard::CCard()
@@ -509,9 +510,71 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 
 	//몬스터가 격노 버프 받고있으면
 	//공격력 증가
+	if (!owner->GetAttackCard()) 
+	{
+		for (int i = 0; i < m_Scene->GetMonsters().size(); i++)
+		{
+			int* a = m_Scene->GetMonsters()[i]->GetBuffArr();
+			int rage = a[(int)Buff::Rage];
+			if (rage > 0) {
+				a[(int)Buff::Atk] += a[(int)Buff::Rage];
+			}
+		}
+	}
+
+	//공격카드 이펙트
+	if (owner->GetAttackCard())
+	{
+		//srand((unsigned int)time(0));
+		int a = rand() % 4;
+
+		if (a == 0) {
+			CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+			Hit->SetPos(target->GetPos());
+			Hit->SetTexture("AttackEffect1", TEXT("Effects/Attack.bmp"));
+			Hit->SetSize(130, 80);
+			Hit->SetColorKey(255, 0, 255);
+		}
+		else if (a == 1)
+		{
+			CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+			Hit->SetPos(target->GetPos());
+			Hit->SetTexture("AttackEffect2", TEXT("Effects/Attack2.bmp"));
+			Hit->SetSize(111, 86);
+			Hit->SetColorKey(255, 0, 255);
+		}
+		else if (a == 2)
+		{
+			CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+			Hit->SetPos(target->GetPos());
+			Hit->SetTexture("AttackEffect3", TEXT("Effects/Attack3.bmp"));
+			Hit->SetSize(178, 97);
+			Hit->SetColorKey(255, 0, 255);
+		}
+		else if (a == 3)
+		{
+			CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+			Hit->SetPos(target->GetPos());
+			Hit->SetTexture("AttackEffect4", TEXT("Effects/Attack4.bmp"));
+			Hit->SetSize(112, 87);
+			Hit->SetColorKey(255, 0, 255);
+		}
+
+	}
 
 	owner->SetUsedCard(true);
-	m_Scene->SetUseCard(true);
+	
+	if (owner->GetIsExtinctCard()) 
+	{
+		CCardManager::GetInst()->AddExhaustcard(owner);
+	}
+	else {
+		CCardManager::GetInst()->AddDiscard(owner);
+	}
+	
+	CCardManager::GetInst()->RemoveHand();
+
+	//m_Scene->SetUseCard(true);
 }
 
 void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
@@ -575,4 +638,9 @@ void CCard::CollisionEnd(CCollider* Src, CCollider* Dest)
 		}
 
 	}
+}
+
+void CCard::RandomHit()
+{
+
 }
