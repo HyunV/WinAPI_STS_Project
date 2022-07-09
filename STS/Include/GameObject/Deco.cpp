@@ -12,6 +12,7 @@ CDeco::~CDeco()
 
 bool CDeco::Init()
 {
+    m_MoveSpeed = 500.f;
     return true;
 }
 

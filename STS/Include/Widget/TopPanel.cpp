@@ -421,6 +421,8 @@ bool CTopPanel::Init()
 
 void CTopPanel::Update(float DeltaTime)
 {
+    CWidgetWindow::Update(DeltaTime);
+
     if (m_Scene->GetClearSwitch()) {
         HideOnUI(false);
         CCardManager::GetInst()->EnableHand(false);
@@ -478,11 +480,15 @@ void CTopPanel::Update(float DeltaTime)
         HideOnUI(false);
     }
 
-    CWidgetWindow::Update(DeltaTime);    
+   
 
     if (!m_RestButton->GetEnable())
     {
         m_CampText->SetEnable(false);
+    }
+
+    if (m_Scene->GetBlackSwitch()) {
+        HideOnUI(false);
     }
     int DeckCount = CCardManager::GetInst()->getMaindeckCount();
     ConvertText(DeckCount, m_DeckCount);

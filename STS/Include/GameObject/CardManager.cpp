@@ -47,6 +47,26 @@ void CCardManager::InitMyDeck()
 	CGiveAttribute* BashDamage = m_Scene->CreateObject<CGiveAttribute>("BashDamage");
 	BashDamage->SetType(Card_Attribute::Damage, 8);
 
+	//¸ùµÕÀÌÁú 
+	CGiveAttribute* bludgeonDamage = m_Scene->CreateObject<CGiveAttribute>("bludgeonDamage");
+	bludgeonDamage->SetType(Card_Attribute::Damage, 32);
+
+	//Å¬·Î½º¶óÀÎ
+	CGiveAttribute* clotheslineDamage = m_Scene->CreateObject<CGiveAttribute>("bludgeonDamage");
+	clotheslineDamage->SetType(Card_Attribute::Damage, 12);
+
+	//ÈíÇ÷
+	CGiveAttribute* BiteDamage = m_Scene->CreateObject<CGiveAttribute>("BiteDamage");
+	BiteDamage->SetType(Card_Attribute::Damage, 7);
+
+	//¼¶±¤
+	CGiveAttribute* FlashDamage = m_Scene->CreateObject<CGiveAttribute>("FlashDamage");
+	FlashDamage->SetType(Card_Attribute::Damage, 3);
+
+	//Ç÷·ù
+	CGiveAttribute* BloodDamage = m_Scene->CreateObject<CGiveAttribute>("BloodDamage");
+	BloodDamage->SetType(Card_Attribute::Damage, 15);
+
 	CGiveAttribute* HyperDamage = m_Scene->CreateObject<CGiveAttribute>("HyperDamage");
 	HyperDamage->SetType(Card_Attribute::Damage, 99999);
 
@@ -54,9 +74,18 @@ void CCardManager::InitMyDeck()
 	CGiveAttribute* Shield5 = m_Scene->CreateObject<CGiveAttribute>("Shield");
 	Shield5->SetType(Card_Attribute::Shield, 5);
 
+	CGiveAttribute* Shield2 = m_Scene->CreateObject<CGiveAttribute>("Shield2");
+	Shield2->SetType(Card_Attribute::Shield, 2);
+
+	CGiveAttribute* Shield30 = m_Scene->CreateObject<CGiveAttribute>("Shield30");
+	Shield30->SetType(Card_Attribute::Shield, 30);
+	
 	//µå·Î¿ìÄ«µå
 	CGiveAttribute* DrawCard1 = m_Scene->CreateObject<CGiveAttribute>("DrawCard1");
 	DrawCard1->SetType(Card_Attribute::DrawCard, 1);
+
+	CGiveAttribute* DrawCard2 = m_Scene->CreateObject<CGiveAttribute>("DrawCard2");
+	DrawCard2->SetType(Card_Attribute::DrawCard, 2);
 
 	//¼Ò¸ê
 	CGiveAttribute* Exhaust = m_Scene->CreateObject<CGiveAttribute>("Exhaust");
@@ -81,6 +110,9 @@ void CCardManager::InitMyDeck()
 	CGiveAttribute* FootWork2 = m_Scene->CreateObject<CGiveAttribute>("FootWork2");
 	FootWork2->SetType(Card_Attribute::FootWork, 2);
 
+	CGiveAttribute* FootWork3 = m_Scene->CreateObject<CGiveAttribute>("FootWork3");
+	FootWork3->SetType(Card_Attribute::FootWork, 3);
+
 	//¹Ù¸®ÄÉÀÌµå
 	CGiveAttribute* BarricadeAtt = m_Scene->CreateObject<CGiveAttribute>("BarricadeAtt");
 	BarricadeAtt->SetType(Card_Attribute::Barricade, 1);
@@ -92,6 +124,8 @@ void CCardManager::InitMyDeck()
 	//¾Ç¸¶ÀÇÇü»ó
 	CGiveAttribute* DemonAtt = m_Scene->CreateObject<CGiveAttribute>("DemonAtt");
 	DemonAtt->SetType(Card_Attribute::DemonForm, 3);
+	CGiveAttribute* DemonAtt2 = m_Scene->CreateObject<CGiveAttribute>("DemonAtt");
+	DemonAtt2->SetType(Card_Attribute::DemonForm, 2);
 
 	//¸öÅë¹ÚÄ¡±â
 	CGiveAttribute* BodySlamAtt = m_Scene->CreateObject<CGiveAttribute>("BodySlamAtt");
@@ -105,6 +139,18 @@ void CCardManager::InitMyDeck()
 	CGiveAttribute* Text1 = m_Scene->CreateObject<CGiveAttribute>("Text1");
 	Text1->SetType(Card_Attribute::Text1, 0);
 
+	//Ã¼·Â 
+	CGiveAttribute* HPPlus4 = m_Scene->CreateObject<CGiveAttribute>("HPPlus4");
+	HPPlus4->SetType(Card_Attribute::PlusHP, 4);
+
+	CGiveAttribute* HPPlus2 = m_Scene->CreateObject<CGiveAttribute>("HPPlus2");
+	HPPlus2->SetType(Card_Attribute::PlusHP, 2);
+
+	CGiveAttribute* HPLose2 = m_Scene->CreateObject<CGiveAttribute>("HPLose2");
+	HPLose2->SetType(Card_Attribute::LoseHP, 2);
+
+	CGiveAttribute* AddEnergy2 = m_Scene->CreateObject<CGiveAttribute>("AddEnergy2");
+	AddEnergy2->SetType(Card_Attribute::GetEnergy, 2);
 
 	//##############################################¸ÞÀÎµ¦ Ä«µå ¼¼ÆÃ###################################################################################
 	CCard* Strike1 = m_Scene->CreateObject<CCard>("Strike1");
@@ -160,13 +206,21 @@ void CCardManager::InitMyDeck()
 	Bash->SetCardAttribute(TEXT("°­Å¸"), Card_Type::Attack, 2);
 	Bash->AddAbility(BashDamage);
 	Bash->AddAbility(Vulnerable2);
-
+	//±âº»Ä«µå ³¡
+	// ###############################################################################
+	// 
 	//¹ßÈ­
 	CCard* Inflame = m_Scene->CreateObject<CCard>("Inflame1");
 	Inflame->SetCardInfo("Inflame", Card_Type::Power, Card_Value::Special, false, false);
 	Inflame->SetCardAttribute(TEXT("¹ßÈ­"), Card_Type::Power, 1);
 	Inflame->AddAbility(Inflame2);
 	Inflame->SetIsExtinctCard(true);
+
+	CCard* InflameCard2 = m_Scene->CreateObject<CCard>("InflameCard2");
+	InflameCard2->SetCardInfo("Inflame", Card_Type::Power, Card_Value::Special, false, false);
+	InflameCard2->SetCardAttribute(TEXT("¹ßÈ­+"), Card_Type::Power, 1);
+	InflameCard2->AddAbility(Inflame3);
+	InflameCard2->SetIsExtinctCard(true);
 
 	//¹Ù¸®ÄÉÀÌµå
 	CCard* Barricade = m_Scene->CreateObject<CCard>("Barricade1");
@@ -184,12 +238,25 @@ void CCardManager::InitMyDeck()
 	LimitBreak->AddAbility(Exhaust);
 	LimitBreak->SetIsExtinctCard(true);
 
+	CCard* LimitBreak2 = m_Scene->CreateObject<CCard>("LimitBreak2");
+	LimitBreak2->SetCardInfo("LimitBreak", Card_Type::Skill, Card_Value::Rare, false, false);
+	LimitBreak2->SetCardAttribute(TEXT("ÇÑ°èµ¹ÆÄ+"), Card_Type::Skill, 1);
+	LimitBreak2->AddAbility(LimitBreakAtt);
+	LimitBreak2->SetIsExtinctCard(true);
+
 	//¾Ç¸¶ÀÇÇü»ó
+	CCard* DemonForm2 = m_Scene->CreateObject<CCard>("DemonForm2");
+	DemonForm2->SetCardInfo("DemonForms", Card_Type::Power, Card_Value::Rare, false, false);
+	DemonForm2->SetCardAttribute(TEXT("¾Ç¸¶ÀÇ Çü»ó+"), Card_Type::Power, 3);
+	DemonForm2->AddAbility(Text1);
+	DemonForm2->AddAbility(DemonAtt);
+	DemonForm2->SetIsExtinctCard(true);
+
 	CCard* DemonForm = m_Scene->CreateObject<CCard>("DemonForm1");
 	DemonForm->SetCardInfo("DemonForms", Card_Type::Power, Card_Value::Rare, false, false);
 	DemonForm->SetCardAttribute(TEXT("¾Ç¸¶ÀÇ Çü»ó"), Card_Type::Power, 3);
 	DemonForm->AddAbility(Text1);
-	DemonForm->AddAbility(DemonAtt);
+	DemonForm->AddAbility(DemonAtt2);
 	DemonForm->SetIsExtinctCard(true);
 
 	//¸öÅë¹ÚÄ¡±â
@@ -197,7 +264,6 @@ void CCardManager::InitMyDeck()
 	BodySlam->SetCardInfo("BodySlam", Card_Type::Attack, Card_Value::Common, false, false);
 	BodySlam->SetCardAttribute(TEXT("¸öÅë¹ÚÄ¡±â"), Card_Type::Attack, 0);
 	BodySlam->AddAbility(BodySlamAtt);
-	time_t time(time_t * timeptr);
 	
 	//ÂüÈ£
 	CCard* Entrench = m_Scene->CreateObject<CCard>("Entrench1");
@@ -207,10 +273,101 @@ void CCardManager::InitMyDeck()
 	
 	//¹ß³î¸²
 	CCard* FootWork = m_Scene->CreateObject<CCard>("FootWork1");
-	FootWork->SetCardInfo("FootWork", Card_Type::Power, Card_Value::Special, false, false);
+	FootWork->SetCardInfo("FootWorks", Card_Type::Power, Card_Value::Special, true, false);
 	FootWork->SetCardAttribute(TEXT("¹ß³î¸²"), Card_Type::Power, 1);
 	FootWork->AddAbility(FootWork2);
 	FootWork->SetIsExtinctCard(true);
+
+	CCard* FootWorkPlus = m_Scene->CreateObject<CCard>("FootWorkPlus");
+	FootWorkPlus->SetCardInfo("FootWorks", Card_Type::Power, Card_Value::Special, true, false);
+	FootWorkPlus->SetCardAttribute(TEXT("¹ß³î¸²+"), Card_Type::Power, 1);
+	FootWorkPlus->AddAbility(FootWork3);
+	FootWorkPlus->SetIsExtinctCard(true);
+
+	CCard* bandageup = m_Scene->CreateObject<CCard>("bandageup");
+	bandageup->SetCardInfo("bandageup", Card_Type::Skill, Card_Value::Special, true, false);
+	bandageup->SetCardAttribute(TEXT("ºØ´ë°¨±â"), Card_Type::Skill, 0);
+	bandageup->AddAbility(HPPlus4);
+	bandageup->AddAbility(Exhaust);
+	bandageup->SetIsExtinctCard(true);
+
+	//m_allCard.push_back(bandageup);
+
+	CCard* bite = m_Scene->CreateObject<CCard>("bite");
+	bite->SetCardInfo("bite", Card_Type::Attack, Card_Value::Common, true, false);
+	bite->SetCardAttribute(TEXT("ÈíÇ÷"), Card_Type::Attack, 1);
+	bite->AddAbility(BiteDamage);
+	bite->AddAbility(HPPlus2);
+
+	//m_allCard.push_back(bite);
+
+	CCard* bloodletting = m_Scene->CreateObject<CCard>("bloodletting");
+	bloodletting->SetCardInfo("bloodletting", Card_Type::Skill, Card_Value::Special, false, false);
+	bloodletting->SetCardAttribute(TEXT("»çÇ÷"), Card_Type::Skill, 0);
+	bloodletting->AddAbility(HPLose2);
+	bloodletting->AddAbility(AddEnergy2);
+	
+	//m_allCard.push_back(bloodletting);
+
+	//¸ùµÕÀÌÁú 
+	CCard* bludgeon = m_Scene->CreateObject<CCard>("bludgeon");
+	bludgeon->SetCardInfo("bludgeon", Card_Type::Attack, Card_Value::Rare, false, false);
+	bludgeon->SetCardAttribute(TEXT("¸ùµÕÀÌÁú"), Card_Type::Attack, 3);
+	bludgeon->AddAbility(bludgeonDamage);
+
+	//m_allCard.push_back(bludgeon);
+
+	
+	CCard* clothesline = m_Scene->CreateObject<CCard>("clothesline");
+	clothesline->SetCardInfo("clothesline", Card_Type::Attack, Card_Value::Common, false, false);
+	clothesline->SetCardAttribute(TEXT("Å¬·Î½º¶óÀÎ"), Card_Type::Attack, 2);
+	clothesline->AddAbility(clotheslineDamage);
+	clothesline->AddAbility(Weak2);
+
+	//m_allCard.push_back(clothesline);
+
+	CCard* finesse = m_Scene->CreateObject<CCard>("finesse");
+	finesse->SetCardInfo("finesse", Card_Type::Skill, Card_Value::Special, true, false);
+	finesse->SetCardAttribute(TEXT("´É¼÷"), Card_Type::Skill, 0);
+	finesse->AddAbility(Shield2);
+	finesse->AddAbility(DrawCard2);
+
+	//m_allCard.push_back(finesse);
+
+	CCard* flashOfSteel = m_Scene->CreateObject<CCard>("flashOfSteel");
+	flashOfSteel->SetCardInfo("flashOfSteel", Card_Type::Attack, Card_Value::Special, true, false);
+	flashOfSteel->SetCardAttribute(TEXT("°­Ã¶ÀÇ ¼¶±¤"), Card_Type::Attack, 0);
+	flashOfSteel->AddAbility(FlashDamage);
+	flashOfSteel->AddAbility(DrawCard1);
+
+	//m_allCard.push_back(flashOfSteel);
+
+	
+	CCard* good_instincts = m_Scene->CreateObject<CCard>("good_instincts");
+	good_instincts->SetCardInfo("good_instincts", Card_Type::Skill, Card_Value::Special, true, false);
+	good_instincts->SetCardAttribute(TEXT("Á÷°¨"), Card_Type::Skill, 0);
+	good_instincts->AddAbility(Shield5);
+
+	//m_allCard.push_back(good_instincts);
+
+	//Ç÷·ù
+	CCard* hemokinesis = m_Scene->CreateObject<CCard>("hemokinesis");
+	hemokinesis->SetCardInfo("hemokinesis", Card_Type::Attack, Card_Value::Special, false, false);
+	hemokinesis->SetCardAttribute(TEXT("Ç÷·ù"), Card_Type::Attack, 1);
+	hemokinesis->AddAbility(HPLose2);
+	hemokinesis->AddAbility(BloodDamage);
+
+	//m_allCard.push_back(hemokinesis);
+
+	CCard* impervious = m_Scene->CreateObject<CCard>("impervious");
+	impervious->SetCardInfo("impervious", Card_Type::Skill, Card_Value::Rare, false, false);
+	impervious->SetCardAttribute(TEXT("¹«Àû"), Card_Type::Skill, 2);
+	impervious->AddAbility(Shield30);
+	impervious->AddAbility(Exhaust);
+	impervious->SetIsExtinctCard(true);
+
+	m_allCard.push_back(impervious);
+
 
 
 	//¸¸µç Ä«µå »ðÀÔ
@@ -228,24 +385,28 @@ void CCardManager::InitMyDeck()
 	//Å×½ºÆ® Ãß°¡
 
 
-	m_allCard.push_back(Strike1);
-	m_allCard.push_back(Strike2);
-	m_allCard.push_back(Strike3);
-	m_allCard.push_back(Strike4);
-	//m_allCard.push_back(Strike5);
-	m_allCard.push_back(Defend1);
-	m_allCard.push_back(Defend2);
-	m_allCard.push_back(Defend3);
-	m_allCard.push_back(Defend4);
-	m_allCard.push_back(Bash);
-	m_allCard.push_back(Barricade);
-	m_allCard.push_back(LimitBreak);
-	m_allCard.push_back(DemonForm);
-	m_allCard.push_back(BodySlam);
-	m_allCard.push_back(Entrench);
-	m_allCard.push_back(Inflame);
-	m_allCard.push_back(FootWork);
-
+	//m_allCard.push_back(Strike1);
+	//m_allCard.push_back(Strike2);
+	//m_allCard.push_back(Strike3);
+	//m_allCard.push_back(Strike4);
+	//m_allCard.push_back(Strike5); //»ç±â
+	//m_allCard.push_back(Defend1);
+	//m_allCard.push_back(Defend2);
+	//m_allCard.push_back(Defend3);
+	//m_allCard.push_back(Defend4);
+	//m_allCard.push_back(Bash);
+	// 
+	//m_allCard.push_back(InflameCard2);
+	//m_allCard.push_back(Inflame);
+	//m_allCard.push_back(Barricade);
+	//m_allCard.push_back(LimitBreak);
+	//m_allCard.push_back(LimitBreak2);
+	//m_allCard.push_back(DemonForm);
+	//m_allCard.push_back(DemonForm2);
+	//m_allCard.push_back(BodySlam);
+	//m_allCard.push_back(Entrench);
+	//m_allCard.push_back(FootWork);
+	//m_allCard.push_back(FootWorkPlus);
 
 }
 
@@ -267,7 +428,6 @@ void CCardManager::EnableHand(bool Enable)
 void CCardManager::HandSort()
 {
 	vector<CCard*> SortHand;
-
 	for (int i = 0; i < m_Hand.size(); i++) 
 		//ÇÚµåÃ¢¿¡ nullptrÀÌ ¾Æ´Ñ¾Öµé¸¸ ÀÓ½Ã ÇÚµå¿¡ ´ã¾ÆÁØ´Ù.
 	{
@@ -310,7 +470,7 @@ void CCardManager::ClearCard(vector<CCard*> deck)
 	for (int i = 0; i < deck.size(); i++)
 	{	
 		deck[i]->SetEnable(true);
-		deck[i]->SetPos(0.f, 0.f);		
+		deck[i]->SetPos(-1000.f, 0.f);		
 	}
 	HandSort();
 }

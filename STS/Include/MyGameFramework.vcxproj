@@ -165,6 +165,7 @@
     <ClCompile Include="GameObject\Cards\CardAbility.cpp" />
     <ClCompile Include="GameObject\Cards\GiveAttribute.cpp" />
     <ClCompile Include="GameObject\Character.cpp" />
+    <ClCompile Include="GameObject\Cloud.cpp" />
     <ClCompile Include="GameObject\Deco.cpp" />
     <ClCompile Include="GameObject\Effect.cpp" />
     <ClCompile Include="GameObject\Effects\BattleStartImage.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="GameObject\Cards\CardAbility.h" />
     <ClInclude Include="GameObject\Cards\GiveAttribute.h" />
     <ClInclude Include="GameObject\Character.h" />
+    <ClInclude Include="GameObject\Cloud.h" />
     <ClInclude Include="GameObject\Deco.h" />
     <ClInclude Include="GameObject\Effect.h" />
     <ClInclude Include="GameObject\Effects\BattleStartImage.h" />

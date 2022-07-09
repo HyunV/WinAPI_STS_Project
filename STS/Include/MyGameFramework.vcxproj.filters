@@ -327,6 +327,9 @@
     <ClCompile Include="GameObject\Effects\GameOver.cpp">
       <Filter>02.GameObject\06.Effect</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Cloud.cpp">
+      <Filter>02.GameObject\03.Back</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -583,6 +586,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Effects\GameOver.h">
       <Filter>02.GameObject\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Cloud.h">
+      <Filter>02.GameObject\03.Back</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

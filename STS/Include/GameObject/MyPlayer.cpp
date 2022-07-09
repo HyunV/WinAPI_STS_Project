@@ -27,7 +27,7 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-	m_BuffArr[0] = 999; //공격력
+	//m_BuffArr[0] = 0; //공격력
 	//m_BuffArr[1] = 0; //민첩함
 	//m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
 	//m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
@@ -40,7 +40,8 @@ bool CMyPlayer::Init()
 	CCharacter::Init();
 	
 	SetMaxEnergy(5);
-	m_Energy = 999;
+	//m_Energy = 999;
+	m_Energy = m_MaxEnergy;
 	
 	m_AttackDir = 1.f;
 	m_AttackSpeed = 1500.f;
@@ -51,7 +52,7 @@ bool CMyPlayer::Init()
 	m_MaxHP = 80;
 	m_HP = m_MaxHP;
 
-	m_HP = 999;
+	//m_HP = 999;
 
 	m_Shield = 0;
 
@@ -67,7 +68,7 @@ bool CMyPlayer::Init()
 	CColliderBox* Box = AddCollider<CColliderBox>("Body");
 
 	Box->SetExtent(1000, 230.f); //크기 세팅
-	Box->SetOffset(380.f, -100.f); //위치세팅
+	Box->SetOffset(380.f, -150.f); //위치세팅
 	Box->SetCollisionProfile("MyPlayer");
 
 	Box->SetCollisionBeginFunction<CMyPlayer>(this, &CMyPlayer::CollisionBegin);

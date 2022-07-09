@@ -1,0 +1,37 @@
+타격
+타격
+타격
+타격
+전설의 타격
+
+수비
+수비
+수비
+수비
+강타
+
+발화
+발화+ InflameCard2
+바리케이드
+한계돌파 LimitBreak
+한계돌파+ LimitBreak2
+
+악마의형상+ DemonForm2
+악마의형상 DemonForm
+
+몸통박치기 BodySlam
+
+참호 Entrench
+
+발놀림 FootWork
+발놀림+FootWorkPlus
+
+	//체력 
+	CGiveAttribute* HPPlus4 = m_Scene->CreateObject<CGiveAttribute>("HPPlus4");
+	HPPlus4->SetType(Card_Attribute::PlusHP, 4);
+
+	CGiveAttribute* HPPlus2 = m_Scene->CreateObject<CGiveAttribute>("HPPlus2");
+	HPPlus2->SetType(Card_Attribute::PlusHP, 2);
+
+	CGiveAttribute* HPLose2 = m_Scene->CreateObject<CGiveAttribute>("HPLose2");
+	HPLose2->SetType(Card_Attribute::LoseHP, 2);

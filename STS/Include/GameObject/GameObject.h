@@ -34,6 +34,7 @@ protected:
 	std::list<CSharedPtr<class CCollider>> m_ColliderList;
 	std::list<CSharedPtr<CWidgetComponent>>	m_WidgetComponentList;
 
+	float m_MoveDirX;
 	Vector2 m_OriginPos;
 	//캐릭터 모션 방향, 속도
 	//float m_AttackDir;
@@ -43,7 +44,6 @@ protected:
 	bool m_MoveObject;
 	float m_MovingObject;
 	float m_DirValue;
-
 	float m_Time;
 
 	//에너지
@@ -126,6 +126,11 @@ public:
 		return m_Pivot;
 	}
 public: /////////////////애니메이션 관련////////////////////////////
+	void SetMoveDirX(float Move) 
+	{
+		m_MoveDirX = Move;
+	}
+	
 	void SetMoveObject(bool Move)
 	{
 		m_MoveObject = Move;
@@ -299,6 +304,12 @@ public:
 	{
 		m_Pivot = Pivot;
 	}
+
+	void SetMoveSpeed(float Speed)
+	{
+		m_MoveSpeed = Speed;
+	}
+
 public:
 	void SetTexture(const std::string& Name);
 	void SetTexture(class CTexture* Texture);
@@ -336,6 +347,8 @@ public:
 	void MoveDir(const Vector2& Dir); //특정 방향 이동
 	void Move(const Vector2& MoveValue); //어느 방향으로 (x, y) 로 이동해라
 	void Move(float Angle); //특정 각도로 이동해라
+	void MoveX(float Xvalue);
+
 
 public:
 	virtual bool Init();

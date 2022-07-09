@@ -55,6 +55,16 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 	case Card_Attribute::Entrench:		
 		m_Scene->GetPlayer()->SetShield(m_Scene->GetPlayer()->GetShield() * 2);
 		break;
+	case Card_Attribute::PlusHP:
+		m_Scene->GetPlayer()->SetHP(m_Scene->GetPlayer()->GetHP() + m_Power);
+		break;
+	case Card_Attribute::LoseHP:
+		//m_Scene->GetPlayer()->SetHP(m_Scene->GetPlayer()->GetHP() - m_Power);
+		m_Scene->GetPlayer()->InflictDamage((float)m_Power);
+		break;
+	case Card_Attribute::GetEnergy:
+		m_Scene->GetPlayer()->SetEnergy(m_Scene->GetPlayer()->GetEnergy() + m_Power);
+		break;
 	case Card_Attribute::Text1:
 		break;
 	}
@@ -110,6 +120,15 @@ void CGiveAttribute::SetType(Card_Attribute Type, float Power)
 		break;
 	case Card_Attribute::Text1:
 		sprintf_s(Text, "내 턴 시작 시");
+		break;
+	case Card_Attribute::PlusHP:
+		sprintf_s(Text, "체력을 %d 회복합니다.", (int)Power);
+		break;
+	case Card_Attribute::LoseHP:
+		sprintf_s(Text, "체력을 %d 잃습니다.", (int)Power);
+		break;
+	case Card_Attribute::GetEnergy:
+		sprintf_s(Text, "에너지를 %d 얻습니다.", (int)Power);
 		break;
 	}
 

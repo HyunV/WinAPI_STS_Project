@@ -274,6 +274,11 @@ void CGameObject::Move(float Angle)
 	m_Pos += Dir * m_MoveSpeed * DELTA_TIME * m_TimeScale;
 }
 
+void CGameObject::MoveX(float Xvalue)
+{
+	m_Pos.x += Xvalue * m_MoveSpeed * DELTA_TIME * m_TimeScale;
+}
+
 bool CGameObject::Init()
 {
 	//srand((unsigned int)0);

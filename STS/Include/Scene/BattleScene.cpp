@@ -160,8 +160,9 @@ bool CBattleScene::Init()
 	GetSceneResource()->LoadTexture("defendBuffInt", TEXT("Intent/defendBuff.bmp"));
 
 
+
 	CCardManager::GetInst()->InitMyDeck();
-	CCardManager::GetInst()->SetRandomDeck(16);
+	CCardManager::GetInst()->SetRandomDeck(1);
 
 	//CCardManager::GetInst()->SetBringDeck(); 배틀스타트 이미지에 있음
 	//CCardManager::GetInst()->DrawCard(5);
@@ -170,6 +171,8 @@ bool CBattleScene::Init()
 
 	SetPlayer(Player);
 	SetGameStart(true);
+
+	//#$#$#%%#$^$$$$$$$$$$$$$$$$$$$$$$$$$$$$카드일러#%@$^%$^#%#%#$%#$%#$%#$%#$%#$%
 
 
 	GetSceneResource()->LoadTexture("strike", TEXT("Cards/CardImage/strike.bmp"));
@@ -183,7 +186,17 @@ bool CBattleScene::Init()
 	GetSceneResource()->LoadTexture("Inflame", TEXT("Cards/CardImage/inflame.bmp"));
 	GetSceneResource()->LoadTexture("LimitBreak", TEXT("Cards/CardImage/limit_Break.bmp"));
 
-
+	GetSceneResource()->LoadTexture("FootWorks", TEXT("Cards/CardImage/footwork.bmp"));
+	GetSceneResource()->LoadTexture("bandageup", TEXT("Cards/CardImage/bandage_up.bmp"));
+	GetSceneResource()->LoadTexture("bite", TEXT("Cards/CardImage/bite.bmp"));
+	GetSceneResource()->LoadTexture("bloodletting", TEXT("Cards/CardImage/bloodletting.bmp"));
+	GetSceneResource()->LoadTexture("bludgeon", TEXT("Cards/CardImage/bludgeon.bmp"));
+	GetSceneResource()->LoadTexture("clothesline", TEXT("Cards/CardImage/clothesline.bmp"));
+	GetSceneResource()->LoadTexture("finesse", TEXT("Cards/CardImage/finesse.bmp"));
+	GetSceneResource()->LoadTexture("flashOfSteel", TEXT("Cards/CardImage/flash_of_steel.bmp"));
+	GetSceneResource()->LoadTexture("good_instincts", TEXT("Cards/CardImage/good_instincts.bmp"));
+	GetSceneResource()->LoadTexture("hemokinesis", TEXT("Cards/CardImage/hemokinesis.bmp"));
+	GetSceneResource()->LoadTexture("impervious", TEXT("Cards/CardImage/impervious.bmp"));
 
 	//카드 키워드 생성 //////////////////////////
 
