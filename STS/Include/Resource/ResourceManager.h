@@ -97,9 +97,9 @@ public:	// ============================ Sound ================================
 	void ReleaseSound(const std::string& Name);
 
 public:	// =========================== Font ==============================
-	bool LoadFont(const std::string& Name, const TCHAR* FontName,
+	bool LoadFontInfo(const std::string& Name, const std::tstring& FontName,
 		int Width, int Height);
-	bool LoadFont(const TCHAR* FontFileName,
+	bool LoadFontResource(const std::tstring& FontFileName,
 		const std::string& PathName = FONT_PATH);
 	void SetFont(const std::string& Name, HDC hDC);
 	void ResetFont(const std::string& Name, HDC hDC);

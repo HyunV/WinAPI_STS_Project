@@ -153,6 +153,7 @@ void CJaw::Update(float DeltaTime)
 						ActivateMonster(m_NextStatus);
 						SetEnableAttack(false);
 						CheckNextMonster();
+						m_Scene->GetSceneResource()->SoundPlay("33_Buff");
 
 						randomattack();
 					}
@@ -198,6 +199,7 @@ void CJaw::Update(float DeltaTime)
 					SetEnableAttack(false);
 					CheckNextMonster();
 					randomattack();
+					m_Scene->GetSceneResource()->SoundPlay("12_EnemyAttack");
 				}
 
 			}
@@ -259,6 +261,7 @@ float CJaw::InflictDamage(float Damage)
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
@@ -285,6 +288,7 @@ float CJaw::InflictDamage(float Damage)
 	{
 		SetActive(false);
 		SetIsDeath(true);
+		m_Scene->GetSceneResource()->SoundPlay("jawDeath");
 		if (m_Scene->CheckMonsters())
 		{
 			//MessageBox(nullptr, TEXT("°ÔÀÓ ³¡"), TEXT("a"), MB_OK);
@@ -322,6 +326,7 @@ bool CJaw::ActivateMonster(EMonsterStatus m_NextStatus)
 	case EMonsterStatus::defendBuff:
 		m_BuffArr[0] += 3;
 		AddShield(6);
+		m_Scene->GetSceneResource()->LoadSound("Effect", "33_Buff", false, "33_Buff.ogg");
 		break;
 	}
     return true;
@@ -385,6 +390,7 @@ void CJaw::AddShield(int Shield)
 	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
 	//CShieldEffect* ShieldEf2 = m_Scene->CreateObject<CShieldEffect>("ShieldEf2");
 	//ShieldEf2->SetPos(950.f, 250.f);
+	ShieldSound();
 }
 
 void CJaw::randomattack()

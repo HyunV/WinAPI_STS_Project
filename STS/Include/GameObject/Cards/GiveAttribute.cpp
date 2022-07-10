@@ -25,42 +25,56 @@ void CGiveAttribute::ActivateAbility(CGameObject* owner, CGameObject* target)
 		break;
 	case Card_Attribute::DrawCard:
 		CCardManager::GetInst()->DrawCard(m_Power);
+		m_Scene->GetSceneResource()->SoundPlay("SelectHandSound");
 		break;
 	case Card_Attribute::Exhaust:
 		break;
 	case Card_Attribute::Vulnerable:
 		target->GetBuffArr()[(int)Buff::Vulnerable] += m_Power;
+		m_Scene->GetSceneResource()->SoundPlay("32_DeBuff");
 		break;
 	case Card_Attribute::Weak:
 		target->GetBuffArr()[(int)Buff::Weak] += m_Power;
+		m_Scene->GetSceneResource()->SoundPlay("32_DeBuff");
 		break;
 	case Card_Attribute::Inflame:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Atk] += m_Power;
+		m_Scene->GetSceneResource()->SoundPlay("34_UsePower");
 		break;
 	case Card_Attribute::FootWork:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Dex] += m_Power;
+		m_Scene->GetPlayer()->ShieldSound();
 		break;
 	case Card_Attribute::Barricade:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Barrigate] += 1;
+		m_Scene->GetPlayer()->ShieldSound();
 		break;
 	case Card_Attribute::LimitBreak:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Atk] *= 2;
+		m_Scene->GetSceneResource()->SoundPlay("34_UsePower");
 		break;
 	case Card_Attribute::DemonForm:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::DemonForm] += m_Power;
+		m_Scene->GetSceneResource()->SoundPlay("34_UsePower");
 		break;
 	case Card_Attribute::BodySlam:
 		target->InflictDamage((float)m_Scene->GetPlayer()->GetShield());
 		break;
 	case Card_Attribute::Entrench:		
 		m_Scene->GetPlayer()->SetShield(m_Scene->GetPlayer()->GetShield() * 2);
+		m_Scene->GetPlayer()->ShieldSound();
 		break;
 	case Card_Attribute::PlusHP:
 		m_Scene->GetPlayer()->SetHP(m_Scene->GetPlayer()->GetHP() + m_Power);
+		m_Scene->GetSceneResource()->SoundPlay("37_PlusHP");
+		if (m_Scene->GetPlayer()->GetHP() > 80) {
+			m_Scene->GetPlayer()->SetHP(80);
+		}
 		break;
 	case Card_Attribute::LoseHP:
 		//m_Scene->GetPlayer()->SetHP(m_Scene->GetPlayer()->GetHP() - m_Power);
 		m_Scene->GetPlayer()->InflictDamage((float)m_Power);
+		m_Scene->GetSceneResource()->SoundPlay("12_EnemyAttack");
 		break;
 	case Card_Attribute::GetEnergy:
 		m_Scene->GetPlayer()->SetEnergy(m_Scene->GetPlayer()->GetEnergy() + m_Power);

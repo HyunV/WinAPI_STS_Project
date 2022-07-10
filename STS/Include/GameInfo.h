@@ -27,6 +27,19 @@ using namespace std;
 #include "Flag.h"
 #include "fmod.hpp" //사운드 관련 외부 라이브러리'
 
+#include <string>
+namespace std
+{
+#ifdef _UNICODE
+	typedef wstring tstring;
+#define tprintf_s swprintf_s
+#define _tsplitpath_s _wsplitpath_s
+#else
+	typedef tstring tstring;
+#define tprintf_s sprintf_s
+#define _tsplitpath_s _splitpath_s
+#endif
+}
 #define GRAVITY 9.8f
 
 //리소스 관련 헤더

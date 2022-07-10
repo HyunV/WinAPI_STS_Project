@@ -26,6 +26,11 @@ bool CTitleWindow::Init()
 	if (!CWidgetWindow::Init())
 		return false;
 
+	m_Scene->GetSceneResource()->LoadSound("UI", "mouseHovered", false, "02.MouseHovered.wav");
+	m_Scene->GetSceneResource()->LoadSound("UI", "UIClick", false, "03.Click.wav");
+	m_Scene->GetSceneResource()->LoadSound("UI", "AttackSound", false,
+		"04_Attack1.ogg");
+
 	SetSize(1280.f, 800.f);
 	//v = (0.f, 0.f);
 	//CImageWidget2* Back = CreateWidget<CImageWidget2>("Back");
@@ -107,8 +112,10 @@ bool CTitleWindow::Init()
 	m_StartButton->SetZOrder(1);
 	m_StartButton->SetCallback<CTitleWindow>(EButton_Sound_State::Click,
 		this, &CTitleWindow::StartButtonCallback);
+	m_StartButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+	m_StartButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
-	m_EndButton = CreateWidget<CButton>("StartButton");
+	m_EndButton = CreateWidget<CButton>("EndButton");
 
 	m_EndButton->SetTexture("EndButton", TEXT("Title/endButton.bmp"));
 	m_EndButton->SetButtonStateData(EButton_State::Normal, Vector2(0.f, 0.f), Vector2(200.f, 60.f));
@@ -119,6 +126,8 @@ bool CTitleWindow::Init()
 	m_EndButton->SetZOrder(1);
 	m_EndButton->SetCallback<CTitleWindow>(EButton_Sound_State::Click,
 		this, &CTitleWindow::EndButtonCallback);
+	m_EndButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+	m_EndButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
 
 	m_CharacterButton = CreateWidget<CButton>("CharacterButton");
@@ -133,6 +142,9 @@ bool CTitleWindow::Init()
 	m_CharacterButton->SetCallback<CTitleWindow>(EButton_Sound_State::Click,
 		this, &CTitleWindow::CharacterButtonCallback);
 	m_CharacterButton->SetEnable(false);
+
+	m_CharacterButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+	m_CharacterButton->SetSound(EButton_Sound_State::Click, "AttackSound");
 
 	m_CharacterBackImage = CreateWidget<CImageWidget2>("ironcladPortrait");
 	m_CharacterBackImage->SetTexture("ironcladPortrait", TEXT("ironcladPortrait.bmp"));
@@ -163,7 +175,7 @@ bool CTitleWindow::Init()
 	m_CharacterText->SetEnable(false);
 
 	m_CharacterText2 = CreateWidget<CText>("ExplainText2");
-	m_CharacterText2->SetFont("CostFont");
+	m_CharacterText2->SetFont("PlayerExplainFont");
 	m_CharacterText2->SetText(TEXT("아이언클래드의 살아남은 병사입니다."));
 	m_CharacterText2->SetPos(374.f, 274.f);
 	m_CharacterText2->SetTextColor(255, 255, 255);
@@ -173,7 +185,7 @@ bool CTitleWindow::Init()
 	m_CharacterText2->SetEnable(false);
 
 	m_CharacterText3 = CreateWidget<CText>("ExplainText3");
-	m_CharacterText3->SetFont("CostFont");
+	m_CharacterText3->SetFont("PlayerExplainFont");
 	m_CharacterText3->SetText(TEXT("악마의 힘을 사용하기 위해 영혼을 팔았습니다."));
 	m_CharacterText3->SetPos(420.f, 310.f);
 	m_CharacterText3->SetTextColor(255, 255, 255);
@@ -195,6 +207,8 @@ bool CTitleWindow::Init()
 		this, &CTitleWindow::BackCallBack);
 	m_BackButton->SetZOrder(2);
 	m_BackButton->SetEnable(false);
+	m_BackButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+	m_BackButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
 	m_BackButtonText = CreateWidget<CText>("BackButtonText");
 	m_BackButtonText->SetFont("UI");
@@ -205,6 +219,7 @@ bool CTitleWindow::Init()
 	m_BackButtonText->SetZOrder(2);
 	m_BackButtonText->SetShadowOffset(1.f, 1.f);
 	m_BackButtonText->SetEnable(false);
+
 
 	m_ConfirmButton = CreateWidget<CButton>("ConfirmButton");
 	m_ConfirmButton->SetTexture("ConfirmButton", TEXT("TopPanel/confirmButton.bmp"));
@@ -217,6 +232,8 @@ bool CTitleWindow::Init()
 	m_ConfirmButton->SetCallback<CTitleWindow>(EButton_Sound_State::Click,
 		this, &CTitleWindow::ConfirmCallback);
 	m_ConfirmButton->SetEnable(false);
+	m_ConfirmButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+	m_ConfirmButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
 	m_ConfirmButtonText = CreateWidget<CText>("ConfirmButtonText");
 	m_ConfirmButtonText->SetFont("UI");

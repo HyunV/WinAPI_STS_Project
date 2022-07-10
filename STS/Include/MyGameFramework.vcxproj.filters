@@ -330,6 +330,9 @@
     <ClCompile Include="GameObject\Cloud.cpp">
       <Filter>02.GameObject\03.Back</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Effects\DelayRestSound.cpp">
+      <Filter>02.GameObject\06.Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\Cloud.h">
       <Filter>02.GameObject\03.Back</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effects\DelayRestSound.h">
+      <Filter>02.GameObject\06.Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

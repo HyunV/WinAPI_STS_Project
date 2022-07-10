@@ -193,6 +193,7 @@ void CSlime::Update(float DeltaTime)
 				}
 				if (m_Pos.x >= m_OriginPos.x) {
 					CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+					m_Scene->GetSceneResource()->SoundPlay("25_SlimeAttack");
 					Hit->SetTexture("SlimeAttack", TEXT("SlimeAttack.bmp"));
 					Hit->SetSize(120, 100);
 					SetPos(m_OriginPos);
@@ -266,6 +267,7 @@ float CSlime::InflictDamage(float Damage)
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
@@ -350,6 +352,7 @@ bool CSlime::ActivateMonster(EMonsterStatus m_NextStatus)
 		break;
 	case EMonsterStatus::debuff:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Weak] += 2;
+		m_Scene->GetSceneResource()->SoundPlay("27_Slime_Debuff");
 		break;
 	}
 	return true;
@@ -413,6 +416,7 @@ void CSlime::AddShield(int Shield)
 	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
 	CShieldEffect* ShieldEf2 = m_Scene->CreateObject<CShieldEffect>("ShieldEf2");
 	ShieldEf2->SetPos(950.f, 250.f);
+	ShieldSound();
 }
 
 void CSlime::randomattack()

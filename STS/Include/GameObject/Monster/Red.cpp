@@ -109,7 +109,10 @@ void CRed::Update(float DeltaTime)
 {
 	//하단 버프창 위치조절(고정)
 	CGameObject::Update(DeltaTime);
-
+	if (!m_isDeath) {
+		m_Scene->GetSceneResource()->SoundPause("StageBGM");
+	}
+	
 	//m_BuffFirstPos = (200.f, -110.f);
 	//m_TextOffSet = (100.f, 13.f);
 	if (m_Shield > 0) {
@@ -337,6 +340,7 @@ float CRed::InflictDamage(float Damage)
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
@@ -363,6 +367,10 @@ float CRed::InflictDamage(float Damage)
 	{
 		SetActive(false);
 		SetIsDeath(true);
+
+		m_Scene->GetSceneResource()->SoundPlay("40_EliteDead");
+		m_Scene->GetSceneResource()->SoundStop("EliteSound");
+		m_Scene->GetSceneResource()->SoundResume("StageBGM");
 		if (m_Scene->CheckMonsters())
 		{
 			//MessageBox(nullptr, TEXT("게임 끝"), TEXT("a"), MB_OK);
@@ -405,11 +413,13 @@ bool CRed::ActivateMonster(EMonsterStatus m_NextStatus)
 	{
 	case EMonsterStatus::attack:
 		m_Scene->GetPlayer()->InflictDamage((float)m_MonAttackDamage + m_BuffArr[0]);
+		m_Scene->GetSceneResource()->SoundPlay("39_EliteBigAttack");
 		break;
 
 	case EMonsterStatus::attackDebuff:
 		m_Scene->GetPlayer()->InflictDamage((float)6 + m_BuffArr[0]);
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Vulnerable] += 3;
+		m_Scene->GetSceneResource()->SoundPlay("32_DeBuff");
 		break;
 
 	case EMonsterStatus::buff:
@@ -477,6 +487,7 @@ void CRed::AddShield(int Shield)
 	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
 	CShieldEffect* ShieldEf2 = m_Scene->CreateObject<CShieldEffect>("ShieldEf2");
 	ShieldEf2->SetPos(950.f, 250.f);
+	ShieldSound();
 }
 
 void CRed::randomattack()
@@ -506,5 +517,7 @@ void CRed::UseBuff() {
 	Message->SetMessageType(EMessageBox_Type::Monster);
 	Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("우워어어어어어!"));
 	Message->SetPos(GetPos().x - 220, GetPos().y - 120);
+	m_Scene->GetSceneResource()->SoundPlay("41_EliteBuff");
+	m_Scene->GetSceneResource()->SoundPlay("33_Buff");
 	m_BuffArr[(int)Buff::Rage] += 2;
 }

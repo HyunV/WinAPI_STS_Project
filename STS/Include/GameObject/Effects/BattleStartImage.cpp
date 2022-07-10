@@ -29,7 +29,7 @@ bool CBattleStartImage::Init()
 	Wiz->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
 	Wiz->GetWidget<CText>()->SetTextColor(227, 190, 77);
 	Wiz->SetPos(0, -50);
-
+	m_Scene->GetSceneResource()->SoundPlay("35_BattleStart");
 
 	
 	return true;

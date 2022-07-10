@@ -241,7 +241,7 @@ void CCard::Update(float DeltaTime)
 		if (CInput::GetInst()->GetMouseLUp()) //¶ÃÀ» ¶§
 		{			
 				SetPos(m_cardOriginPos);
-			
+				CCardManager::GetInst()->HandSort();
 		}	
 	}
 }
@@ -378,7 +378,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	m_MycardName->SetPos(72, 8);
 	m_MycardName->GetWidget<CText>()->EnableShadow(true);
 	m_MycardName->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
-	m_MycardName->GetWidget<CText>()->SetTextColor(255, 255, 237);
+	m_MycardName->GetWidget<CText>()->SetTextColor(240, 240, 240);
 	m_MycardName->GetWidget<CText>()->SetFont("NameFont");
 
 
@@ -429,7 +429,7 @@ void CCard::SetCardAttribute(const TCHAR* cardName, Card_Type cardType, int cost
 	MultiByteToWideChar(CP_ACP, 0, Text, -1, Unicode, Length2);
 
 	m_MycardCost->GetWidget<CText>()->SetText(Unicode);
-	m_MycardCost->SetPos(6, -10);
+	m_MycardCost->SetPos(6, -7);
 	//m_MycardCost->GetWidget<CText>()->SetSize(200.f, 200.f);
 	m_MycardCost->GetWidget<CText>()->EnableShadow(true);
 	m_MycardCost->GetWidget<CText>()->SetShadowOffset(2.f, 2.f);
@@ -526,6 +526,7 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	if (owner->GetAttackCard())
 	{
 		//srand((unsigned int)time(0));
+		owner->RandomAttackSound();
 		int a = rand() % 4;
 
 		if (a == 0) {
@@ -563,7 +564,8 @@ void CCard::useCard(CGameObject* owner, CGameObject* target)
 	}
 
 	owner->SetUsedCard(true);
-	
+	m_Scene->GetSceneResource()->SoundPlay("42_UseCard");
+
 	if (owner->GetIsExtinctCard()) 
 	{
 		CCardManager::GetInst()->AddExhaustcard(owner);
@@ -588,6 +590,9 @@ void CCard::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
 			m_mouseHovered = true;
 			Src->SetMouseCollision(true);
 			Src->GetOwner()->SetSelectedCard(true);
+
+			m_Scene->GetSceneResource()->SoundPlay("SelectHandSound");
+
 			if (Src->GetOwner()->GetSelectedCard())
 			{
 				m_HoveredOffset = Vector2(0, -50);

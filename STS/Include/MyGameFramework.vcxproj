@@ -171,6 +171,7 @@
     <ClCompile Include="GameObject\Effects\BattleStartImage.cpp" />
     <ClCompile Include="GameObject\Effects\CPlayerHitEffect.cpp" />
     <ClCompile Include="GameObject\Effects\DelayObject.cpp" />
+    <ClCompile Include="GameObject\Effects\DelayRestSound.cpp" />
     <ClCompile Include="GameObject\Effects\DelayScene.cpp" />
     <ClCompile Include="GameObject\Effects\GameOver.cpp" />
     <ClCompile Include="GameObject\Effects\RestObject.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="GameObject\Effects\BattleStartImage.h" />
     <ClInclude Include="GameObject\Effects\CPlayerHitEffect.h" />
     <ClInclude Include="GameObject\Effects\DelayObject.h" />
+    <ClInclude Include="GameObject\Effects\DelayRestSound.h" />
     <ClInclude Include="GameObject\Effects\DelayScene.h" />
     <ClInclude Include="GameObject\Effects\GameOver.h" />
     <ClInclude Include="GameObject\Effects\RestObject.h" />

@@ -47,7 +47,8 @@ CGameObject::CGameObject() :
 	m_isDeath(false),
 	m_ExtinctCard(0),
 	m_Energy(0),
-	m_EnableDamaged(0)
+	m_EnableDamaged(0),
+	m_MoveDirX(0.f)
 {
 	SetTypeID<CGameObject>();
 	m_BuffArr[0] = 0;
@@ -119,9 +120,40 @@ CCollider* CGameObject::FindCollider(const std::string& Name)
 }
 
 void CGameObject::AddShield(int Shield)
-{	
-	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];	
+{
+	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
 	CShieldEffect* ShieldEf = m_Scene->CreateObject<CShieldEffect>("ShieldEf");
+	ShieldSound();
+}
+
+void CGameObject::ShieldSound()
+{
+	int a = rand() % 4;
+	if (a == 0)
+		m_Scene->GetSceneResource()->SoundPlay("20_Shield1");
+	if (a == 1)
+		m_Scene->GetSceneResource()->SoundPlay("21_Shield2");
+	if (a == 2)
+		m_Scene->GetSceneResource()->SoundPlay("22_Shield3");
+	if (a == 3)
+		m_Scene->GetSceneResource()->SoundPlay("23_Shield4");
+}
+
+void CGameObject::RandomAttackSound()
+{
+	int a = rand() % 6;
+	if (a == 0)
+		m_Scene->GetSceneResource()->SoundPlay("15_Attack1");
+	if (a == 1)
+		m_Scene->GetSceneResource()->SoundPlay("16_Attack2");
+	if (a == 2)
+		m_Scene->GetSceneResource()->SoundPlay("17_Attack3");
+	if (a == 3)
+		m_Scene->GetSceneResource()->SoundPlay("18_Attack4");
+	if (a == 4)
+		m_Scene->GetSceneResource()->SoundPlay("19_Attack5");
+	if (a == 5)
+		m_Scene->GetSceneResource()->SoundPlay("04_Attack1");
 }
 
 void CGameObject::ClearBuffArr()
@@ -290,7 +322,7 @@ void CGameObject::Update(float DeltaTime)
 	if (m_MoveObject) //무브 적용 
 	{
 		m_MovingObject += m_DirValue * m_MoveSpeed * DELTA_TIME * m_TimeScale;
-		
+
 		if (m_MovingObject > 8.f && m_DirValue == 1) {
 			m_DirValue = -1;
 		}
@@ -559,15 +591,15 @@ void CGameObject::Render(HDC hDC, float DeltaTime)
 				{
 					///////////////////////////////////////////////////
 					if (m_MoveObject) {
-						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y+ (int)m_MovingObject,
+						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y + (int)m_MovingObject,
 							(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
 							0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
 					}
-					else 
+					else
 					{
-							TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y,
-								(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
-								0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
+						TransparentBlt(hDC, (int)RenderLT.x, (int)RenderLT.y,
+							(int)m_Size.x, (int)m_Size.y, m_Texture->GetDC(),
+							0, 0, (int)m_Size.x, (int)m_Size.y, m_Texture->GetColorKey());
 					}
 				}
 
@@ -627,5 +659,5 @@ void CGameObject::SetCollisionEnable(bool Enable)
 	if (m_ColliderList.size())
 	{
 		m_ColliderList.front()->SetCollisionEnable(Enable);
-	}	
+	}
 }

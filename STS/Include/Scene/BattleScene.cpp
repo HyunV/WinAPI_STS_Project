@@ -162,7 +162,7 @@ bool CBattleScene::Init()
 
 
 	CCardManager::GetInst()->InitMyDeck();
-	CCardManager::GetInst()->SetRandomDeck(1);
+	CCardManager::GetInst()->SetRandomDeck(17);
 
 	//CCardManager::GetInst()->SetBringDeck(); 배틀스타트 이미지에 있음
 	//CCardManager::GetInst()->DrawCard(5);
@@ -197,6 +197,79 @@ bool CBattleScene::Init()
 	GetSceneResource()->LoadTexture("good_instincts", TEXT("Cards/CardImage/good_instincts.bmp"));
 	GetSceneResource()->LoadTexture("hemokinesis", TEXT("Cards/CardImage/hemokinesis.bmp"));
 	GetSceneResource()->LoadTexture("impervious", TEXT("Cards/CardImage/impervious.bmp"));
+	GetSceneResource()->LoadTexture("iron_wave", TEXT("Cards/CardImage/iron_wave.bmp"));
+	GetSceneResource()->LoadTexture("JAX", TEXT("Cards/CardImage/jax.bmp"));
+	GetSceneResource()->LoadTexture("master_of_strategy", TEXT("Cards/CardImage/master_of_strategy.bmp"));
+	GetSceneResource()->LoadTexture("offering", TEXT("Cards/CardImage/offering.bmp"));
+	GetSceneResource()->LoadTexture("pommel_strike", TEXT("Cards/CardImage/pommel_strike.bmp"));
+	GetSceneResource()->LoadTexture("seeing_red", TEXT("Cards/CardImage/seeing_red.bmp"));
+	GetSceneResource()->LoadTexture("shrug_it_off", TEXT("Cards/CardImage/shrug_it_off.bmp"));
+	GetSceneResource()->LoadTexture("swift_strike", TEXT("Cards/CardImage/swift_strike.bmp"));
+	GetSceneResource()->LoadTexture("uppercut", TEXT("Cards/CardImage/uppercut.bmp"));
+
+	//사운드%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	GetSceneResource()->LoadSound("BGM", "StageBGM", true, "05_Stage1.ogg"); //
+	GetSceneResource()->SoundPlay("StageBGM"); //
+
+	GetSceneResource()->LoadSound("UI", "mouseHovered", false, "02.MouseHovered.wav");
+	GetSceneResource()->LoadSound("UI", "UIClick", false, "03.Click.wav");
+	GetSceneResource()->LoadSound("UI", "CircledSound", false, "06_MapCheck.ogg"); //
+	GetSceneResource()->LoadSound("BGM", "EliteSound", true, "07_Elite.ogg");
+	GetSceneResource()->LoadSound("UI", "TurnOffSound", false, "08_TurnOffButton.ogg"); 
+	GetSceneResource()->LoadSound("Effect", "jawDeath", false, "jawDeath.ogg"); //
+	GetSceneResource()->LoadSound("UI", "SelectHandSound", false, "09_SelectHand.ogg"); //
+	GetSceneResource()->LoadSound("UI", "MapButtonSound", false, "10_MapButton.ogg"); //
+	GetSceneResource()->LoadSound("UI", "DecksButtonSound", false, "11_DecksButton.ogg"); //
+
+	GetSceneResource()->LoadSound("Effect", "12_EnemyAttack", false, "12_EnemyAttack.ogg"); //// ddddddd
+	GetSceneResource()->LoadSound("Effect", "13_RitBuff", false, "13_RitBuff.ogg"); //ㅇ
+	GetSceneResource()->LoadSound("Effect", "14_RitDead", false, "14_RitDead.ogg"); //ㅇ
+
+	GetSceneResource()->LoadSound("Effect", "15_Attack1", false, "15_Attack1.ogg"); // d
+	GetSceneResource()->LoadSound("Effect", "16_Attack2", false, "16_Attack2.ogg"); // d
+	GetSceneResource()->LoadSound("Effect", "17_Attack3", false, "17_Attack3.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "18_Attack4", false, "18_Attack4.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "19_Attack5", false, "19_Attack5.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "04_Attack1", false, "04_Attack1.ogg"); //d
+
+	GetSceneResource()->LoadSound("Effect", "20_Shield1", false, "20_Shield1.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "21_Shield2", false, "21_Shield2.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "22_Shield3", false, "22_Shield3.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "23_Shield4", false, "23_Shield4.ogg"); //d
+	GetSceneResource()->LoadSound("Effect", "24_BrokenShield", false, "24_BrokenShield.ogg"); //d
+
+	GetSceneResource()->LoadSound("Effect", "25_SlimeAttack", false, "25_SlimeAttack.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "26_BossSlimeAttack", false, "26_BossSlimeAttack.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "27_Slime_Debuff", false, "27_Slime_Debuff.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "28_BossSlime_P2", false, "28_BossSlime_P2.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "29_BossSlimeDead", false, "29_BossSlimeDead.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "30_BossSlimeDead2", false, "30_BossSlimeDead2.ogg"); //
+	GetSceneResource()->LoadSound("Effect", "31_VictoryBoss", false, "31_VictoryBoss.ogg");
+
+	//###################
+	GetSceneResource()->LoadSound("Effect", "32_DeBuff", false, "32_DeBuff.ogg");
+	GetSceneResource()->LoadSound("Effect", "33_Buff", false, "33_Buff.ogg");
+	GetSceneResource()->LoadSound("Effect", "34_UsePower", false, "34_UsePower.ogg");
+
+	GetSceneResource()->LoadSound("Effect", "35_BattleStart", false, "35_BattleStart.ogg");//
+	GetSceneResource()->LoadSound("Effect", "36_EnemyTurn", false, "36_EnemyTurn.ogg");//
+
+	GetSceneResource()->LoadSound("Effect", "37_PlusHP", false, "37_PlusHP.ogg");
+	GetSceneResource()->LoadSound("BGM", "38_BossBGM", false, "38_BossBGM.ogg");
+
+	GetSceneResource()->LoadSound("Effect", "39_EliteBigAttack", false, "39_EliteBigAttack.ogg");
+	GetSceneResource()->LoadSound("Effect", "40_EliteDead", false, "40_EliteDead.ogg");
+	GetSceneResource()->LoadSound("Effect", "41_EliteBuff", false, "41_EliteBuff.ogg");
+
+	GetSceneResource()->LoadSound("UI", "42_UseCard", false, "42_UseCard.ogg");
+	GetSceneResource()->LoadSound("Effect", "43_DefeatGame", false, "43_DefeatGame.ogg");
+	GetSceneResource()->LoadSound("BGM", "44_RestTime", true, "44_RestTime.ogg");
+	GetSceneResource()->LoadSound("Effect", "45_Resting", false, "45_Resting.ogg");
+
+
+
+	//GetSceneResource()->LoadSound("Effect", "26_BossSlimeAttack", false, "26_BossSlimeAttack.ogg"); //
+
 
 	//카드 키워드 생성 //////////////////////////
 

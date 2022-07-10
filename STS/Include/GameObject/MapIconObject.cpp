@@ -74,6 +74,7 @@ void CMapIconObject::Update(float DeltaTime)
 				Effect->SetPos(m_OwnerPos);
 				Effect->AddAnimation("circle", false, 0.3f);
 				m_Time += 0.1f;						
+				m_Scene->GetSceneResource()->SoundPlay("CircledSound");
 			}
 		}
 	}
@@ -124,6 +125,9 @@ void CMapIconObject::StartEvent()
 		//CreateBoss();
 		break;
 	case EMapIcon_Type::rest:
+		m_Scene->GetSceneResource()->SoundPause("StageBGM");
+		m_Scene->GetSceneResource()->SoundPlay("44_RestTime");
+
 		m_Scene->SetRestSwitch(true);
 		CreateRest();		
 		break;
@@ -131,14 +135,19 @@ void CMapIconObject::StartEvent()
 
 		break;
 	case EMapIcon_Type::chest:
+		
 
 		break;
 	case EMapIcon_Type::elite:
 		m_Scene->SetIsBattle(true);
+		m_Scene->GetSceneResource()->SoundPause("StageBGM");
+		m_Scene->GetSceneResource()->SoundPlay("EliteSound");
 		CreateElite();
 		break;
 	case EMapIcon_Type::boss:
 		m_Scene->SetIsBattle(true);
+		m_Scene->GetSceneResource()->SoundPause("StageBGM");
+		m_Scene->GetSceneResource()->SoundPlay("38_BossBGM");
 		CreateBoss();
 		break;
 	}

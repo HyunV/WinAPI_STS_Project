@@ -152,7 +152,8 @@ public: /////////////////애니메이션 관련////////////////////////////
 
 	//전투 관련
 	virtual void AddShield(int Shield);
-
+	void ShieldSound();
+	void RandomAttackSound();
 	void ClearShield() {
 		m_Shield = 0;
 	}
@@ -162,6 +163,8 @@ public: /////////////////애니메이션 관련////////////////////////////
 	void SetShield(int value) {
 		m_Shield = value;
 	}
+
+
 	void SetEnergy(int value) {
 		m_Energy = value;
 	}

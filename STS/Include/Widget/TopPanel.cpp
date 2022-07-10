@@ -1,5 +1,4 @@
 #include "TopPanel.h"
-
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Scene/SceneManager.h"
@@ -18,6 +17,7 @@
 #include "../GameObject/Effects/DelayObject.h"
 
 #include "../Scene/StartScene.h"
+#include "../GameObject/Effects/DelayRestSound.h"
 CTopPanel::CTopPanel()
 {
     m_UseRest = false;
@@ -102,7 +102,8 @@ bool CTopPanel::Init()
     m_SettingButton->SetZOrder(1);
     m_SettingButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::SettingButtonCallback);
-    
+    m_SettingButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_SettingButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
     
     m_DeckButton = CreateWidget<CButton>("DeckButton");
@@ -115,6 +116,8 @@ bool CTopPanel::Init()
     m_DeckButton->SetZOrder(1);
     m_DeckButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::DeckButtonCallback);
+    m_DeckButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_DeckButton->SetSound(EButton_Sound_State::Click, "DecksButtonSound");
 
     m_DeckCount = CreateWidget<CText>("DeckCount");
     m_DeckCount->SetFont("UI");
@@ -136,6 +139,8 @@ bool CTopPanel::Init()
     m_MapButton->SetZOrder(1);
     m_MapButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::MapButtonCallback);
+    m_MapButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_MapButton->SetSound(EButton_Sound_State::Click, "MapButtonSound");
 
     //타이머, 숫자 추가
    // CButton* TimerButton = CreateWidget<CButton>("TimerButton");
@@ -169,6 +174,8 @@ bool CTopPanel::Init()
     m_DrawCardButton->SetColorKey(255, 0, 255);
     m_DrawCardButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::DrawButtonCallBack);   
+    m_DrawCardButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_DrawCardButton->SetSound(EButton_Sound_State::Click, "DecksButtonSound");
     
     m_DiscardButton = CreateWidget<CButton>("DiscardButton");
     m_DiscardButton->SetTexture("DiscardButton", TEXT("TopPanel/base2.bmp"));
@@ -179,6 +186,8 @@ bool CTopPanel::Init()
     m_DiscardButton->SetColorKey(255, 0, 255);
     m_DiscardButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::DiscardCallBack);
+    m_DiscardButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_DiscardButton->SetSound(EButton_Sound_State::Click, "DecksButtonSound");
 
     m_LCountCircle = CreateWidget<CImageWidget2>("LCountCircle");
     m_LCountCircle->SetTexture("LCountCircle", TEXT("TopPanel/countCircle.bmp"));
@@ -218,6 +227,8 @@ bool CTopPanel::Init()
     m_TurnOffButton->SetColorKey(255, 0, 255);
     m_TurnOffButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, & CTopPanel::TurnOffCallBack);
+    m_TurnOffButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_TurnOffButton->SetSound(EButton_Sound_State::Click, "TurnOffSound");
 
     m_TurnOffText = CreateWidget<CText>("TurnOffText");
     m_TurnOffText->SetText(TEXT("턴 종료"));
@@ -234,12 +245,12 @@ bool CTopPanel::Init()
 
     //에너지
     m_Energy = CreateWidget<CText>("Energy");
-    m_Energy->SetFont("CostFont");
+    m_Energy->SetFont("EnergyFont");
     m_Energy->SetText(TEXT("00"));
-    m_Energy->SetPos(127.f, 590.f);
+    m_Energy->SetPos(127.f, 585.f);
     m_Energy->SetTextColor(255, 255, 219);
     m_Energy->EnableShadow(true);
-    m_Energy->SetShadowOffset(3.f, 3.f);
+    m_Energy->SetShadowOffset(2.f, 2.f);
 
     m_BackButton = CreateWidget<CButton>("BackButton");
     m_BackButton->SetTexture("BackButton", TEXT("TopPanel/cancelButton.bmp"));
@@ -251,6 +262,8 @@ bool CTopPanel::Init()
     m_BackButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::BackCallBack);
     m_BackButton->SetEnable(false);
+    m_BackButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_BackButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
     m_BackButtonText = CreateWidget<CText>("BackButtonText");
     m_BackButtonText->SetFont("UI");
@@ -271,6 +284,8 @@ bool CTopPanel::Init()
     m_ConfirmButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::ConfirmCallBack);
     m_ConfirmButton->SetEnable(false);
+    m_ConfirmButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_ConfirmButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
     m_ConfirmButtonText = CreateWidget<CText>("ConfirmButtonText");
     m_ConfirmButtonText->SetFont("UI");
@@ -294,6 +309,8 @@ bool CTopPanel::Init()
     m_ProceedButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::PreceedCallBack);
     m_ProceedButton->SetEnable(false);
+    m_ProceedButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_ProceedButton->SetSound(EButton_Sound_State::Click, "UIClick");
 
     m_ProceedButtonText = CreateWidget<CText>("ProceedButtonText");
     m_ProceedButtonText->SetFont("UI");
@@ -314,6 +331,10 @@ bool CTopPanel::Init()
     m_CenterButton->SetColorKey(255, 0, 255);
     m_CenterButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::CenterButtonCallBack);
+    m_CenterButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_CenterButton->SetSound(EButton_Sound_State::Click, "TurnOffSound");
+
+
     m_CenterButton->SetEnable(false);
     m_CenterButtonText = CreateWidget<CText>("CenterButtonText");
     m_CenterButtonText->SetFont("UI");
@@ -323,6 +344,7 @@ bool CTopPanel::Init()
     m_CenterButtonText->EnableShadow(true);
     m_CenterButtonText->SetShadowOffset(1.f, 1.f);
     m_CenterButtonText->SetEnable(false);
+
 
     //캠프 관련/////////////////////////////
 
@@ -338,6 +360,8 @@ bool CTopPanel::Init()
     m_RestButton->SetCallback<CTopPanel>(EButton_Sound_State::Click,
         this, &CTopPanel::RestButtonCallBack2);
     m_RestButton->SetEnable(false);
+    m_RestButton->SetSound(EButton_Sound_State::MouseHovered, "mouseHovered");
+    m_RestButton->SetSound(EButton_Sound_State::Click, "TurnOffSound");
 
     m_CampText = CreateWidget<CText>("CampText");
     m_CampText->SetFont("UI");
@@ -594,9 +618,9 @@ void CTopPanel::TestCallback()
 
 void CTopPanel::SettingButtonCallback()
 {
-    m_Scene->GetPlayer()->AddShield(5);
-    CCardManager::GetInst()->DrawCard(2);
-    m_Scene->GetPlayer()->GetBuffArr()[0] = 999;
+    //m_Scene->GetPlayer()->AddShield(5);
+   // CCardManager::GetInst()->DrawCard(2);
+    //m_Scene->GetPlayer()->GetBuffArr()[0] = 999;
     //m_Scene->GetMonsters()[0]->AddShield(1);
     //m_Scene->GetMonsters()[2]->AddShield(3);
     //m_Scene->GetPlayer()->SetEnableDamaged(true);
@@ -768,6 +792,7 @@ void CTopPanel::RestButtonCallBack()
 
 void CTopPanel::RestButtonCallBack2()
 {
+    m_Scene->GetSceneResource()->SoundPlay("45_Resting");
     CDelayObject* delay = m_Scene->CreateObject<CDelayObject>("Delay");
     delay->SetTexture("Resting", TEXT("Scene/resting.bmp"));
     delay->SetSize(1280, 760);
@@ -794,6 +819,8 @@ void CTopPanel::RestButtonCallBack2()
     m_UseRest = true;
 
     //맵버튼 띄우자
+    //m_Scene->GetSceneResource()->SoundResume("StageBGM");
+    CDelayRestSound* rest = m_Scene->CreateObject<CDelayRestSound>("DelaySound");
 }
 
 void CTopPanel::ConvertText(int Value, CSharedPtr<class CText> TextWiz)

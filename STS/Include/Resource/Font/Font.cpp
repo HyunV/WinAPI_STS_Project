@@ -13,7 +13,7 @@ CFont::~CFont()
         DeleteObject(m_hFont);
 }
 
-bool CFont::LoadFont(const TCHAR* FontName, int Width, int Height)
+bool CFont::LoadFontInfo(const std::string& Name, const std::tstring& FontName, int Width, int Height)
 {
     /*
  #define FW_DONTCARE         0
@@ -38,7 +38,7 @@ bool CFont::LoadFont(const TCHAR* FontName, int Width, int Height)
     m_FontInfo.lfStrikeOut = 0;         // 취소선
     m_FontInfo.lfPitchAndFamily = 2;    // 자간
 
-    lstrcpy(m_FontInfo.lfFaceName, FontName);
+    lstrcpy(m_FontInfo.lfFaceName, FontName.c_str());
 
     m_hFont = CreateFontIndirect(&m_FontInfo);
 

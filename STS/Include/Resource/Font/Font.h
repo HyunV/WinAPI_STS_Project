@@ -15,7 +15,7 @@ private:
     HFONT    m_hPrevFont;
 
 public:
-    bool LoadFont(const TCHAR* FontName, int Width, int Height);
+    bool LoadFontInfo(const std::string& Name, const std::tstring& FontName, int Width, int Height);
     void SetFont(HDC hDC);
     void ResetFont(HDC hDC);
 };

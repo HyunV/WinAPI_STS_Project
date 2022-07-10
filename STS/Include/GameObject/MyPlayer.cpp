@@ -6,6 +6,8 @@
 #include "../GameObject/FloatingDamage.h"
 #include "../GameObject/Effect.h"
 #include "../GameObject/Effects/GameOver.h"
+#include "../Scene/Scene.h"
+#include "../Scene/SceneResource.h"
 //idle 애니메이션
 //공격애니메이션: 살짝 앞으로 갔다가 뒤로 슬슬 빠짐
 //수비 애니메이션: 히트박스 레이어가 뜨고 가운데 실드 애니메이션 실드 HUI 애니메이션
@@ -27,14 +29,14 @@ CMyPlayer::~CMyPlayer()
 
 bool CMyPlayer::Init()
 {
-	//m_BuffArr[0] = 0; //공격력
-	//m_BuffArr[1] = 0; //민첩함
-	//m_BuffArr[2] = 0; //악마의형상 //턴시작 시 공격력 +n
-	//m_BuffArr[3] = 0; //바리케이드 //방어도안사라짐
-	//m_BuffArr[4] = 0; //격노
-	//m_BuffArr[5] = 0; //의식 턴 시작시 공격력 + n
-	//m_BuffArr[6] = 0; //취약 50%추가 피해 *1.5 //턴 종료 시 
-	//m_BuffArr[7] = 0; //약화 25% 적은 데미지 *0.75
+	//m_BuffArr[0] = 1; //공격력
+	//m_BuffArr[1] = 1; //민첩함
+	//m_BuffArr[2] = 1; //악마의형상 //턴시작 시 공격력 +n
+	//m_BuffArr[3] = 1; //바리케이드 //방어도안사라짐
+	//m_BuffArr[4] = 1; //격노
+	//m_BuffArr[5] = 1; //의식 턴 시작시 공격력 + n
+	//m_BuffArr[6] = 1; //취약 50%추가 피해 *1.5 //턴 종료 시 
+	//m_BuffArr[7] = 1; //약화 25% 적은 데미지 *0.75
 
 	CGameObject::Init();
 	CCharacter::Init();
@@ -52,7 +54,7 @@ bool CMyPlayer::Init()
 	m_MaxHP = 80;
 	m_HP = m_MaxHP;
 
-	//m_HP = 999;
+	//m_HP = 1;
 
 	m_Shield = 0;
 
@@ -166,9 +168,11 @@ float CMyPlayer::InflictDamage(float Damage)
 
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
-		if (m_Shield < 0) {
+		if (m_Shield < 0) { //쉴드가 -가되면
 			m_HP += (m_Shield);
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_Shield = 0;
+			
 		}
 	}
 	else
@@ -207,6 +211,11 @@ float CMyPlayer::InflictDamage(float Damage)
 		PlayerDefeat->SetColorKey(255, 0, 255);
 		m_Scene->SetDefeatSwitch(true);
 		
+		m_Scene->GetSceneResource()->SoundStop("StageBGM");
+		m_Scene->GetSceneResource()->SoundStop("07_Elite");
+		m_Scene->GetSceneResource()->SoundStop("38_BossBGM");
+		m_Scene->GetSceneResource()->SoundPlay("43_DefeatGame");
+
 		SetEnable(false);
 	}
 	return Damage;

@@ -106,6 +106,10 @@ void CBossSlime::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
 
+	if (!m_isDeath) {
+		m_Scene->GetSceneResource()->SoundPause("StageBGM");
+	}
+
 	if (m_Shield > 0) {
 		m_HPBarFrame->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
 		m_HPBar->GetWidget<CProgressBar>()->SetBarType(EProgressBar_Color::Shield);
@@ -259,6 +263,7 @@ void CBossSlime::Update(float DeltaTime)
 				}
 				if (m_Pos.x >= m_OriginPos.x) {
 					CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
+					m_Scene->GetSceneResource()->SoundPlay("26_BossSlimeAttack");
 					Hit->SetTexture("SlimeAttack", TEXT("SlimeAttack.bmp"));
 					Hit->SetSize(120, 100);
 					SetPos(m_OriginPos);
@@ -331,6 +336,7 @@ float CBossSlime::InflictDamage(float Damage)
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
@@ -367,7 +373,10 @@ float CBossSlime::InflictDamage(float Damage)
 			//CDelayObject* Delay = m_Scene->CreateObject<CDelayObject>("Delay");
 			
 			CDelayScene* Scene = m_Scene->CreateObject<CDelayScene>("Scene");//엔딩으로 넘어감
-
+			m_Scene->GetSceneResource()->SoundStop("38_BossBGM");
+			m_Scene->GetSceneResource()->SoundPlay("29_BossSlimeDead");
+			m_Scene->GetSceneResource()->SoundPlay("30_BossSlimeDead2");
+			m_Scene->GetSceneResource()->SoundPlay("31_VictoryBoss");
 		};
 	}
 	return Damage;
@@ -423,6 +432,7 @@ bool CBossSlime::ActivateMonster(EMonsterStatus m_NextStatus)
 		break;
 	case EMonsterStatus::debuff:
 		m_Scene->GetPlayer()->GetBuffArr()[(int)Buff::Weak] += 3;
+		m_Scene->GetSceneResource()->SoundPlay("27_Slime_Debuff");
 		break;
 	case EMonsterStatus::defend:
 		break;
@@ -489,6 +499,7 @@ void CBossSlime::CollisionEnd(CCollider* Src, CCollider* Dest)
 void CBossSlime::AddShield(int Shield)
 {
 	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
+	ShieldSound();
 }
 
 void CBossSlime::randomattack()
@@ -501,10 +512,12 @@ void CBossSlime::UseBuff()
 	Message->SetMessageType(EMessageBox_Type::Monster);
 	Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("슬라임.. 으깬다!!"));
 	Message->SetPos(GetPos().x - 180, GetPos().y - 70);
+	m_Scene->GetSceneResource()->SoundPlay("28_BossSlime_P2");
 	m_BuffArr[(int)Buff::Dex] += 1;
 	m_BuffArr[(int)Buff::Atk] += 1;
 	m_BuffArr[(int)Buff::Rage] += 1;
 	m_BuffArr[(int)Buff::Ritual] += 1;
+	m_Scene->GetSceneResource()->SoundPlay("33_Buff");
 }
 
 //점액덩어리 구현?

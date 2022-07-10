@@ -447,12 +447,13 @@ CSound* CSceneResource::FindSound(const std::string& Name)
 	return iter->second;
 }
 
-bool CSceneResource::LoadFont(const std::string& Name, const TCHAR* FontName, int Width, int Height)
+bool CSceneResource::LoadFontInfo(const std::string& Name, const std::tstring& FontName,
+	int Width, int Height)
 {
 	if (FindFont(Name))
 		return false;
 
-	if (!CResourceManager::GetInst()->LoadFont(Name, FontName, Width, Height))
+	if (!CResourceManager::GetInst()->LoadFontInfo(Name, FontName, Width, Height))
 		return false;
 
 	CFont* Font = CResourceManager::GetInst()->FindFont(Name);
@@ -462,9 +463,9 @@ bool CSceneResource::LoadFont(const std::string& Name, const TCHAR* FontName, in
 	return true;
 }
 
-bool CSceneResource::LoadFont(const TCHAR* FontFileName, const std::string& PathName)
+bool CSceneResource::LoadFontResource(const std::tstring& FontFileName, const std::string& PathName)
 {
-	return CResourceManager::GetInst()->LoadFont(FontFileName, PathName);
+	return CResourceManager::GetInst()->LoadFontResource(FontFileName, PathName);
 }
 
 void CSceneResource::SetFont(const std::string& Name, HDC hDC)

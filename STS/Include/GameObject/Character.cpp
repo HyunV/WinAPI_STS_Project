@@ -82,7 +82,7 @@ bool CCharacter::Init()
 	m_AtkBuff->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_AtkBuffText = CreateWidgetComponent<CText>("AtkBuffText");
-	m_AtkBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_AtkBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_AtkBuffText->GetWidget<CText>()->SetText(TEXT("1"));
 	m_AtkBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_AtkBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -99,7 +99,7 @@ bool CCharacter::Init()
 	m_DexBuff->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_DexBuffText = CreateWidgetComponent<CText>("DexBuffText");
-	m_DexBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_DexBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_DexBuffText->GetWidget<CText>()->SetText(TEXT("2"));
 	m_DexBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_DexBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -116,7 +116,7 @@ bool CCharacter::Init()
 	m_DemonForm->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_DemonFormText = CreateWidgetComponent<CText>("DemonFormText");
-	m_DemonFormText->GetWidget<CText>()->SetFont("TypeFont");
+	m_DemonFormText->GetWidget<CText>()->SetFont("BuffFont");
 	m_DemonFormText->GetWidget<CText>()->SetText(TEXT("3"));
 	m_DemonFormText->GetWidget<CText>()->EnableShadow(true);
 	m_DemonFormText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -133,7 +133,7 @@ bool CCharacter::Init()
 	m_Barricade->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_BarricadeText = CreateWidgetComponent<CText>("BarricadeText");
-	m_BarricadeText->GetWidget<CText>()->SetFont("TypeFont");
+	m_BarricadeText->GetWidget<CText>()->SetFont("BuffFont");
 	m_BarricadeText->GetWidget<CText>()->SetText(TEXT("4"));
 	m_BarricadeText->GetWidget<CText>()->EnableShadow(true);
 	m_BarricadeText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -150,7 +150,7 @@ bool CCharacter::Init()
 	m_RageBuff->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_RageBuffText = CreateWidgetComponent<CText>("RageBuffText");
-	m_RageBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_RageBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_RageBuffText->GetWidget<CText>()->SetText(TEXT("5"));
 	m_RageBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_RageBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -167,7 +167,7 @@ bool CCharacter::Init()
 	m_RitualBuff->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_RitualBuffText = CreateWidgetComponent<CText>("RitualBuffText");
-	m_RitualBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_RitualBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_RitualBuffText->GetWidget<CText>()->SetText(TEXT("6"));
 	m_RitualBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_RitualBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -184,7 +184,7 @@ bool CCharacter::Init()
 	m_VulDeBuff->GetWidget<CImageWidget2>()->SetEnable(true);
 
 	m_VulDeBuffText = CreateWidgetComponent<CText>("m_VulDeBuffText");
-	m_VulDeBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_VulDeBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_VulDeBuffText->GetWidget<CText>()->SetText(TEXT("7"));
 	m_VulDeBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_VulDeBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);
@@ -202,7 +202,7 @@ bool CCharacter::Init()
 	
 
 	m_WeakDeBuffText = CreateWidgetComponent<CText>("WeakDeBuffText");
-	m_WeakDeBuffText->GetWidget<CText>()->SetFont("TypeFont");
+	m_WeakDeBuffText->GetWidget<CText>()->SetFont("BuffFont");
 	m_WeakDeBuffText->GetWidget<CText>()->SetText(TEXT("8"));
 	m_WeakDeBuffText->GetWidget<CText>()->EnableShadow(true);
 	m_WeakDeBuffText->GetWidget<CText>()->SetShadowOffset(1.f, 1.f);

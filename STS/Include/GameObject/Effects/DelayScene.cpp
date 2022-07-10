@@ -21,7 +21,7 @@ void CDelayScene::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 	if (GetActive()) {
 		m_Time += DeltaTime;
-		if (m_Time >= 1.0f) {
+		if (m_Time >= 3.0f) {
 			SetActive(false);
 			m_Scene->SetClearSwitch(true);
 		}

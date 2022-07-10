@@ -185,6 +185,7 @@ void CMyMonster::Update(float DeltaTime)
 						m_AttackSpeed = 800.f;
 					}
 					if (m_Pos.x >= m_OriginPos.x) {
+						m_Scene->GetSceneResource()->SoundPlay("12_EnemyAttack");
 						CPlayerHitEffect* Hit = m_Scene->CreateObject<CPlayerHitEffect>("Hit");
 						SetPos(m_OriginPos);
 						m_AttackDir = -1.f;
@@ -256,6 +257,7 @@ float CMyMonster::InflictDamage(float Damage)
 	if (m_Shield > 0) {
 		m_Shield -= FinalDamage;
 		if (m_Shield < 0) {
+			m_Scene->GetSceneResource()->SoundPlay("24_BrokenShield");
 			m_HP += (m_Shield);
 			m_Shield = 0;
 		}
@@ -282,6 +284,7 @@ float CMyMonster::InflictDamage(float Damage)
 	{
 		SetActive(false);
 		SetIsDeath(true);
+		m_Scene->GetSceneResource()->SoundPlay("14_RitDead");
 		if (m_Scene->CheckMonsters())
 		{
 			//MessageBox(nullptr, TEXT("게임 끝"), TEXT("a"), MB_OK);
@@ -380,7 +383,6 @@ void CMyMonster::EndCallbackMonster()
 		//턴 시작 시 디버프 감소, 의식 존재 시 공격력 증가
 		m_Scene->MonstersBuffControl();
 	}
-
 }
 
 void CMyMonster::CollisionMouseBegin(CCollider* Src, const Vector2& MousePos)
@@ -410,6 +412,7 @@ void CMyMonster::AddShield(int Shield)
 	m_Shield = m_Shield + Shield + m_BuffArr[(int)Buff::Dex];
 	CShieldEffect* ShieldEf2 = m_Scene->CreateObject<CShieldEffect>("ShieldEf2");
 	ShieldEf2->SetPos(950.f, 250.f);
+	ShieldSound();
 	
 }
 
@@ -420,6 +423,9 @@ void CMyMonster::UseBuff()
 	Message->GetMessages()->GetWidget<CText>()->SetText(TEXT("까악 까악!"));
 	Message->SetPos(GetPos().x-150, GetPos().y-60);
 	m_BuffArr[5] += 3;
+
+	m_Scene->GetSceneResource()->SoundPlay("13_RitBuff");
+	m_Scene->GetSceneResource()->SoundPlay("33_Buff");
 }
 
 //버프 의식

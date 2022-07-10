@@ -36,6 +36,7 @@ bool CTurnEffect::Init()
 	m_TurnCountText->GetWidget<CText>()->SetTextColor(255, 255, 255);
 	m_TurnCountText->SetPos(0, 20);
 
+	m_Scene->GetSceneResource()->SoundPlay("36_EnemyTurn");
 	return true;
 }
 
