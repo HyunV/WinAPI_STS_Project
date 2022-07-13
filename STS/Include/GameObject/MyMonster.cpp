@@ -12,7 +12,7 @@
 #include "../GameObject/BubbleMessage.h"
 #include "../GameObject/Effects/ShieldEffect.h"
 #include "../GameObject/Effects/CPlayerHitEffect.h"
-#include "../../GameObject/Effects/DelayObject.h"
+#include "../GameObject/Effects/DelayObject.h"
 
 CMyMonster::CMyMonster()
 {
