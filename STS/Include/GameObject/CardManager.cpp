@@ -31,7 +31,6 @@ CCardManager::CCardManager()
 
 CCardManager::~CCardManager()
 {
-	
 }
 
 void CCardManager::InitMyDeck()

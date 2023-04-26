@@ -14,6 +14,7 @@ bool CGameManager::m_Loop = true;
 CGameManager::CGameManager()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	m_Brush[0] = 0;
 	m_DeltaTime = 0.f;
 	m_EditMode = 0;
@@ -44,7 +45,7 @@ CGameManager::~CGameManager()
 
 	CResourceManager::DestroyInst();
 
-	//CCardManager::DestroyInst();
+	CCardManager::DestroyInst();
 
 	SAFE_DELETE(m_Timer);
 
